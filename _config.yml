@@ -2,7 +2,7 @@ title: Dyyz.GitHub.io
 description: myBlog
 google_analytics: 
 show_downloads: true
-theme: jekyll-theme-minimal
+theme: 
 
 gems:
   - jekyll-mentions
