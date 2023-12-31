@@ -1,0 +1,846 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue 笔记1. 数据绑定1.1 实例var app &#x3D; new Vue(&amp;#123;&amp;#125;);   变量 app Vue 实例.b&#x3D;必不可少的选项是 el，指定一个页面中已存在的 DOM 元素来挂载 Vue 实例，可以是 HTMLElement，也可以是 CSS 选择器。data 选项，可以声明应用内需要双向绑定的数据。   1.2 生命周期created： 实例创建完成后调用，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 笔记">
+<meta property="og:url" content="http://example.com/2023/12/31/%E5%89%8D%E7%AB%AF/Vue%20%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="Vue 笔记1. 数据绑定1.1 实例var app &#x3D; new Vue(&amp;#123;&amp;#125;);   变量 app Vue 实例.b&#x3D;必不可少的选项是 el，指定一个页面中已存在的 DOM 元素来挂载 Vue 实例，可以是 HTMLElement，也可以是 CSS 选择器。data 选项，可以声明应用内需要双向绑定的数据。   1.2 生命周期created： 实例创建完成后调用，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.786Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="VUE">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Vue 笔记 - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue 笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Vue-笔记"><a href="#Vue-笔记" class="headerlink" title="Vue 笔记"></a>Vue 笔记</h2><h3 id="1-数据绑定"><a href="#1-数据绑定" class="headerlink" title="1. 数据绑定"></a>1. 数据绑定</h3><h4 id="1-1-实例"><a href="#1-1-实例" class="headerlink" title="1.1 实例"></a>1.1 实例</h4><p><code>var app = new Vue(&#123;&#125;);</code>  </p>
+<p>变量 <code>app</code> Vue 实例.<br>b&#x3D;必不可少的选项是 <code>el</code>，指定一个页面中已存在的 DOM 元素来挂载 Vue 实例，可以是 HTMLElement，也可以是 CSS 选择器。<br>data 选项，可以声明应用内需要双向绑定的数据。  </p>
+<h4 id="1-2-生命周期"><a href="#1-2-生命周期" class="headerlink" title="1.2 生命周期"></a>1.2 生命周期</h4><p><code>created</code>： 实例创建完成后调用，此阶段完成了数据的观测等，但尚未挂载， $el 还不可用，需要初始化处理一些数据时比较有用<br><code>mounted</code>: el 挂载到实例上后调用，第一个业务逻辑<br><code>beforeDestroy</code>: 实例销毁之前调用，主要解绑一些使用 addEventListener 监听的事件  </p>
+<p>钩子的 this 指向的是调用它的 Vue 实例  </p>
+<h4 id="1-3-插值与表达式"><a href="#1-3-插值与表达式" class="headerlink" title="1.3 插值与表达式"></a>1.3 插值与表达式</h4><p><code>&#123;&#123;&#125;&#125;</code> 是最基本的文本插值方法，会自动将双向绑定的数据实时显示；还可以使用 JS 表达式进行简单的运算、三元运算等<br><code>v-html</code> 输出 HTML，有可能导致 XSS 攻击，所以需在服务端对提交的内容进行处理<br><code>v-pre</code> 跳过元素和子元素的编译，即会原样输出<br>只支持单个表达式，不支持语句和流控制，不能使用用户自定义的全局变量，只能使用 Vue 白名单内的全局变量，如 Math 和 Date  </p>
+<h4 id="1-4-过滤器"><a href="#1-4-过滤器" class="headerlink" title="1.4 过滤器"></a>1.4 过滤器</h4><p>Vue.js 支持在 <code>&#123;&#123;&#125;&#125;</code> 插值的尾部添加一个管道符<code>|</code>对数据进行过滤，经常用于格式化文本<br>过滤规则自定义的，通过 Vue 实例添加选项 filters 来设置<br>过滤器也可以串联，而且可以接收参数  </p>
+<h4 id="1-5-指令与事件"><a href="#1-5-指令与事件" class="headerlink" title="1.5 指令与事件"></a>1.5 指令与事件</h4><p>指令，带有前缀 <code>v-</code> ；职责是当其表达式的值改变时，相应地将某些行为应用到 DOM 上。<br><code>v-bind</code>：动态更新 HTML 元素上的属性，可以省略<code>v-bind</code>，直接写一个<code>:</code><br><code>v-on</code>：绑定事件监听器，可以直接用<code>@</code>来缩写  </p>
+<hr>
+<h3 id="2-计算属性"><a href="#2-计算属性" class="headerlink" title="2. 计算属性"></a>2. 计算属性</h3><p>模板内的表达式常用于简单的运算，计算属性处理复杂逻辑<br>计算属性是基于它的依赖缓存的，一个计算属性所依赖的数据发生变化时，它才会重新取值；但是 <code>methods</code> 则不同，只要重新渲染，它就会被调用。<br>使用计算属性还是 <code>methods</code> 取决于你是否需要缓存，当遍历大数组和做大量计算时，应当使用计算属性，除非不希望得到缓存  </p>
+<hr>
+<h3 id="3-v-bind-及-class-与-style-绑定"><a href="#3-v-bind-及-class-与-style-绑定" class="headerlink" title="3. v-bind 及 class 与 style 绑定"></a>3. v-bind 及 class 与 style 绑定</h3><h4 id="3-1-绑定-class-的几种方式"><a href="#3-1-绑定-class-的几种方式" class="headerlink" title="3.1 绑定 class 的几种方式"></a>3.1 绑定 class 的几种方式</h4><h5 id="3-1-1-对象语法"><a href="#3-1-1-对象语法" class="headerlink" title="3.1.1 对象语法"></a>3.1.1 对象语法</h5><ul>
+<li><code>:class=&#123;&#39;active&#39;: isActive&#125;</code>: 根据 <code>isActive</code> 的值决定是否渲染 active，如为 <code>true</code>，则最终渲染完的结果是 <code>&lt;div class = &quot;active&quot;&gt;&lt;/div&gt;</code>  </li>
+<li><code>:class=&#123;&#39;active&#39;: isActive, &#39;error&#39;: isError&#125;</code>: 可以传入多个属性，与普通 class 共存  </li>
+<li>当 <code>:class</code> 的表达式过长或逻辑复杂时，还可以绑定一个计算属性。一般当条件多于两个时，都可以使用 <code>data</code> 或 <code>computed</code>  </li>
+<li>可以直接绑定一个 <code>Object</code> 类型的数据</li>
+</ul>
+<h5 id="3-1-2-数组语法"><a href="#3-1-2-数组语法" class="headerlink" title="3.1.2 数组语法"></a>3.1.2 数组语法</h5><ul>
+<li>可以把一个数组传给 <code>v-bind:class</code>，以应用一个 class 列表  </li>
+<li>三元表达式根据条件切换 class，如 <code>&lt;div :class=&quot;[isActive ? activeCls : &#39;&#39;, errorCls]&quot;&gt;&lt;/div&gt;</code>  </li>
+<li>也可以使用对象语法，如&#96;&#96;<div :class="[{'active': isActive}, errorCls]"></div>&#96;</li>
+</ul>
+<h5 id="3-1-3-用在组件上"><a href="#3-1-3-用在组件上" class="headerlink" title="3.1.3 用在组件上"></a>3.1.3 用在组件上</h5><p>当在一个自定义组件上使用 class 属性时，这些类将被添加到该组件的根元素上面。这个元素上已经存在的类不会被覆盖。对于带数据绑定 class 也同样适用  </p>
+<h5 id="3-1-4-绑定内联样式"><a href="#3-1-4-绑定内联样式" class="headerlink" title="3.1.4 绑定内联样式"></a>3.1.4 绑定内联样式</h5><p><code>v-bind:style</code> 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用引号括起来) 来命名，如 <code>&lt;div :style=&quot;&#123;&#39;color&#39;: color, &#39;fontSize&#39;: fontSize + &#39;px&#39;&#125;&quot;&gt;&lt;/div&gt;</code><br>直接绑定到一个样式对象通常更好，模板更清晰；常常结合返回对象的计算属性使用<br>可以将多个样式对象应用到同一个元素上  </p>
+<h3 id="4-内置指令"><a href="#4-内置指令" class="headerlink" title="4. 内置指令"></a>4. 内置指令</h3><h4 id="4-1-基本指令"><a href="#4-1-基本指令" class="headerlink" title="4.1 基本指令"></a>4.1 基本指令</h4><h5 id="4-1-1-v-cloak"><a href="#4-1-1-v-cloak" class="headerlink" title="4.1.1 v-cloak"></a>4.1.1 v-cloak</h5><p>不需要表达式，和 CSS 规则如 <code>[v-cloak] &#123; display: none &#125;</code> 一起用时，这个指令可以隐藏未编译的 Mustache 标签直到实例准备完毕  </p>
+<h5 id="4-1-2-v-once"><a href="#4-1-2-v-once" class="headerlink" title="4.1.2 v-once"></a>4.1.2 v-once</h5><p>不需要表达式，只渲染元素和组件一次。随后的重新渲染，元素&#x2F;组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能  </p>
+<h4 id="4-2-条件渲染指令"><a href="#4-2-条件渲染指令" class="headerlink" title="4.2 条件渲染指令"></a>4.2 条件渲染指令</h4><h5 id="4-2-1-v-if、v-else-if、v-else"><a href="#4-2-1-v-if、v-else-if、v-else" class="headerlink" title="4.2.1 v-if、v-else-if、v-else"></a>4.2.1 v-if、v-else-if、v-else</h5><p>Vue 在渲染元素时，出于效率考虑，会尽可能地复用已有的元素而非重新渲染；<code>key</code> 决定是否要复用元素，<code>key</code> 的值必须是唯一的  </p>
+<h5 id="4-2-2-v-show"><a href="#4-2-2-v-show" class="headerlink" title="4.2.2 v-show"></a>4.2.2 v-show</h5><p><code>v-show</code> 是改变元素的 CSS 属性 display。当表达式的值为 flase 时，元素会隐藏，查看 DOM 结构会看到元素上加载了内联样式 <code>display:none;</code>  </p>
+<blockquote>
+<p><code>v-show</code> 不能再&lt;template&gt;上使用</p>
+</blockquote>
+<h5 id="4-2-3-v-if-与-v-show-的选择"><a href="#4-2-3-v-if-与-v-show-的选择" class="headerlink" title="4.2.3 v-if 与 v-show 的选择"></a>4.2.3 v-if 与 v-show 的选择</h5><p><code>v-if</code> 会根据表达式适当地销毁或重建元素及绑定的事件或子组件。若表达式初始值为 false，则一开始元素&#x2F;组件并不会渲染，只有当条件第一次变为真时才开始编译。<br><code>v-show</code> 只是简单的 CSS 属性切换，无论条件真与否，都会被编译。<br><code>v-if</code> 更适合条件不经常改变的场景，因为它切换开销相对较大，而 <code>v-show</code> 适用于频繁切换条件，有更高的初始渲染开销  </p>
+<h4 id="4-3-列表渲染指令-v-for"><a href="#4-3-列表渲染指令-v-for" class="headerlink" title="4.3 列表渲染指令 v-for"></a>4.3 列表渲染指令 v-for</h4><h5 id="4-3-1-基本用法"><a href="#4-3-1-基本用法" class="headerlink" title="4.3.1 基本用法"></a>4.3.1 基本用法</h5><p>基于一个数组来渲染一个列表。<br><code>v-for</code> 指令需要使用 <code>item in items</code> 形式的特殊语法，其中 <code>items</code> 是元数据数组，而 <code>item</code> 则是被迭代的数组元素的别名<br><code>v-for</code> 块中可以访问所有父作用域的属性，还支持一个可选的第二个参数，即当前项的索引<br><code>v-for</code> 可以用 <code>of</code> 代替 <code>in</code> 作为分隔符，因为更接近 JavaScript 迭代器的语法<br><code>v-for</code> 可以遍历一个对象的属性；可以提供第二个的参数（可选）为 property 名称（也就是键名）；第三个参数（可选）作为索引</p>
+<h5 id="4-3-2-数组更新"><a href="#4-3-2-数组更新" class="headerlink" title="4.3.2 数组更新"></a>4.3.2 数组更新</h5><p>Vue 包含了一组观察数组变异的方法，使用它们改变数组也会触发视图更新：</p>
+<ul>
+<li><code>push()</code>  </li>
+<li><code>pop()</code>  </li>
+<li><code>shift()</code>  </li>
+<li><code>unshift()</code>  </li>
+<li><code>splice()</code>  </li>
+<li><code>sort()</code>  </li>
+<li><code>reverse()</code><br>会改变调用这些方法的原始数组</li>
+</ul>
+<p>以下方法不会改变原数组:  </p>
+<ul>
+<li>filter()  </li>
+<li>concat()  </li>
+<li>slice()<br>会返回一个新数组，在使用这些非变异方法时，可以用新数组来替换原数组</li>
+</ul>
+<p>由于 JavaScript 的限制，Vue 是不能检测以下数组的变动：  </p>
+<ul>
+<li>通过索引直接设置项，比如 <code>vm.items[indexOfItem] = newValue</code>  </li>
+<li>修改数组长度，比如 <code>vm.items.length = newLength</code></li>
+</ul>
+<p>解决第一类，可以使用以下两种方式，同时也将在响应式系统内触发状态更新：  </p>
+<ul>
+<li><code>Vue.set(vm.items, indexOfItem, newValue)</code>  </li>
+<li><code>vm.items.splice(indexOfItem, 1, newValue)</code>  </li>
+<li><code>vm.$set(vm.items, indexOfItem, newValue)</code></li>
+</ul>
+<p>解决第二类，可以使用 <code>splice</code>:<br><code>vm.items.splice(newLength)</code>  </p>
+<blockquote>
+<p><strong>对象变更检测注意事项</strong><br>由于 JavaScript 的限制，Vue 不能检测对象属性的添加或删除。<br>不允许动态添加根级别的响应式属性，但，可以使用 <code>Vue.set(object, propertyName,  value)</code> 或 <code>vm.$set(object, propertyName, value)</code> 方法向嵌套对象添加响应式属性<br>使用 <code>Object.assign()</code> 或 <code>_.extend()</code><br>为已有对象赋值多个新属性，应该用两个对象的属性创建一个新的对象：  </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">vm<span class="hljs-selector-class">.userProfile</span> = Object<span class="hljs-selector-class">.assign</span>(&#123;&#125;, vm<span class="hljs-selector-class">.userProfile</span>, &#123;<br>   age: <span class="hljs-number">27</span>,<br>   favoriteColor: <span class="hljs-string">&#x27;Vue Green&#x27;</span><br> &#125;)<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="4-3-3-过滤与排序"><a href="#4-3-3-过滤与排序" class="headerlink" title="4.3.3 过滤与排序"></a>4.3.3 过滤与排序</h5><p>可以创建一个计算属性，来返回过滤或排序后的数组，而不实际改变或重置原始数据<br>在计算属性不使用的情况下（例如，在嵌套 <code>v-for</code> 循环中），可以使用一个方法：  </p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;n in even(numbers)&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">n</span> &#125;&#125;</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs arcade">data: &#123;<br>  <span class="hljs-attr">numbers</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ]<br>&#125;,<br><span class="hljs-attr">methods</span>: &#123;<br>  <span class="hljs-attr">even</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">numbers</span>) &#123;<br>    <span class="hljs-keyword">return</span> numbers.<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">number</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">number</span> % <span class="hljs-number">2</span> === <span class="hljs-number">0</span><br>    &#125;)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="4-3-4-在-v-for-里使用值范围"><a href="#4-3-4-在-v-for-里使用值范围" class="headerlink" title="4.3.4 在 v-for 里使用值范围"></a>4.3.4 在 <code>v-for</code> 里使用值范围</h5><p><code>v-for</code> 也可以接受整数，会将模板重复对应次数  </p>
+<h5 id="4-3-5-在-lt-template-gt-上使用-v-for"><a href="#4-3-5-在-lt-template-gt-上使用-v-for" class="headerlink" title="4.3.5 在 &lt;template&gt; 上使用 v-for"></a>4.3.5 在 &lt;template&gt; 上使用 <code>v-for</code></h5><p>在模板上循环渲染一段包含多个元素的内容  </p>
+<h4 id="4-4-方法与事件"><a href="#4-4-方法与事件" class="headerlink" title="4.4 方法与事件"></a>4.4 方法与事件</h4><h5 id="4-4-1-基本用法"><a href="#4-4-1-基本用法" class="headerlink" title="4.4.1 基本用法"></a>4.4.1 基本用法</h5><p><code>@click</code> 调用的方法名后可以不跟括号 <code>&quot;()&quot;</code>，如果该方法有参数，默认会将原生事件对象 event 传入<br>通过 HTML 就可以知道调用的是哪个方法，将逻辑与 DOM 解耦，便于维护。<br>更重要的是，当 ViewModel 销毁时，所有的事件处理器会自动删除，无效自己清理。<br><code>$event</code> 用于访问原生 DOM 事件。  </p>
+<h5 id="4-4-2-修饰符"><a href="#4-4-2-修饰符" class="headerlink" title="4.4.2 修饰符"></a>4.4.2 修饰符</h5><p>在事件处理程序中调用 <code>event.preventDefault()</code> 或 <code>event.stopPropagation()</code> 是非常常见的需求。尽管我们可以在方法中轻松实现这点，但更好的方式是：方法只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。<br>Vue.js 为 <code>v-on</code> 提供了事件修饰符，修饰符是由点开头的指令后缀来表示的:  </p>
+<ul>
+<li><code>.stop</code>: 阻止事件冒泡（阻止事件向上级 DOM 元素传递）  </li>
+<li><code>.prevent</code>: 防止执行预设的行为（如果事件可取消，则取消该事件，而不停止事件的进一步传播）  </li>
+<li><code>.capture</code>: 与事件冒泡的方向相反，事件捕获由外到内  </li>
+<li><code>.self</code>: 只会触发自己范围内的事件，不包含子元素  </li>
+<li><code>.once</code>: 只会触发一次  </li>
+<li><code>.passive</code>： 对 DOM 的默认事件进行性能优化</li>
+</ul>
+<h5 id="4-4-3-按键修饰符"><a href="#4-4-3-按键修饰符" class="headerlink" title="4.4.3 按键修饰符"></a>4.4.3 按键修饰符</h5><ul>
+<li><code>.enter</code>  </li>
+<li><code>.tab</code>  </li>
+<li><code>.delete (捕获“删除”和“退格”键)</code>  </li>
+<li><code>.esc</code>  </li>
+<li><code>.space</code>  </li>
+<li><code>.up</code>  </li>
+<li><code>.down</code>  </li>
+<li><code>.left</code>  </li>
+<li><code>.right</code></li>
+</ul>
+<p>可以通过全局 <code>config.keyCodes</code> 对象自定义按键修饰符别名： <code>Vue.config.keyCodes.f1 = 112</code>  </p>
+<h4 id="4-4-4-系统修饰符"><a href="#4-4-4-系统修饰符" class="headerlink" title="4.4.4 系统修饰符"></a>4.4.4 系统修饰符</h4><p>可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。</p>
+<ul>
+<li><code>.ctrl</code>  </li>
+<li><code>.alt</code>  </li>
+<li><code>.shift</code>  </li>
+<li><code>.meta</code></li>
+</ul>
+<h5 id="4-4-5-修饰符"><a href="#4-4-5-修饰符" class="headerlink" title="4.4.5 修饰符"></a>4.4.5 修饰符</h5><p><code>.exact</code> 修饰符允许你控制有精确的系统修饰符组合触发的事件  </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;</span>  <br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.ctrl</span>=<span class="hljs-string">&quot;onClick&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>  <br><br><span class="hljs-comment">&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;</span>  <br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.ctrl.exact</span>=<span class="hljs-string">&quot;onCtrlClick&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>  <br><br><span class="hljs-comment">&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;</span>  <br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.exact</span>=<span class="hljs-string">&quot;onClick&quot;</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>  <br></code></pre></td></tr></table></figure>
+
+<h5 id="4-4-6-鼠标按钮修饰符"><a href="#4-4-6-鼠标按钮修饰符" class="headerlink" title="4.4.6 鼠标按钮修饰符"></a>4.4.6 鼠标按钮修饰符</h5><ul>
+<li><code>.left</code>  </li>
+<li><code>.right</code>  </li>
+<li><code>.middle</code></li>
+</ul>
+<p>这些修饰符会限制处理函数仅响应特定的鼠标按钮。  </p>
+<hr>
+<h3 id="5-表单与-v-model"><a href="#5-表单与-v-model" class="headerlink" title="5. 表单与 v-model"></a>5. 表单与 v-model</h3><h4 id="5-1-基本用法"><a href="#5-1-基本用法" class="headerlink" title="5.1 基本用法"></a>5.1 基本用法</h4><p>Vue.js 提供了 <code>v-model</code> 指令，用于在表单类元素上双向绑定数据  </p>
+<p>使用 <code>v-model</code> 后，表单控件显示的值只依赖所绑定的数据，不在关心初始化时的 value 属性，对于 <code>&lt;textarea&gt;&lt;/textarea&gt;</code> 之间插入的值，也不会生效。<br>对于中文输入法输入中文，一般在拼音阶段，Vue 是不会更新数据的，当敲下汉字时才会触发更新。如果希望实时更新，可以用 <code>@input</code> 替代 <code>v-model</code>。  </p>
+<p>输入框： 输入的内容会实时映射到绑定的数据上  </p>
+<ul>
+<li><p><strong>单选按钮</strong><br>在单独使用时，不需要 <code>v-model</code>，直接使用 <code>v-bind</code> 绑定一个布尔类型的值，为真时选中，为否不选。<br>如果是组合使用来实现互斥选中的效果，就需要 <code>v-model</code> 配合 <code>value</code> 来使用。  </p>
+</li>
+<li><p><strong>复选框</strong><br>单独使用时，用 <code>v-model</code> 来绑定一个布尔值<br>组合使用时，<code>v-model</code> 与 <code>value</code> 一起，多个勾选框都绑定到同一个数组类型的数据，value 的值在数组当中，就会选中这一项，双项。  </p>
+</li>
+<li><p><strong>下拉选择列表</strong><br>单选： <code>&lt;option&gt;</code> 是备选项，如果含有 <code>value</code> 属性，<code>v-model</code> 就会优先匹配 <code>value</code> 的值；如果没有，就会直接匹配 <code>&lt;option&gt;</code> 的 <code>text</code><br>多选： <code>&lt;select&gt;</code> 添加 <code>multiple</code> 就可以多选了，此时 <code>v-model</code> 绑定的是一个数组，与复选框用法类似。</p>
+</li>
+</ul>
+<h4 id="5-2-绑定值"><a href="#5-2-绑定值" class="headerlink" title="5.2 绑定值"></a>5.2 绑定值</h4><p>5.1 中的 <code>v-model</code> 绑定的值是一个静态字符串或布尔值，动态的数据，用 <code>v-bind</code> 实现  </p>
+<ul>
+<li><p><strong>单选框</strong><br><code>&lt;input type = &quot;radio&quot; v-model = &quot;picked&quot; :value = &quot;value&quot; /&gt;</code>  </p>
+</li>
+<li><p><strong>复选框</strong><br><code>&lt;input type = &quot;checkbox&quot; v-model = &quot;toggle&quot; :true-value = &quot;value1&quot; :false-value = &quot;value2&quot; /&gt;</code>  </p>
+</li>
+<li><p><strong>选择列表</strong><br><code>&lt;select v-model = &quot;selected&quot;&gt;&lt;option :value = &quot;&#123; number: 123&#125;&quot;&gt; 123&lt;/option&gt;&lt;/select&gt;</code></p>
+</li>
+</ul>
+<h4 id="5-3-修饰符"><a href="#5-3-修饰符" class="headerlink" title="5.3 修饰符"></a>5.3 修饰符</h4><ul>
+<li><p><strong>.lazy</strong><br><code>v-modea</code> 默认是在 input 事件中同步输入框的数据，使用 <code>.lazy</code> 修饰符会转变为在 change 事件中同步  </p>
+</li>
+<li><p><strong>.number</strong><br>可以将输入转换为 Number 类型  </p>
+</li>
+<li><p><strong>.trim</strong><br>可以自动过滤输入的首尾空格</p>
+</li>
+</ul>
+<hr>
+<h3 id="6-组件"><a href="#6-组件" class="headerlink" title="6. 组件"></a>6. 组件</h3><p>组件(Componet)是 Vue.js 最核心的功能。<br>提供重用性，让代码可复用  </p>
+<p>需要注册后才可以使用，分为全局注册和局部注册，全局注册后，任何 Vue 实例都可以使用。  </p>
+<p><strong>全局注册实例：</strong>  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">Vue.componet(<span class="hljs-string">&#x27;my-componet&#x27;</span>,&#123;<br> <span class="hljs-regexp">//</span> 选项<br>&#125;)<br></code></pre></td></tr></table></figure>
+<p><code>my-componet</code> 注册的组件自定义标签名称，可使用 kebab-case (短横线分隔命名) 和 PascalCase (首字母大写命名) 定义一个组件；但直接在 DOM(非字符串的模板)中使用时只有 kebab-case 有效，推荐该种写法。  </p>
+<p>父实例中使用这个组件，__组件必须要在实例创建前注册__，之后就可以以 <code>&lt;my-componet&gt;&lt;/my-componet&gt;</code> 形式来使用组件<br>在组件选项中添加 <code>template</code> 就可以显示组件内，<code>template</code> 的 DOM 结构必须被一个元素包含  </p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;app&quot;</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">my-componet</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-componet</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">componet</span>(<span class="hljs-string">&#x27;my-componet&#x27;</span>,</span></span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">    template: &quot;&lt;div&gt;这是组件的内容&lt;/div&gt;&quot;</span><br><span class="hljs-template-variable">  &#125;</span><span class="language-xml"><span class="language-javascript">)</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(</span></span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">    ...</span><br><span class="hljs-template-variable">  &#125;</span><span class="language-xml">)</span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p><strong>局部注册：</strong>  </p>
+<p>可以通过一个普通的 JavaScript 对象来定义组件：<br><code>var ComponetA = &#123;&#125;</code><br>然后在 <code>componets</code> 选项中定义需要使用的组件：  </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">new Vue(&#123;<br>    el: <span class="hljs-string">&quot;#app&quot;</span>,<br>    componets:&#123;<br>        &quot;componet-<span class="hljs-selector-tag">a</span>&quot;: ComponetA,<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>局部注册的组件在其子组件中不可用。例如，如果你希望 ComponentA 在 ComponentB 中可用，则你需要这样写：  </p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> ComponentA = &#123; <span class="hljs-comment">/* ... */</span> &#125;<br><span class="hljs-keyword">var</span> ComponentB = &#123;<br>  components: &#123;<br>      <span class="hljs-string">&#x27;component-a&#x27;</span>: ComponentA<br>  &#125;,<br>  <span class="hljs-comment">// ...</span><br> &#125;<br></code></pre></td></tr></table></figure>
+<p>或者如果你通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ComponentA</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./ComponentA.vue&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">components</span>: &#123;<br>      <span class="hljs-title class_">ComponentA</span><br>  &#125;,<br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意在 ES2015+ 中，在对象中放一个类似 ComponentA 的变量名其实是 ComponentA: ComponentA 的缩写，即这个变量名同时是：  </p>
+<ul>
+<li>用在模板中的自定义元素的名称  </li>
+<li>包含了这个组件选项的变量名</li>
+</ul>
+</blockquote>
+<p>Vue 组件的模板在某些情况下会受到 HTML 限制，比如 <code>&lt;table&gt;</code> 内规定只允许是 <code>&lt;tr&gt;、&lt;td&gt;、&lt;th&gt;</code> 等这些表格元素，所以在 <code>&lt;table&gt;</code> 内直接使用组件是无效的。可以使用特殊字符 <code>is</code> 属性俩挂载组件，会被替换为组件内容。常见的限制元素还有 <code>&lt;ul&gt;</code>、<code>&lt;ol&gt;</code> 、<code>&lt;select&gt;</code>，字符串模板是不受限制的。<code>&lt;tbody is=&quot;my-componet&quot;&gt;&lt;/tbody&gt;</code>  </p>
+<p>除了 <code>template</code> 选项外，还可以使用其他的选项，如 <code>data</code>、<code>computed</code>、<code>methods</code> 等，但 <code>data</code> 必须是一个函数，然后将数据 return 出去，因此每个实例可以维护一份被返回对象的独立的拷贝。  </p>
+<h4 id="6-2-使用-props-传递数据"><a href="#6-2-使用-props-传递数据" class="headerlink" title="6.2 使用 props 传递数据"></a>6.2 使用 props 传递数据</h4><h5 id="6-2-1-基本用法"><a href="#6-2-1-基本用法" class="headerlink" title="6.2.1 基本用法"></a>6.2.1 基本用法</h5><p>父组件向子组件传递数据或参数<br>如果直接传递数字，布尔值，数组，对象，而不使用 v-bind，传递的仅是字符串<br>可见 vue_test\props传值.html  </p>
+<h5 id="6-2-2-单向数据流"><a href="#6-2-2-单向数据流" class="headerlink" title="6.2.2 单向数据流"></a>6.2.2 单向数据流</h5><p>父组件数据变化时会传递给子组件，反之不行。  </p>
+<ul>
+<li><p>这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用：  </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">Vue.component(<span class="hljs-string">&quot;my-component&quot;</span>, &#123;<br>    props: [<span class="hljs-string">&#x27;initCount&#x27;</span>],<br>    template: <span class="hljs-string">&#x27;&lt;div&gt;&#123;&#123;count&#125;&#125;&lt;/div&gt;&#x27;</span>,<br>    <span class="hljs-keyword">data</span>: function()&#123;<br>        <span class="hljs-keyword">return</span> &#123;<br>            count: <span class="hljs-keyword">this</span>.initCount<br>        &#125;<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>这个 prop 以一种原始的值传入且需要进行转换。最好使用 prop 的值来定义一个计算属性：  </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus">props: <span class="hljs-selector-attr">[<span class="hljs-string">&#x27;size&#x27;</span>]</span>,<br>computed: &#123;<br>    normalizedSize: <span class="hljs-built_in">function</span>()&#123;<br>        return this<span class="hljs-selector-class">.size</span><span class="hljs-selector-class">.trim</span>()<span class="hljs-selector-class">.toLowerCase</span>()<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，所以对于一个数组或对象类型的 prop 来说，在子组件中改变这个对象或数组本身将会影响到父组件的状态。</p>
+</blockquote>
+<h5 id="6-2-3-数据验证"><a href="#6-2-3-数据验证" class="headerlink" title="6.2.3 数据验证"></a>6.2.3 数据验证</h5><p>当 prop 需要验证时，<code>props</code> 选项的值都是一个数组。  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&#x27;my-component&#x27;</span>, &#123;<br>  <span class="hljs-attr">props</span>: &#123;<br>    <span class="hljs-comment">// 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)</span><br>    <span class="hljs-attr">propA</span>: <span class="hljs-title class_">Number</span>,<br>    <span class="hljs-comment">// 多个可能的类型</span><br>    <span class="hljs-attr">propB</span>: [<span class="hljs-title class_">String</span>, <span class="hljs-title class_">Number</span>],<br>    <span class="hljs-comment">// 必填的字符串</span><br>    <span class="hljs-attr">propC</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,<br>      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span><br>    &#125;,<br>    <span class="hljs-comment">// 带有默认值的数字</span><br>    <span class="hljs-attr">propD</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,<br>      <span class="hljs-attr">default</span>: <span class="hljs-number">100</span><br>    &#125;,<br>    <span class="hljs-comment">// 带有默认值的对象</span><br>    <span class="hljs-attr">propE</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-title class_">Object</span>,<br>      <span class="hljs-comment">// 对象或数组默认值必须从一个工厂函数获取</span><br>      <span class="hljs-attr">default</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;hello&#x27;</span> &#125;<br>      &#125;<br>    &#125;,<br>    <span class="hljs-comment">// 自定义验证函数</span><br>    <span class="hljs-attr">propF</span>: &#123;<br>      <span class="hljs-attr">validator</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) &#123;<br>        <span class="hljs-comment">// 这个值必须匹配下列字符串中的一个</span><br>        <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;success&#x27;</span>, <span class="hljs-string">&#x27;warning&#x27;</span>, <span class="hljs-string">&#x27;danger&#x27;</span>].<span class="hljs-title function_">indexOf</span>(value) !== -<span class="hljs-number">1</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>验证的类型(<code>type</code>)： String\Number\Boolean\Array\Object\Date\Function\Symbol<br>而且 <code>type</code> 还可以是一个自定义的构造函数，并且通过 <code>instanceof</code> 来进行检查确认</p>
+<p>当 <code>prop</code> 验证失败的时候，Vue（开发版本） 将会产生一个控制台的警告  </p>
+<blockquote>
+<p>prop 会在一个组件实例创建之前进行验证，所以实例的属性 (如 data、computed 等) 在 default 或 validator 函数中是不可用的。</p>
+</blockquote>
+<h4 id="6-3-组件通信"><a href="#6-3-组件通信" class="headerlink" title="6.3 组件通信"></a>6.3 组件通信</h4><h5 id="6-3-1-自定义事件"><a href="#6-3-1-自定义事件" class="headerlink" title="6.3.1 自定义事件"></a>6.3.1 自定义事件</h5>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E5%89%8D%E7%AB%AF/VUE/" class="category-chain-item">VUE</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/tags/VUE/">#VUE</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 笔记</div>
+      <div>http://example.com/2023/12/31/前端/Vue 笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E5%91%BD%E4%BB%A4/shell/" title="Shell">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Shell</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E4%B9%A6/%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" title="编写高质量代码">
+                        <span class="hidden-mobile">编写高质量代码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

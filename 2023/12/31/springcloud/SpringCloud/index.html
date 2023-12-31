@@ -1,0 +1,1324 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章 基础知识 Spring Cloud Config:配置管理工具，支持使用Git存储配置内容，可以使用它实现应用配置的外部化存储，并支持客户端配置信息刷新、加密&#x2F;解密配置内容等   Spring Cloud Netflix: 核心组件，对多个Netflix OSS开源套件进行整合   Eureka: 服务治理组件，包含服务注册中心、服务注册与发现机制的实现   Hystrix: 容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud">
+<meta property="og:url" content="http://example.com/2023/12/31/springcloud/SpringCloud/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="第一章 基础知识 Spring Cloud Config:配置管理工具，支持使用Git存储配置内容，可以使用它实现应用配置的外部化存储，并支持客户端配置信息刷新、加密&#x2F;解密配置内容等   Spring Cloud Netflix: 核心组件，对多个Netflix OSS开源套件进行整合   Eureka: 服务治理组件，包含服务注册中心、服务注册与发现机制的实现   Hystrix: 容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.723Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="Spring Cloud">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Spring Cloud - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring Cloud"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          50k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          415 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring Cloud</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="第一章-基础知识"><a href="#第一章-基础知识" class="headerlink" title="第一章 基础知识"></a>第一章 基础知识</h2><ul>
+<li>Spring Cloud Config:<br>配置管理工具，支持使用Git存储配置内容，可以使用它实现应用配置的外部化存储，并支持客户端配置信息刷新、加密&#x2F;解密配置内容等  </li>
+<li>Spring Cloud Netflix: 核心组件，对多个Netflix OSS开源套件进行整合  </li>
+<li>Eureka: 服务治理组件，包含服务注册中心、服务注册与发现机制的实现  </li>
+<li>Hystrix: 容错管理组件，实现断路器模式，帮助服务依赖中出现的延迟和为故障提供强大的容错能力  </li>
+<li>Ribbon: 客户端负载均衡的服务调用组件  </li>
+<li>Feign: 基于Ribbon和Hystrix的声明式服务调用组件  </li>
+<li>Zuul: 网关组件，提供智能路由、访问过滤等功能  </li>
+<li>Archaius: 外部化配置组件  </li>
+<li>Spring Cloud Bus: 事件、消息总线，用于传播集群中的状态变化或事件，以触发后续的处理，比如用来动态刷新配置等  </li>
+<li>Spring Cloud Cluster: 针对Zookeeper、Redis、Hazelcast、Consul的选举算法和通用状态模式的实现  </li>
+<li>Spring Cloud Cloudfoundry: 与Pivotal Cloudfoundry的整合支持  </li>
+<li>Spring Cloud Stream: 通过Redis、Rabbit或者Kafka实现的消费微服务，可以通过简单的声明式模型来发送和接收消息  </li>
+<li>Spring Cloud AWS: 用于简化整合Amazon Web Service的组件  </li>
+<li>Spring Cloud Security: 安全工具包，提供在Zuul代理中对OAuth2客户端请求中的中继器  </li>
+<li>Spring Cloud Sleuth: Spring Cloud 应用的分布式跟踪实现，可以完美整合Zipkin  </li>
+<li>Spring Cloud ZooKeeper: 基于ZooKeeper的服务发现与配置管理组件  </li>
+<li>Spring Cloud Starters: Spring Cloud 的基础组件，它是基于Spring Boot风格项目的基础依赖模块  </li>
+<li>Spring Cloud CLI: 用于在Groovy中快速创建Spring Cloud应用的Spring Boot CLI插件</li>
+</ul>
+<hr>
+<h2 id="第三章-服务治理-Spring-Cloud-Eureka"><a href="#第三章-服务治理-Spring-Cloud-Eureka" class="headerlink" title="第三章 服务治理: Spring Cloud Eureka"></a>第三章 服务治理: Spring Cloud Eureka</h2><h3 id="服务治理"><a href="#服务治理" class="headerlink" title="服务治理"></a>服务治理</h3><p>服务治理是微服务架构中最为核心和基础的模块，主要用来实现各个微服务实例的自动化注册与发现  </p>
+<ul>
+<li>服务注册<br>  注册中心<br>  每个服务单元向注册中心登记自己提供的服务，将主机与端口号、版本号、通信协议等一些附加信息告知注册中心，注册中心按服务名分类组织服务清单</li>
+<li>服务发现<br>  通过向服务名发起请求调用实现，服务调用方在调用服务提供方接口时，并不知道具体的服务实例位置，调用方需要向服务注册中心咨询服务，并获取所有服务是实例清单<br>  调用方从清单中以某种轮询策略取出一个位置来进行服务调用（即客户端负载均衡）</li>
+</ul>
+<h3 id="Netflix-Eureka"><a href="#Netflix-Eureka" class="headerlink" title="Netflix Eureka"></a>Netflix Eureka</h3><p>Spring Cloud Eureka，使用Netflix Eureka来实现服务注册与发现，既包含了服务端组件，也包含了客户端组件，并且服务端与客户端均采用Java编写  </p>
+<ul>
+<li>Eureka 服务端<br>  也称为服务注册中心，支持高可用配置<br>  依托于强一致性提供良好的服务实例可用性，可以应对多种不同的故障场景</li>
+<li>Eureka 客户端<br>  主要处理服务的注册与发现，<br>  通过注解和参数配置的方式，嵌入在客户端应用程序的代码中，<br>  向注册中心注册自身提供的服务并周期性地发送心跳来更新它的服务租约，<br>  能从服务端查询当前注册的服务信息并把它们缓存到本地并周期性地刷新服务状态</li>
+</ul>
+<h3 id="搭建服务注册中心-注册服务提供者"><a href="#搭建服务注册中心-注册服务提供者" class="headerlink" title="搭建服务注册中心 注册服务提供者"></a>搭建服务注册中心 注册服务提供者</h3><pre><code class="hljs">server:
+  port: 8761 
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone:
+        http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/
+</code></pre>
+<p>register-with-eureka: 设置为false，代表不向注册中心注册自己<br>fetch-registry: 设置为false，代表不需要去检索服务<br>应用启动后不需要从服务治理服务器中同步已注册的服务注册列表数据到本地<br>service-url.defaultZone: 服务注册中心的地址  </p>
+<h3 id="高可用注册中心"><a href="#高可用注册中心" class="headerlink" title="高可用注册中心"></a>高可用注册中心</h3><p>Eureka 的服务治理设计中，所有节点即是服务提供方，也是服务消费方，服务中心也不例外<br>Eureka Server 的高可用实际上就是将自己作为服务向其他服务注册中心注册自己，即形成一组互相注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果</p>
+<pre><code class="hljs">eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.instance.prefer-ip-address=true #不使用主机名来定义注册中心的地址，而使用IP地址的形式，
+    
+</code></pre>
+<p>如果设置了eureka.instance.ip-address 属性，则使用该属性配置的IP，否则自动获取除环路IP外的第一个IP地址</p>
+<h3 id="服务发现与消费"><a href="#服务发现与消费" class="headerlink" title="服务发现与消费"></a>服务发现与消费</h3><p>服务消费者，主要完成两个目标: 发现服务、消费服务<br>服务发现的任务由Eureka的客户端完成<br>服务消费的任务由Ribbon完成  </p>
+<ul>
+<li>Ribbon<ul>
+<li>一个基于 HTTP 和 TCP 的客户端负载均衡器<br>  通过客户端中配置的 RibbonServerList 服务端列表去轮询访问以达到均衡负载的作用</li>
+<li>与 Eureka 联合使用时，Ribbon 的服务实例清单 RibbonServerList 会被 DiscoveryEnabledBUWSServerList 重写，扩展成从 Eureka 注册中心中获取服务端列表<br>  也会用 NIWSDiscoveryPing 来取代 IPing ，将职责委托给 Eureka 来确定服务端是否已经启动</li>
+</ul>
+</li>
+</ul>
+<h3 id="Eureka-详解"><a href="#Eureka-详解" class="headerlink" title="Eureka 详解"></a>Eureka 详解</h3><h4 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h4><ul>
+<li>服务注册中心</li>
+<li>服务提供者</li>
+<li>服务消费者</li>
+</ul>
+<h4 id="服务治理机制"><a href="#服务治理机制" class="headerlink" title="服务治理机制"></a>服务治理机制</h4><h5 id="服务提供者"><a href="#服务提供者" class="headerlink" title="服务提供者"></a>服务提供者</h5><ul>
+<li>服务注册<br>  Eureka Server接收到 REST 请求之后，将元素据信息存储在一个双层Map中，第一层的 key 是服务名，第二层的 key 是具体服务的实例名</li>
+<li>服务同步<br>  通过服务同步，两个服务提供者的服务信息就可以通过这两台服务注册中心中的任意一台获取</li>
+<li>服务续约<br>  在注册完服务之后，服务提供者会维护一个心跳用来持续告诉 Eureka Server: “我还活着”，以防止 Eureka Server 的“剔除任务”将该服务实例从服务列表中排除出去，称之为服务续约  <figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">eureka</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">instance</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">lease-renewal-interval-in-seconds</span><span class="hljs-punctuation">:</span> <span class="hljs-string">30</span><br>    <span class="hljs-attribute">lease-expiration-duration-in-seconds</span><span class="hljs-punctuation">:</span> <span class="hljs-string">90 </span><br></code></pre></td></tr></table></figure>
+  lease-renewal-interval-in-seconds 参数用于定义服务续约任务的调用间隔时间，默认30秒<br>  lease-expiration-duration-in-seconds 参数用于定义服务失效时间，默认为90秒</li>
+</ul>
+<h5 id="服务消费者"><a href="#服务消费者" class="headerlink" title="服务消费者"></a>服务消费者</h5><ul>
+<li>获取服务  <ul>
+<li>启动服务消费者时，会发送一个REST请求给服务注册中心，来获取注册的服务清单  </li>
+<li>Eureka Server 会维护一份只读的服务清单来返回给客户端，同时该缓存清单会每隔30秒更新一次  </li>
+<li>获取服务是服务消费者的基础，必须确保 eureka.client.register-with-eureka&#x3D;true。  </li>
+<li>若希望修改缓存清单的更新时间，可以通过 eureka.client.register-fetch-interval-seconds&#x3D;30 参数进行修改，单位为秒，默认值为 30</li>
+</ul>
+</li>
+<li>服务调用  <ul>
+<li>服务消费者在获取服务清单后，通过服务名可以获得具体提供服务的实例名和该实例的元数据信息  <ul>
+<li>Ribbon中会默认采用轮询的方式进行调用，从而实现客户端的负载均衡</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>服务下线<br>  在客户端程序中，当服务实例进行正常的关闭操作时，会触发一个服务下线的REST请求给Eureka Server，告诉服务注册中心：“我要下线了”。<br>  服务端在接收到请求之后，将该服务状态设置为下线(DOWN)，并把该下线事件传播出去</li>
+</ul>
+<h5 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h5><ul>
+<li>失效剔除<br>  服务实例不正常下线（可能由于内存溢出、网络故障等原因使得服务不能正常工作），而服务注册中心并未收到“服务下线”的请求<br>  Eureka Server 在启动时会创建一个定时任务，默认每隔一段时间（默认为60秒）将当前清单中超时（默认为90秒)没有续约的服务剔除  </li>
+<li>自我保护  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">EMERGENCY! EUREKA MAY <span class="hljs-keyword">BE </span>INCORRECTLY CLAIMING <span class="hljs-keyword">INSTANCES </span>ARE UP WHEN THEY’RE NOT. RENEWALS ARE LESSER THAN THRESHOLD <span class="hljs-keyword">AND </span>HENCE THE <span class="hljs-keyword">INSTANCES </span>ARE NOT <span class="hljs-keyword">BEING </span>EXPIRED <span class="hljs-keyword">JUST </span>TO <span class="hljs-keyword">BE </span>SAFE. <br></code></pre></td></tr></table></figure>
+该警告就是触发了Eureka Server 的自我保护机制<br>Eureka Server 在运行期间，会统计心跳失败的比例在15分钟之内是否低于85%，如果出现低于 的情况，Eureka Server 会将当前的实例注册信息保护起来，让这些实例不会过期，尽可能保护这些注册信息<br>在这段保护期间内实例若出现问题，客户端很容易拿到不存在的服务实例，会出现调用失败的情况。所有客户端必须有容错机制<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">eureka.server.enable-self-preservation</span>=<span class="hljs-literal">false</span><br><span class="hljs-comment"># 参数，关闭保护机制，确保注册中心可以将不可用的实例正确剔除</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="第四章-熔断器"><a href="#第四章-熔断器" class="headerlink" title="第四章 熔断器"></a>第四章 熔断器</h3><p>多个服务层调用，基础服务的故障可能会导致级联故障，进而造成整个系统不可用的情况，这种现象被称为服务雪崩效应。是一种因服务提供者的不可用导致服务消费者的不可用，并将不可用逐渐放大的过程。  </p>
+<h4 id="熔断器"><a href="#熔断器" class="headerlink" title="熔断器"></a>熔断器</h4><p>可以实现快速失败，如果它在一段时间内侦测到许多类似的错误，会强迫其以后的多个调用快速失败，不再访问远程服务器，从而防止应用程序不断地尝试执行可能会失败的操作，使得应用程序继续执行而不用等待修正错误，或者浪费CPU时间去等到长时间的超时产生。<br>也可以是应用程序能够诊断错误是否已经修正，如果已经修正，应用程序会再次尝试调用操作  </p>
+<p>是保护服务高可用的最后一道防线  </p>
+<h4 id="Hystrix"><a href="#Hystrix" class="headerlink" title="Hystrix"></a>Hystrix</h4><ul>
+<li><p><strong>断路器</strong>  </p>
+<p>  当Hystrix Command请求后端服务失败数量超过一定比例(默认50%), 断路器会切换到开路状态(Open). 这时所有请求会直接失败而不会发送到后端服务.  </p>
+<p>  断路器保持在开路状态一段时间后(默认5秒), 自动切换到半开路状态(HALF-OPEN).</p>
+<p>  这时会判断下一次请求的返回情况, 如果请求成功, 断路器切回闭路状态(CLOSED), 否则重新切换到开路状态(OPEN).  </p>
+<p>  Hystrix的断路器就像我们家庭电路中的保险丝, 一旦后端服务不可用, 断路器会直接切断请求链, 避免发送大量无效请求影响系统吞吐量, 并且断路器有自我检测并恢复的能力.</p>
+</li>
+<li><p><strong>Fallback</strong> </p>
+<p>  相当于是降级操作. 对于查询操作, 我们可以实现一个fallback方法, 当请求后端服务出现异常的时候, 可以使用fallback方法返回的值. </p>
+<p>  fallback方法的返回值一般是设置的默认值或者来自缓存.  </p>
+</li>
+<li><p><strong>资源隔离</strong></p>
+<p>  在Hystrix中, 主要通过线程池来实现资源隔离.  </p>
+<p>  通常在使用的时候我们会根据调用的远程服务划分出多个线程池.<br>  例如调用产品服务的Command放入A线程池, 调用账户服务的Command放入B线程池. </p>
+<p>  这样做的主要优点是运行环境被隔离开了.  </p>
+<p>  这样就算调用服务的代码存在bug或者由于其他原因导致自己所在线程池被耗尽时, 不会对系统的其他服务造成影响.  </p>
+<p>  但是带来的代价就是维护多个线程池会对系统带来额外的性能开销.<br>  如果是对性能有严格要求而且确信自己调用服务的客户端代码不会出问题的话, 可以使用Hystrix的信号模式(Semaphores)来隔离资源.</p>
+</li>
+<li><p><strong>仪表盘参数详解</strong>  </p>
+<ul>
+<li>实心圆: 颜色从绿黄橙红依次递减，表示服务的健康程度依次降低，圆越大，表示服务的流量越大  </li>
+<li>线条： 用来记录2分钟内流量的相对变化</li>
+<li>左侧  <ul>
+<li>第一个数值（墨绿色）表示请求成功数  </li>
+<li>第二个数值（蓝色）表示短路 &#x2F; 熔断数</li>
+</ul>
+</li>
+<li>右侧  <ul>
+<li>第一个数值（黄色）表示超时数</li>
+<li>第二个数值（紫色）表示线程池拒绝数</li>
+<li>第三个数值（橙色）表示失败 &#x2F; 异常数</li>
+</ul>
+</li>
+<li>右侧百分比： 表示最近 10s 的错误比例</li>
+<li>Median: 集群下的主机报告</li>
+<li>Host: 请求频率</li>
+<li>Circuit: 断路器状态</li>
+</ul>
+</li>
+<li><p><strong>Hystrix-dashboard</strong>  </p>
+<p>  是一款针对Hystrix进行实时监控的工具，<br>  通过Hystrix Dashboard我们可以在直观地看到各Hystrix Command的请求响应时间, 请求成功率等数据。<br>  但是只使用Hystrix Dashboard的话, 你只能看到单个应用内的服务信息.<br>  Turbine汇总系统内多个服务的数据并显示到Hystrix Dashboard上.  </p>
+<ul>
+<li><p><strong>1. Hystrix-dashboard</strong>  </p>
+<ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix-dashboard<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>  三个包缺一不可  </p>
+<ul>
+<li>启动类注解  <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-comment">// 包含@SpringBootApplication以及@EnableDiscoveryClient、@EnableCircuitBreaker  </span><br><span class="hljs-variable">@SpringCloudApplication</span>  <br><span class="hljs-variable">@EnableHystrix</span>           <span class="hljs-comment">// 允许熔断</span><br><span class="hljs-variable">@EnableHystrixDashboard</span> <span class="hljs-comment">// 单体熔断</span><br></code></pre></td></tr></table></figure></li>
+<li>无法访问hystrix.stream (或hystrix dashboard 出现 Unable to connect to Command Metric Stream)  <ul>
+<li><p>方法一：  </p>
+  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@Bean<br>public ServletRegistrationBean get<span class="hljs-constructor">Servlet()</span> &#123;<br>    HystrixMetricsStreamServlet streamServlet = <span class="hljs-keyword">new</span> <span class="hljs-constructor">HystrixMetricsStreamServlet()</span>;<br>    ServletRegistrationBean registrationBean = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ServletRegistrationBean(<span class="hljs-params">streamServlet</span>)</span>;<br>    registrationBean.set<span class="hljs-constructor">LoadOnStartup(1)</span>;<br>    registrationBean.add<span class="hljs-constructor">UrlMappings(<span class="hljs-string">&quot;/hystrix.stream&quot;</span>)</span>;<br>    registrationBean.set<span class="hljs-constructor">Name(<span class="hljs-string">&quot;HystrixMetricsStreamServlet&quot;</span>)</span>;<br>    return registrationBean;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>  由于 HystrixStreamEndpoint 下 get 中的 HystrixMetricsStreamServlet 类中的注解。  </p>
+</li>
+<li><p>方法二：<br>  application.yml 中添加</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">management:</span><br><span class="hljs-symbol">  endpoints:</span><br><span class="hljs-symbol">    web:</span><br><span class="hljs-symbol">      exposure:</span><br>        include[<span class="hljs-number">0</span>]: <span class="hljs-string">&quot;hystrix.stream&quot;</span><br>        include[<span class="hljs-number">1</span>]: <span class="hljs-string">&quot;health&quot;</span><br>        include[<span class="hljs-number">2</span>]: <span class="hljs-string">&quot;info&quot;</span><br></code></pre></td></tr></table></figure>
+<p>  单体监控访问地址变成 <a href="http://hystrix-app:port/actuator/hystrix.stream">http://hystrix-app:port/actuator/hystrix.stream</a><br>  如果不配置 info, health，则无法打开 actuator&#x2F;health以及actuator&#x2F;info</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>2. Turbine</strong><br> Netflix提供了一个开源项目（Turbine）来提供把多个hystrix.stream的内容聚合为一个数据源供Dashboard展示</p>
+<ul>
+<li><p>添加依赖</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-turbine<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix-dashboard<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>配置文件  </p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">turbine:</span><br>  <span class="hljs-attr">app-config:</span> <span class="hljs-string">demo-ribbon,</span> <span class="hljs-string">demo-ribbon-2</span>  <span class="hljs-comment"># 参数指定了需要收集监控信息的服务名</span><br><span class="hljs-comment">#  cluster-name-expression: &quot;&#x27;default&#x27;&quot; </span><br>  <span class="hljs-attr">combine-host-port:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">cluster-name-expression:</span> <span class="hljs-string">metadata[&#x27;cluster&#x27;]</span> <span class="hljs-comment"># 参数指定了集群名称为</span><br>  <span class="hljs-attr">aggregator:</span><br>    <span class="hljs-attr">cluster-config:</span> <span class="hljs-string">ribbon</span><br>  <span class="hljs-attr">instanceUrlSuffix:</span> <span class="hljs-string">/hystrix.stream</span><br></code></pre></td></tr></table></figure>
+<p>  <strong>turbine.appConfig</strong>: 配置 Eureka 中的 serviceId 列表，表明监控哪些服务<br>  <strong>turbine.aggregator.clusterConfig</strong>: 指定聚合哪些集群，多个使用”,”分割，默认为 default。可使用 http:&#x2F;&#x2F;…&#x2F;turbine.stream?cluster&#x3D;{clusterConfig之一} 访问<br>  <strong>turbine.clusterNameExpression</strong>:<br>  1. clusterNameExpression 指定集群名称，默认表达式 appName；此时： turbine.aggregator.clusterConfig 需要配置想要监控的应用名称；<br>  2. 当 clusterNameExpression: default 时，turbine.aggregator.clusterConfig可以不写，因为默认就是default；<br>  3. 当 clusterNameExpression: metadata[‘cluster’]时，假设想要监控的应用配置了 eureka.instance.metadata-map.cluster: ABC，则需要配置，同时 turbine.aggregator.clusterConfig: ABC  </p>
+</li>
+<li><p>启动类注解<br>  @EnableTurbine<br>  @EnableHystrixDashboard  </p>
+</li>
+<li><p>demo-ribbon 和 demo-ribbon-2 的配置文件</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">eureka:</span><br><span class="hljs-symbol">    client:</span><br><span class="hljs-symbol">        serviceUrl:</span><br><span class="hljs-symbol">          defaultZone:</span> http:<span class="hljs-comment">//localhost:8761/eureka/</span><br><span class="hljs-symbol">    instance:</span><br>        metadata-map:<br><span class="hljs-symbol">         cluster:</span> ribbon<br><span class="hljs-symbol">         </span><br><span class="hljs-symbol">    server:</span><br><span class="hljs-symbol">        port:</span> <span class="hljs-number">8765</span><br><span class="hljs-symbol">    spring:</span><br><span class="hljs-symbol">        application:</span><br><span class="hljs-symbol">            name:</span> demo-ribbon<br><span class="hljs-symbol">    management:</span><br><span class="hljs-symbol">      endpoints:</span><br><span class="hljs-symbol">        web:</span><br><span class="hljs-symbol">          exposure:</span><br>            include[<span class="hljs-number">0</span>]: <span class="hljs-string">&quot;hystrix.stream&quot;</span><br>            include[<span class="hljs-number">1</span>]: <span class="hljs-string">&quot;health&quot;</span><br>            include[<span class="hljs-number">2</span>]: <span class="hljs-string">&quot;info&quot;</span><br></code></pre></td></tr></table></figure>
+<p>  _注意_： 如果加了 management.endpoints.web, 则 turbine 的配置文件中相匹配的集群的 instanceUrlSuffix 为 &#x2F;actuator&#x2F;health  </p>
+<p>  多集群配置：  </p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">turbine:</span><br>    <span class="hljs-attr">app-config:</span> <span class="hljs-string">demo-ribbon,</span> <span class="hljs-string">demo-ribbon-2,</span> <span class="hljs-string">demo-client-feign</span> <span class="hljs-comment"># 参数指定了需要收集监控信息的服务名</span><br><span class="hljs-comment">#  cluster-name-expression: &quot;&#x27;default&#x27;&quot; </span><br>    <span class="hljs-attr">combine-host-port:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">cluster-name-expression:</span> <span class="hljs-string">metadata[&#x27;cluster&#x27;]</span> <span class="hljs-comment"># 参数指定了集群名称为</span><br>    <span class="hljs-attr">aggregator:</span><br>        <span class="hljs-attr">cluster-config:</span> <span class="hljs-string">ribbon,</span> <span class="hljs-string">feign</span><br>    <span class="hljs-attr">instanceUrlSuffix:</span> <br>        <span class="hljs-attr">ribbon:</span> <span class="hljs-string">actuator/hystrix.stream</span><br>        <span class="hljs-attr">feign:</span> <span class="hljs-string">actuator/hystrix.stream</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问地址<br>  &#x2F;hystrix<br>  <a href="http://turbine-hostname:port/turbine.stream?cluster=ribbon">http://turbine-hostname:port/turbine.stream?cluster=ribbon</a></p>
+</li>
+<li><p>需注意的是，turbine 监控的 hystrix 可以缺少 spring-cloud-starter-netflix-hystrix-dashboard</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="第五章-网关"><a href="#第五章-网关" class="headerlink" title="第五章 网关"></a>第五章 网关</h2><p>智能路由网关组件Zuul，用于构建边界服务(Edge Service)，致力于动态路由、过滤、监控、弹性伸缩和安全  </p>
+<p>作用:  </p>
+<ul>
+<li>Zuul、Ribbon 以及 Eureka 相结合，可以实现智能路由和负载均衡的功能，Zuul 能够将请求流量按某种策略分发到集群状态的多个服务实例  </li>
+<li>网关将所有服务的 API 接口统一聚合，并统一对外暴露。  </li>
+<li>网关服务可以做用户身份认证和权限认证，防止非法请求操作 API 接口，对服务器起到保护作用  </li>
+<li>网关可以实现监控功能，实时日志输出，对请求进行记录  </li>
+<li>网关可以用来实现流量监控，高流量的情况下，对服务进行降级  </li>
+<li>API 接口从内部服务分离出来，方便做测试</li>
+</ul>
+<p>过滤器:  </p>
+<ul>
+<li>PRE 过滤器: 它是在请求路由到具体的服务之前执行的，这种类型的过滤器可以做安全验证，如身份验证、参数验证。  </li>
+<li>ROUTING 过滤器: 它用于将请求路由到具体的微服务实例。在默认情况下，它使用Http Client 进行网络请求。  </li>
+<li>POST 过滤器: 他是在请求已被路由到微服务后执行的。一般情况下，用作收集统计信息、指标，以及将响应传输到客户端。  </li>
+<li>ERROR 过滤器: 它是在其他过滤器发生错误时执行的。</li>
+</ul>
+<h3 id="构建网关"><a href="#构建网关" class="headerlink" title="构建网关"></a>构建网关</h3><ul>
+<li>依赖    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-zuul<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>启动类<br>  添加 @EnableZuulProxy 注解开启 Zuul 的 API 网关服务功能。</li>
+<li>application.yml  <ul>
+<li>相关配置，包括配置服务注册中心的地址，程序的端口，程序名等  </li>
+<li>路由配置：  <ul>
+<li>传统路由方式:<br>  zuul.routes.app-a-url.path &#x3D; &#x2F;api-a-url&#x2F;<br>  zuul.routes.app-a-url.url &#x3D; <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a><br>  一旦指定了 Url，Zuul 就不能做负载均衡了，而是直接访问指定的Url，在实际的开发中这种做法不可取</li>
+<li>面向服务的路由:<br>  zuul.routes.app-a-url.path &#x3D; &#x2F;api-a-url&#x2F;<br>  zuul.routes.app-a-url.serviceId &#x3D; hello-service<br>  满足“&#x2F;api-a-url”开头的请求 Url 都会被分发到 hello-service 服务。如果某服务存在多个实例，Zuul 结合 Ribbon 会做负载均衡，将请求均分的部分路由到不同的服务实例。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="在-Zuul-上配置-API-接口的版本号"><a href="#在-Zuul-上配置-API-接口的版本号" class="headerlink" title="在 Zuul 上配置 API 接口的版本号"></a>在 Zuul 上配置 API 接口的版本号</h3><p>zuul.prefix: 给每个服务的 API 接口加前缀</p>
+<h3 id="Zuul-熔断"><a href="#Zuul-熔断" class="headerlink" title="Zuul 熔断"></a>Zuul 熔断</h3><p><em>Zuul 目前只支持服务级别的熔断，不支持具体到某个URL进行熔断。</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RibbonFallbackProviderImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">FallbackProvider</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getRoute</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;*&quot;</span>; <span class="hljs-comment">//这里是route的名称,不是服务的名称, 服务id，可以用* 或者 null 代表所有服务都过滤</span><br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ClientHttpResponse <span class="hljs-title function_">fallbackResponse</span><span class="hljs-params">(String route, Throwable cause)</span> &#123;<br>        <span class="hljs-comment">// TODO Auto-generated method stub</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClientHttpResponse</span>() &#123; <br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> HttpHeaders <span class="hljs-title function_">getHeaders</span><span class="hljs-params">()</span> &#123;<br>                <span class="hljs-type">HttpHeaders</span> <span class="hljs-variable">headers</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHeaders</span>();<br>                headers.setContentType(MediaType.APPLICATION_JSON_UTF8);<br>                <span class="hljs-keyword">return</span> headers;<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> InputStream <span class="hljs-title function_">getBody</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-type">JSONObject</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span><span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONObject</span>();<br>                json.put(<span class="hljs-string">&quot;state&quot;</span>,<span class="hljs-string">&quot;501&quot;</span>);<br>                json.put(<span class="hljs-string">&quot;msg&quot;</span>,<span class="hljs-string">&quot;后台接口错误&quot;</span>);<br><span class="hljs-comment">//                return new ByteArrayInputStream(json.toJSONString().getBytes(&quot;UTF-8&quot;)); //返回前端的内容</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(<span class="hljs-string">&quot;Zuul Fallback error string&quot;</span>.getBytes());<br>            &#125;  <br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getStatusText</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-keyword">return</span> HttpStatus.BAD_REQUEST.getReasonPhrase();<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> HttpStatus <span class="hljs-title function_">getStatusCode</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-comment">// TODO Auto-generated method stub</span><br>                <span class="hljs-keyword">return</span> HttpStatus.BAD_REQUEST;<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getRawStatusCode</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-keyword">return</span> HttpStatus.BAD_REQUEST.value();<br>            &#125;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> &#123;<br>                <span class="hljs-comment">// TODO Auto-generated method stub</span><br>            &#125;<br>        &#125;;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第六章-微服务监控-Spring-Boot-Admin"><a href="#第六章-微服务监控-Spring-Boot-Admin" class="headerlink" title="第六章 微服务监控 Spring Boot Admin"></a>第六章 微服务监控 Spring Boot Admin</h2><p>管理和监控一个或者多个 Spring Boot 程序。<br>分为 Server 端和 Client 端，Client 端可以通过 HTTP 向 Server 端注册，也可以结合 Spring Cloud 的服务注册组件 Eureka 进行注册。<br>监控内容包括 Spring Boot 的监控组件 Actuator 的各个Http 节点，也支持更高级的功能，包括 Turbine、Jmx、Loglevel等。  </p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>Spring Boot Admin（ 简称 SBA ）服务端需要向服务注册中心注册服务</p>
+<ul>
+<li><p><strong>服务端</strong>  </p>
+<ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>de.codecentric<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-admin-starter-server<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>  2.0.3 使用不成功，不了解原因  </p>
+</li>
+<li><p>启动类<br>  添加 @EnableAdminServer 注解  </p>
+</li>
+<li><p>配置文件<br>  配置端口号、程序名、服务注册中心地址</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">server:</span><br><span class="hljs-symbol">  port:</span> <span class="hljs-number">8770</span><br><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  application:</span><br><span class="hljs-symbol">    name:</span> demo-admin-server<br><span class="hljs-symbol"></span><br><span class="hljs-symbol">eureka:</span>   <br><span class="hljs-symbol">  client:</span><br><span class="hljs-symbol">    serviceUrl:</span><br><span class="hljs-symbol">      defaultZone:</span> $<span class="hljs-punctuation">&#123;</span>EUREKA_SERVICE_URL:http:<span class="hljs-comment">//localhost:8761&#125;/eureka/</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>客户端</strong>  </p>
+<ul>
+<li><p><strong>引入SBA Client</strong>  </p>
+<ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>de.codecentric<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-admin-starter-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.0.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>  客户端需要引入 actuator 依赖，服务端不需要  </p>
+</li>
+<li><p>配置文件<br>  actuator 监控可暴露全部端口，显示所有信息</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  application:</span><br><span class="hljs-symbol">    name:</span> user<br><span class="hljs-symbol">  boot:</span><br><span class="hljs-symbol">    admin:</span><br><span class="hljs-symbol">      client:</span><br><span class="hljs-symbol">        url:</span> http:<span class="hljs-comment">//localhost:8770</span><br><span class="hljs-symbol">eureka:</span><br><span class="hljs-symbol">  instance:</span><br><span class="hljs-symbol">    leaseRenewalIntervalInSeconds:</span> <span class="hljs-number">10</span><br>    health-check-url-path: <span class="hljs-keyword">/actuator/</span>health<br><span class="hljs-symbol">  client:</span><br><span class="hljs-symbol">    registryFetchIntervalSeconds:</span> <span class="hljs-number">5</span><br>    service-url:<br><span class="hljs-symbol">      defaultZone:</span> $<span class="hljs-punctuation">&#123;</span>EUREKA_SERVICE_URL:http:<span class="hljs-comment">//localhost:8671&#125;/eureka/</span><br><span class="hljs-symbol">management:</span><br><span class="hljs-symbol">  endpoints:</span><br><span class="hljs-symbol">    web:</span><br><span class="hljs-symbol">      exposure:</span><br><span class="hljs-symbol">        include:</span> <span class="hljs-string">&quot;*&quot;</span><br><span class="hljs-symbol">  endpoint:</span><br><span class="hljs-symbol">    health:</span><br>      show-details: ALWAYS<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>基于 Spring Cloud Discovery</strong></p>
+</li>
+</ul>
+<p>  让 SBA 通过注册中心（Eureka、Consul等）来发现服务。<br>  只需要在 admin-client 中改变引入的依赖，其他不需要改变，即可<br>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--&lt;dependency&gt;--&gt;</span><br>    <span class="hljs-comment">&lt;!--&lt;groupId&gt;de.codecentric&lt;/groupId&gt;--&gt;</span><br>    <span class="hljs-comment">&lt;!--&lt;artifactId&gt;spring-boot-admin-starter-client&lt;/artifactId&gt;--&gt;</span><br>    <span class="hljs-comment">&lt;!--&lt;version&gt;2.0.1&lt;/version&gt;--&gt;</span><br><span class="hljs-comment">&lt;!--&lt;/dependency&gt;--&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br></code></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<h3 id="安全配置"><a href="#安全配置" class="headerlink" title="安全配置"></a>安全配置</h3><p>SBA 服务端可以访问客户端的敏感点，因此建议为服务端和客户端添加一些安全配置  </p>
+<h4 id="服务端的安全配置"><a href="#服务端的安全配置" class="headerlink" title="服务端的安全配置"></a>服务端的安全配置</h4><ul>
+<li><p>添加依赖  </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件<br>  设置账号密码以及其他一些配置</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">server:</span><br><span class="hljs-symbol">  port:</span> <span class="hljs-number">8770</span><br><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  application:</span><br><span class="hljs-symbol">    name:</span> demo-admin-server<br><span class="hljs-symbol">  security:</span><br><span class="hljs-symbol">    user:</span><br><span class="hljs-symbol">      name:</span> admin<br><span class="hljs-symbol">      password:</span> admin<br><span class="hljs-symbol"></span><br><span class="hljs-symbol">eureka:</span>   <br><span class="hljs-symbol">  instance:</span><br><span class="hljs-symbol">    leaseRenewalIntervalInSeconds:</span> <span class="hljs-number">10</span><br>    health-check-url-path: <span class="hljs-keyword">/actuator/</span>health<br><span class="hljs-symbol">  client:</span><br><span class="hljs-symbol">    registryFetchIntervalSeconds:</span> <span class="hljs-number">5</span><br><span class="hljs-symbol">    serviceUrl:</span><br><span class="hljs-symbol">      defaultZone:</span> $<span class="hljs-punctuation">&#123;</span>EUREKA_SERVICE_URL:http:<span class="hljs-comment">//localhost:8761&#125;/eureka/</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">management:</span><br><span class="hljs-symbol">  endpoints:</span><br><span class="hljs-symbol">    web:</span><br><span class="hljs-symbol">      exposure:</span><br><span class="hljs-symbol">        include:</span> <span class="hljs-string">&quot;*&quot;</span><br><span class="hljs-symbol">  endpoint:</span><br><span class="hljs-symbol">    health:</span><br>      show-details: ALWAYS<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>新增一个安全配置类  </p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@Configuration<br>public <span class="hljs-keyword">class</span> SecuritySecureConfig extends WebSecurityConfigurerAdapter &#123;<br><br>    <span class="hljs-keyword">private</span> final String adminContextPath;<br><br>    public <span class="hljs-constructor">SecuritySecureConfig(AdminServerProperties <span class="hljs-params">adminServerProperties</span>)</span> &#123;<br>        this.adminContextPath = adminServerProperties.get<span class="hljs-constructor">ContextPath()</span>;<br>    &#125;<br><br>    @Override<br>    protected void configure(HttpSecurity http) throws Exception &#123;<br>        <span class="hljs-comment">// @formatter:off</span><br>        SavedRequestAwareAuthenticationSuccessHandler successHandler = <span class="hljs-keyword">new</span> <span class="hljs-constructor">SavedRequestAwareAuthenticationSuccessHandler()</span>;<br>        successHandler.set<span class="hljs-constructor">TargetUrlParameter(<span class="hljs-string">&quot;redirectTo&quot;</span>)</span>;<br><br>        http.authorize<span class="hljs-constructor">Requests()</span><br>                .ant<span class="hljs-constructor">Matchers(<span class="hljs-params">adminContextPath</span> + <span class="hljs-string">&quot;/assets/**&quot;</span>)</span>.permit<span class="hljs-constructor">All()</span><br>                .ant<span class="hljs-constructor">Matchers(<span class="hljs-params">adminContextPath</span> + <span class="hljs-string">&quot;/login&quot;</span>)</span>.permit<span class="hljs-constructor">All()</span><br>                .any<span class="hljs-constructor">Request()</span>.authenticated<span class="hljs-literal">()</span><br>                .<span class="hljs-keyword">and</span><span class="hljs-literal">()</span><br>                .form<span class="hljs-constructor">Login()</span>.login<span class="hljs-constructor">Page(<span class="hljs-params">adminContextPath</span> + <span class="hljs-string">&quot;/login&quot;</span>)</span>.success<span class="hljs-constructor">Handler(<span class="hljs-params">successHandler</span>)</span>.<span class="hljs-keyword">and</span><span class="hljs-literal">()</span><br>                .logout<span class="hljs-literal">()</span>.logout<span class="hljs-constructor">Url(<span class="hljs-params">adminContextPath</span> + <span class="hljs-string">&quot;/logout&quot;</span>)</span>.<span class="hljs-keyword">and</span><span class="hljs-literal">()</span><br>                .http<span class="hljs-constructor">Basic()</span>.<span class="hljs-keyword">and</span><span class="hljs-literal">()</span><br>                .csrf<span class="hljs-literal">()</span>.disable<span class="hljs-literal">()</span>;<br>        <span class="hljs-comment">// @formatter:on</span><br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>如果你的客户端使用的是 SBA Client 的方式，客户端此时已无法注册到服务端（Spring Cloud Discovery 不受影响），需要在配置文件添加：  </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">spring<span class="hljs-selector-class">.boot</span><span class="hljs-selector-class">.admin</span><span class="hljs-selector-class">.client</span>:<br>  username: <span class="hljs-string">&quot;admin&quot;</span><br>  password: <span class="hljs-string">&quot;admin&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="客户端的安全配置"><a href="#客户端的安全配置" class="headerlink" title="客户端的安全配置"></a>客户端的安全配置</h4><h5 id="SBA-Client-的安全配置"><a href="#SBA-Client-的安全配置" class="headerlink" title="SBA Client 的安全配置"></a>SBA Client 的安全配置</h5><ul>
+<li>客户端的配置文件  <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">server.port</span>=<span class="hljs-number">8081</span><br><br><span class="hljs-attr">spring.application.name</span>=demo-admin-client-<span class="hljs-number">2</span><br><span class="hljs-attr">spring.boot.admin.client.url</span>=http://localhost:<span class="hljs-number">8770</span><br><span class="hljs-attr">management.endpoints.web.exposure.include</span>=*<br><br><span class="hljs-attr">spring.security.user.name</span>=client1<br><span class="hljs-attr">spring.security.user.password</span>=client1<br><br><span class="hljs-attr">spring.boot.admin.client.username</span>=admin<br><span class="hljs-attr">spring.boot.admin.client.password</span>=<span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure></li>
+<li>服务器端的配置文件增加  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>   <span class="hljs-attr">port:</span> <span class="hljs-number">8770</span><br> <span class="hljs-attr">spring:</span><br>   <span class="hljs-attr">application:</span><br>     <span class="hljs-attr">name:</span> <span class="hljs-string">demo-admin-server</span><br>   <span class="hljs-attr">security:</span><br>     <span class="hljs-attr">user:</span><br>       <span class="hljs-attr">name:</span> <span class="hljs-string">admin</span><br>       <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br><br> <span class="hljs-attr">eureka:</span>   <br>   <span class="hljs-attr">instance:</span><br>     <span class="hljs-attr">leaseRenewalIntervalInSeconds:</span> <span class="hljs-number">10</span><br>     <span class="hljs-attr">health-check-url-path:</span> <span class="hljs-string">/actuator/health</span><br>     <span class="hljs-attr">metadata-map:</span><br>       <span class="hljs-attr">user.name:</span> <span class="hljs-string">$&#123;spring.security.user.name&#125;</span><br>       <span class="hljs-attr">user.password:</span> <span class="hljs-string">$&#123;spring.security.user.password&#125;</span> <br>   <span class="hljs-attr">client:</span><br>     <span class="hljs-attr">registryFetchIntervalSeconds:</span> <span class="hljs-number">5</span><br>     <span class="hljs-attr">serviceUrl:</span><br>       <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">$&#123;EUREKA_SERVICE_URL:http://localhost:8761&#125;/eureka/</span><br><br> <span class="hljs-attr">management:</span><br>   <span class="hljs-attr">endpoints:</span><br>     <span class="hljs-attr">web:</span><br>       <span class="hljs-attr">exposure:</span><br>         <span class="hljs-attr">include:</span> <span class="hljs-string">&quot;*&quot;</span><br>   <span class="hljs-attr">endpoint:</span><br>     <span class="hljs-attr">health:</span><br>       <span class="hljs-attr">show-details:</span> <span class="hljs-string">ALWAYS</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="Spring-Cloud-Discovery-的安全配置"><a href="#Spring-Cloud-Discovery-的安全配置" class="headerlink" title="Spring Cloud Discovery 的安全配置"></a>Spring Cloud Discovery 的安全配置</h5><ul>
+<li>客户端的配置文件<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">spring</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">application</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">name</span><span class="hljs-punctuation">:</span> <span class="hljs-string">user</span><br>  <span class="hljs-attribute">security</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">user</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">name</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;client&quot;</span><br>      <span class="hljs-attribute">password</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;client&quot;</span><br><span class="hljs-attribute">eureka</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">instance</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">leaseRenewalIntervalInSeconds</span><span class="hljs-punctuation">:</span> <span class="hljs-string">10</span><br>    <span class="hljs-attribute">health-check-url-path</span><span class="hljs-punctuation">:</span> <span class="hljs-string">/actuator/health</span><br>    <span class="hljs-attribute">metadata-map</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">user.name</span><span class="hljs-punctuation">:</span> <span class="hljs-string">$&#123;spring.security.user.name&#125;</span><br>      <span class="hljs-attribute">user.password</span><span class="hljs-punctuation">:</span> <span class="hljs-string">$&#123;spring.security.user.password&#125;</span><br>  <span class="hljs-attribute">client</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">registryFetchIntervalSeconds</span><span class="hljs-punctuation">:</span> <span class="hljs-string">5</span><br>    <span class="hljs-attribute">service-url</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">defaultZone</span><span class="hljs-punctuation">:</span> <span class="hljs-string">$&#123;EUREKA_SERVICE_URL:http://localhost:8671&#125;/eureka/</span><br><span class="hljs-attribute">management</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">endpoints</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">web</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">exposure</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-attribute">include</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;*&quot;</span><br>  <span class="hljs-attribute">endpoint</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">health</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">show-details</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ALWAYS</span><br></code></pre></td></tr></table></figure></li>
+<li>服务端的配置文件<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">management.endpoints.web.exposure.include</span>=*<br><span class="hljs-attr">management.endpoint.health.enabled</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">spring.application.name</span>=demo-admin-client<br><span class="hljs-attr">server.port</span>=<span class="hljs-number">8771</span><br><span class="hljs-attr">eureka.client.service-url.defaultZone</span>=<span class="hljs-variable">$&#123;EUREKA_SERVICE_URL:http://localhost:8761&#125;</span>/eureka/<br><br><span class="hljs-attr">spring.security.user.name</span>=client<br><span class="hljs-attr">spring.security.user.password</span>=client<br><br><span class="hljs-attr">eureka.instance.metadata-map.user.name</span>=<span class="hljs-variable">$&#123;spring.security.user.name&#125;</span><br><span class="hljs-attr">eureka.instance.metadata-map.user.password</span>=<span class="hljs-variable">$&#123;spring.security.user.password&#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="变化"><a href="#变化" class="headerlink" title="变化"></a>变化</h3><p>去除了 hystrix dashboard 功能，用 Vue.js 取代 AngularJs 编写 UI 界面。 </p>
+<ul>
+<li><p>UI<br>Rewritten ui using vue.js<br>Integrated ui-login module into the main ui module<br>Removed ui-activiti module, as it was only used rarely<br>Removed Hystrix-Dashboard integration (subject to change)<br>Added support for the session endpoint<br>Added display of the (sanitized) metadata<br>Added option to reset loglevels<br>Added wallboard view  </p>
+</li>
+<li><p>Backend<br>Moved all classes to the spring.boot.admin.server package<br>Redesigned backend using event sourcing principles<br>Added concept of applications (consisting of 1 to n instances)<br>Moved endpoint detection to the backend by querying the &#x2F;actuator-index or by probing via OPTIONS request<br>Replaced Zuul with a custom proxy using the WebClient<br>Removed dependency on spring-cloud-starter<br>Added CompositeHttpHeadersProvider to support multiple HttpHeadersProviders at the same time<br>Added <code>InstanceExchangeFilterFunction</code>s which allows to intercept&#x2F;modify the requests to the monitored instances<br>Added out-of-the-box support for CloudFoundry<br>Added support for Spring Boot 1.5.x actuator endpoints using LegacyEndpointConverters<br>Update OpsGenieNotifier to api v2<br>Rewritten the MailNotifier to use Thymeleaf templates  </p>
+</li>
+<li><p>Client<br>Moved all properties to spring.boot.admin.client. and spring.boot.admin.client.instance.<br>Moved all classes to the spring.boot.admin.client package<br>Added support webflux applications<br>Added out-of-the-box support for CloudFoundry</p>
+</li>
+</ul>
+<hr>
+<h2 id="第七章-Sleuth-链路追踪"><a href="#第七章-Sleuth-链路追踪" class="headerlink" title="第七章 Sleuth 链路追踪"></a>第七章 Sleuth 链路追踪</h2><p>微服务架构是通过业务来划分服务的，对外暴露的接口，可能需要很多个服务协同才能完成一个接口功能，如果链路上任何一个服务出现问题，都会形成导致接口调用失败。此时查找出现问题的微服务是很困难的。<br>Spring Cloud Sleuth 主要功能就是在分布式系统中提供追踪解决方案，并且兼容支持了 zipkin。  </p>
+<h3 id="zipkin-服务端"><a href="#zipkin-服务端" class="headerlink" title="zipkin 服务端"></a>zipkin 服务端</h3><p>并非不能自己代码构建，但官方目前建议用已经提供好的server。构建方法也可以查看<a target="_blank" rel="noopener" href="https://zipkin.io/pages/quickstart.html">官网</a>或者 <a target="_blank" rel="noopener" href="https://github.com/openzipkin/zipkin#quick-start">github</a>，默认端口是9411，可通过几种方式构建。<br>这里通过直接拉取源代码编译： java -jar .&#x2F;zipkin-server&#x2F;target&#x2F;zipkin-server-*exec.jar<br>Zipkin Server的下载地址：<br><a target="_blank" rel="noopener" href="https://dl.bintray.com/openzipkin/maven/io/zipkin/java/zipkin-server/">https://dl.bintray.com/openzipkin/maven/io/zipkin/java/zipkin-server/</a><br>完成后访问<a target="_blank" rel="noopener" href="http://localhost:9411/">http://localhost:9411/</a> ，可查看到管理界面  </p>
+<h3 id="zipkin-客户端"><a href="#zipkin-客户端" class="headerlink" title="zipkin 客户端"></a>zipkin 客户端</h3><p>新建两个客户端，然后 client2 调用 client1 中的某个服务  </p>
+<ul>
+<li>依赖  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-zipkin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>application.yml 中  <ul>
+<li>spring.zipkin.base-url指定zipkin server端的地址, 一般为<a target="_blank" rel="noopener" href="http://localhost:9411/">http://localhost:9411/</a>   </li>
+<li>spring.sleuth.sampler.probalility指定采样百分比，默认0.1，改成1.0表示所有数据都采用。</li>
+</ul>
+</li>
+<li>见 Ribbon</li>
+</ul>
+<hr>
+<h2 id="第八章-Spring-Cloud-配置中心"><a href="#第八章-Spring-Cloud-配置中心" class="headerlink" title="第八章 Spring Cloud 配置中心"></a>第八章 Spring Cloud 配置中心</h2><p>Spring Cloud Config 是 Spring Cloud 团队创建的一个全新项目，用来为分布式系统中的基础设施和微服务应用提供集中化的外部配置支持，它分为服务端与客户端两个部分。  </p>
+<p>服务端也称为分布式配置中心，它是一个独立的微服务应用，用来连接配置仓库并为客户端提供获取配置信息、加密 &#x2F; 解密信息等访问接口；<br>而客户端则是微服务架构中的各个微服务应用或基础设施，它们通过指定的配置中心来管理应用资源与业务相关的配置内容，并在启动的时候从配置中心获取和加载配置信息。  </p>
+<p>由于 Spring Cloud Config 实现的配置中心默认采用 Git 来存储配置信息，所以使用 Spring Cloud Config 构建的配置服务器，天然就支持对微服务应用配置信息的版本管理，并且可以通过 Git 客户端工具来方便的管理和访问配置内容。当然它也提供了对其他存储方式的支持，比如：SVN 仓库、本地化文件系统。  </p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li><strong>Server 端</strong>  <ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>配置文件  </p>
+<ul>
+<li>本地配置    <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">server.port</span>=<span class="hljs-number">8774</span><br><span class="hljs-attr">spring.application.name</span>=demo_config_server<br><span class="hljs-attr">spring.profiles.active</span>=native<br><span class="hljs-attr">spring.cloud.config.server.native.search-locations</span>=classpath:/shared<br></code></pre></td></tr></table></figure></li>
+<li>Git 仓库配置    <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs routeros">server.<span class="hljs-attribute">port</span>=8774<br>spring.application.<span class="hljs-attribute">name</span>=demo_config_server<br>spring.cloud.config.server.git.<span class="hljs-attribute">uri</span>=http://github.com/xxx/springcloud<br><span class="hljs-comment"># 远程仓库中配置文件所在路径</span><br>spring.cloud.config.server.git.<span class="hljs-attribute">search-paths</span>=config-reg<br><span class="hljs-comment"># GitHub 仓库的登录名和密码，私有仓库登录名和密码是必须的，公共仓库可以不需要</span><br>spring.cloud.config.server.git.username=<br>spring.cloud.config.server.git.password=<br><span class="hljs-comment"># 仓库的分支</span><br>spring.cloud.config.server.git.<span class="hljs-attribute">default-label</span>=master<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>设置属性 <strong>spring.profiles.active&#x3D;native</strong>, Config Server 会默认从应用的src&#x2F;main&#x2F;resource目录下检索配置文件<br>也可以通过 <strong>spring.cloud.config.server.native.searchLocations&#x3D;file:E:&#x2F;properties&#x2F;</strong> 属性来指定配置文件的位置  </p>
+</blockquote>
+<pre><code class="hljs">+ 启动类  
+    添加 @EnableConfigServer，激活对配置中心的支持  
+</code></pre>
+<blockquote>
+<p>仓库中的配置文件会被转换成 Web 接口，访问可以参照以下的规则：</p>
+<p>  &#x2F;{application}&#x2F;{profile}[&#x2F;{label}]<br>  &#x2F;{application}-{profile}.yml<br>  &#x2F;{label}&#x2F;{application}-{profile}.yml<br>  &#x2F;{application}-{profile}.properties<br>  &#x2F;{label}&#x2F;{application}-{profile}.properties  </p>
+<p>上面的 URL 会映射{application}-{profile}.yml对应的配置文件，其中{label}对应 Git 上不同的分支，默认为 master。以 config-client-dev.yml 为例子，它的 application 是 config-client，profile 是 dev。</p>
+</blockquote>
+<ul>
+<li><p><strong>Client 端</strong></p>
+<ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>配置文件<br>  application.yml</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  application:</span><br><span class="hljs-symbol">    name:</span> config-git<br><span class="hljs-symbol">server:</span><br><span class="hljs-symbol">  port:</span> <span class="hljs-number">13000</span><br></code></pre></td></tr></table></figure>
+<p>  bootstrap.yml</p>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  cloud:</span><br><span class="hljs-symbol">    config:</span><br><span class="hljs-symbol">      uri:</span> http:<span class="hljs-comment">//localhost:12000 # 配置中心的具体地址，即 config-server</span><br><span class="hljs-symbol">      name:</span> config-client <span class="hljs-meta"># 对应 &#123;application&#125; 部分</span><br><span class="hljs-symbol">      profile:</span> dev <span class="hljs-meta"># 对应 &#123;profile&#125; 部分</span><br><span class="hljs-symbol">      label:</span> master <span class="hljs-meta"># 对应 &#123;label&#125; 部分，即 Git 的分支。如果配置中心使用的是本地存储，则该参数无用</span><br></code></pre></td></tr></table></figure>
+<p>  __特别注意__：上面这些与 Spring Cloud Config 相关的属性必须配置在 <strong>bootstrap.yml</strong> 中，config 部分内容才能被正确加载。<br>  因为 config 的相关配置会先于 application.yml，而 bootstrap.yml 的加载也是先于 application.yml。  </p>
+</li>
+<li><p>启动类<br>  无需修改<br>  Controller 中使用 @Value 注解来获取 Server 端参数值</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Refresh</strong><br>因为 Spring Cloud Config 分服务端和客户端，服务端负责将 Git 中存储的配置文件发布成 REST 接口，客户端可以从服务端 REST 接口获取配置。但客户端并不能主动感知到配置的变化，从而主动去获取新的配置。每个客户端通过 POST 方法触发各自的 &#x2F;actuator&#x2F;refresh。  </p>
+<ul>
+<li>添加依赖    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>spring-boot-starter-actuator是一套监控的功能，可以监控程序在运行时状态，其中就包括&#x2F;actuator&#x2F;refresh的功能。  </p>
+<pre><code class="hljs">+ 开启更新机制  
+在加载变量的类上面加载 @RefreshScope, 在客户端执行 /actuator/refresh 时就会更新此类下面的变量值  
+
++ 配置文件  
+1.5x 以上默认开通了安全认证，所以要在配置文件 appliction.yml 中添加以下配置，以将 /actuator/refresh 暴露出来  
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">management:</span><br><span class="hljs-symbol">  endpoints:</span><br><span class="hljs-symbol">    web:</span><br><span class="hljs-symbol">      exposure:</span><br><span class="hljs-symbol">        include:</span> refresh<br></code></pre></td></tr></table></figure>
+</code></pre>
+<ul>
+<li><strong>Webhook</strong></li>
+</ul>
+<p>Webhook 是当某个事件发生时，通过发送 HTTP POST 请求的方式来通知信息接收方。Webhook 来监测你在 Github.com 上的各种事件，最常见的莫过于 push 事件。如果你设置了一个监测 push 事件的 Webhook，那么每当你的这个项目有了任何提交，这个 Webhook 都会被触发，这时 Github 就会发送一个 HTTP POST 请求到你配置好的地址。</p>
+<h3 id="服务化与高可用"><a href="#服务化与高可用" class="headerlink" title="服务化与高可用"></a>服务化与高可用</h3><p>把 config-server 也注册为服务，这样所有客户端就能以服务的方式进行访问。通过这种方法，只需要启动多个指向同一 Git 仓库位置的 config-server 就能实现高可用。  </p>
+<ul>
+<li><p>服务端改造</p>
+<ul>
+<li><p>添加依赖</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml<br>  在 application.yml 里新增 Eureka 的配置</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">eureka:<br>  client:<br>    service-url:<br>      defaultZone: http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8761</span><span class="hljs-regexp">/eureka/</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>客户端改造  </p>
+<ul>
+<li><p>添加依赖  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件<br>  bootstrap.yml  </p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">config:</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">config-client</span><br>      <span class="hljs-attr">profile:</span> <span class="hljs-string">dev</span><br>      <span class="hljs-attr">label:</span> <span class="hljs-string">master</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">service-id:</span> <span class="hljs-string">config-server</span><br><span class="hljs-attr">eureka:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">service-url:</span><br>      <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">http://localhost:8761/eureka/</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>  主要是去掉了 <strong>spring.cloud.config.uri</strong> 直接指向 Server 端地址的配置，增加了最后的三个配置：  </p>
+<ul>
+<li>__spring.cloud.config.discovery.enabled__：开启 Config 服务发现支持  </li>
+<li>__spring.cloud.config.discovery.serviceId__：指定 Server 端的 name, 也就是 Server 端spring.application.name的值  </li>
+<li>__eureka.client.service-url.defaultZone__：指向配置中心的地址</li>
+</ul>
+<p>  这三个配置文件都需要放到bootstrap.yml的配置中。</p>
+</li>
+</ul>
+<h3 id="消息总线-Bus"><a href="#消息总线-Bus" class="headerlink" title="消息总线 Bus"></a>消息总线 Bus</h3><p>如果需要客户端获取到最新的配置信息需要执行refresh，我们可以利用 Webhook 的机制每次提交代码发送请求来刷新客户端，当客户端越来越多的时候，需要每个客户端都执行一遍，这种方案就不太适合了。使用 Spring Cloud Bus 可以完美解决这一问题。  </p>
+<h4 id="Spring-Cloud-Bus"><a href="#Spring-Cloud-Bus" class="headerlink" title="Spring Cloud Bus"></a>Spring Cloud Bus</h4><p>通过轻量消息代理连接各个分布的节点。这会用在广播状态的变化（例如配置变化）或者其他的消息指令。Spring Bus 的一个核心思想是通过分布式的启动器对 Spring Boot 应用进行扩展，也可以用来建立一个多个应用之间的通信频道。目前唯一实现的方式是用 Amqp 消息代理作为通道，同样特性的设置（有些取决于通道的设置）在更多通道的文档中。  </p>
+<p>Spring Cloud Bus 被国内很多都翻译为消息总线，也挺形象的。大家可以将它理解为管理和传播所有分布式项目中的消息既可，其实本质是利用了 MQ 的广播机制在分布式的系统中传播消息，目前常用的有 Kafka 和 RabbitMQ。利用 Bus 的机制可以做很多的事情，其中配置中心客户端刷新就是典型的应用场景之一。  </p>
+<p>由于使用了 RabbitMQ，首先必须安装 RabbitMQ  </p>
+<ul>
+<li><p><strong>服务端</strong></p>
+<ul>
+<li><p>添加依赖<br>  必须的  </p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-bus<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-stream-binder-rabbit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件  </p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">config-server</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">config:</span><br>      <span class="hljs-attr">server:</span><br>        <span class="hljs-attr">git:</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">https://github.com/zhaoyibo/spring-cloud-study</span><br>          <span class="hljs-attr">search-paths:</span> <span class="hljs-string">config-repo</span><br>    <span class="hljs-attr">bus:</span><br>      <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">trace:</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">12000</span><br><span class="hljs-attr">eureka:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">service-url:</span><br>      <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">http://localhost:8761/eureka/</span><br><span class="hljs-attr">management:</span><br>  <span class="hljs-attr">endpoints:</span><br>    <span class="hljs-attr">web:</span><br>      <span class="hljs-attr">exposure:</span><br>        <span class="hljs-attr">include:</span> <span class="hljs-string">bus-refresh</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>启动类<br>  加 @EnableConfigServer 注解</p>
+</li>
+</ul>
+</li>
+<li><p><strong>客户端</strong></p>
+<ul>
+<li><p>添加依赖<br>  必须的</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-bus<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-stream-binder-rabbit<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件<br>  application.yml</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">config-client</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">bus:</span><br>      <span class="hljs-attr">trace:</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">13000</span><br></code></pre></td></tr></table></figure>
+<p>  bootstrap.yml</p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">config:</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">config-client</span><br>      <span class="hljs-attr">profile:</span> <span class="hljs-string">dev</span><br>      <span class="hljs-attr">label:</span> <span class="hljs-string">master</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">service-id:</span> <span class="hljs-string">config-server</span><br><span class="hljs-attr">eureka:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">service-url:</span><br>      <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">http://localhost:7000/eureka/</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Controller<br>  @RefreshScope 必须加，否则客户端会受到服务端的更新消息，但是更新不了，因为不知道更新哪里的。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>测试</strong><br>  更改配置文件中的值。通过 Postman 或其他工具向 config server 发送一个 &#x2F;actuator&#x2F;bus-refresh&#x2F; 的 Post 请求，请求发送成功后，再访问浏览器</p>
+</li>
+</ul>
+<blockquote>
+<p>只要开启 Spring Cloud Bus 后，暴露 bus-refresh，不管是对 config-server 还是 config-client 执行&#x2F;actuator&#x2F;bus-refresh都是可以更新配置的</p>
+</blockquote>
+<ul>
+<li><p><strong>其他</strong></p>
+<ul>
+<li><strong>局部刷新</strong></li>
+</ul>
+<p>  可通过&#x2F;actuator&#x2F;bus-refresh&#x2F;{destination}端点的 destination 参数来定位要刷新的应用程序。  </p>
+<p>  例如：&#x2F;actuator&#x2F;bus-refresh&#x2F;customers:8000，这样消息总线上的微服务实例就会根据 destination 参数的值来判断是否需要要刷新。其中，customers:8000指的是各个微服务的 ApplicationContext ID。  </p>
+<p>  destination 参数也可以用来定位特定的微服务。例如：&#x2F;actuator&#x2F;bus-refresh&#x2F;customers:**，这样就可以触发 customers 微服务所有实例的配置刷新。  </p>
+<ul>
+<li><strong>跟踪总线事件</strong></li>
+</ul>
+<p>  跟踪总线事件非常简单，只需设置 __spring.cloud.bus.trace.enabled&#x3D;true__，这样在&#x2F;actuator&#x2F;bus-refresh端点被请求后。</p>
+</li>
+</ul>
+<blockquote>
+<p>可参考网页：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cralor/p/9239976.html">https://www.cnblogs.com/cralor/p/9239976.html</a></p>
+</blockquote>
+<hr>
+<h2 id="第九章-Spring-Cloud-Oauth2"><a href="#第九章-Spring-Cloud-Oauth2" class="headerlink" title="第九章 Spring Cloud Oauth2"></a>第九章 Spring Cloud Oauth2</h2><h3 id="TokenStore"><a href="#TokenStore" class="headerlink" title="TokenStore"></a>TokenStore</h3><p>Persistence interface for OAuth2 tokens.(对于 OAuth2 令牌持久化接口)<br>默认实现有三种：  </p>
+<ul>
+<li>InMemoryTokenStore  </li>
+<li>JdbcTokenStore  </li>
+<li>JwtTokenStore</li>
+</ul>
+<h4 id="InMemoryTokenStore"><a href="#InMemoryTokenStore" class="headerlink" title="InMemoryTokenStore"></a>InMemoryTokenStore</h4><p><strong>1. 概要</strong>  </p>
+<p>默认采用的实现方式。<br>在单服务上可以体现出很好特效（即并发量不大，并且在失败的时候不会进行备份）<br>存储在内存，调试简易</p>
+<p><strong>2. 实现</strong>  </p>
+<p>默认实现，直接调用即可  </p>
+<p><strong>3. 代码调用</strong>  </p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@Autowired</span>(required = <span class="hljs-keyword">false</span>)<br><span class="hljs-keyword">private</span> TokenStore inMemoryTokenStore;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>   endpoints.tokenStore(inMemoryTokenStore);<br>   ....<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="JdbcTokenStore"><a href="#JdbcTokenStore" class="headerlink" title="JdbcTokenStore"></a>JdbcTokenStore</h4><p><strong>1. 概要</strong><br>基于 JDBC 的实现，令牌会保存到数据库。<br>可以在多个服务直接实现令牌共享。  </p>
+<p><strong>2. 实现</strong>  </p>
+<p>1). 配置数据源<br>2). 数据库（见附录）<br>3). 配置 JdbcTokenStore</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> <span class="hljs-title class_">DataSource</span> dataSource;<br><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> <span class="hljs-title class_">TokenStore</span> <span class="hljs-title function_">jdbcTokenStore</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title class_">Assert</span>.<span class="hljs-title function_">state</span>(dataSource != <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;DataSource must be provided&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JdbcTokenStore</span>(dataSource);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>4). 代码调用  </p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@Autowired</span>(required = <span class="hljs-keyword">false</span>)<br><span class="hljs-keyword">private</span> TokenStore jdbcTokenStore;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>   endpoints.tokenStore(jdbcTokenStore);<br>   ....<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="JwtTokenStore"><a href="#JwtTokenStore" class="headerlink" title="JwtTokenStore"></a>JwtTokenStore</h4><p><strong>1. 概要</strong>  </p>
+<p>jwt 全称 JSON Web Token。<br>这个实现方式不用管如何进行存储，因为它可以把相关信息数据编码存放在令牌里。<br>不会保存任何数据，但是在转换令牌值以及授权信息方面与 DefaultTokenServices 所扮演的角色是一样的。  </p>
+<p><strong>2. 实现</strong>  </p>
+<p>jwt 存放在令牌中，考虑安全性，因此，OAuth2 提供了 JwtAccessTokenConverter 实现， 添加 jwtSigningKey, 以此生成秘钥，以此进行签名，只有 jwtSigningKey 才能获取信息。</p>
+<hr>
+<h2 id="第十章-Spring-Cloud-Gateway"><a href="#第十章-Spring-Cloud-Gateway" class="headerlink" title="第十章 Spring Cloud Gateway"></a>第十章 Spring Cloud Gateway</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-class">.route</span>(<span class="hljs-string">&quot;path_route&quot;</span>, r -&gt; r<span class="hljs-selector-class">.path</span>(<span class="hljs-string">&quot;/href&quot;</span>)<br>    <span class="hljs-selector-class">.filters</span>(fn -&gt; fn<span class="hljs-selector-class">.stripPrefix</span>(<span class="hljs-number">1</span>))<br>    <span class="hljs-selector-class">.uri</span>(<span class="hljs-string">&quot;https://www.baidu.com&quot;</span>))<br></code></pre></td></tr></table></figure>
+<h3 id="1-路由谓词工厂链"><a href="#1-路由谓词工厂链" class="headerlink" title="1. 路由谓词工厂链"></a>1. 路由谓词工厂链</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">spring</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">cloud</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">gateway</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">routes</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">id: gate-consumer</span><br>        <span class="hljs-attribute">uri</span><span class="hljs-punctuation">:</span> <span class="hljs-string">lb://gate-consumer</span><br>        <span class="hljs-attribute">predicates</span><span class="hljs-punctuation">:</span><br><span class="hljs-comment">#        - Path=/client/**</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">name: Path</span><br>          <span class="hljs-attribute">args</span><span class="hljs-punctuation">:</span><br>            <span class="hljs-attribute">pattern</span><span class="hljs-punctuation">:</span> <span class="hljs-string">/client/**</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">predicates:</span><br>  - name: Path<br><span class="hljs-symbol">    args:</span><br><span class="hljs-symbol">      pattern:</span> <span class="hljs-keyword">/client/</span>**<br>等同于<br><span class="hljs-symbol">predicates:</span><br>  - P<span class="hljs-attr">ath</span><span class="hljs-operator">=</span><span class="hljs-keyword">/client/</span>**<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-1-After-路由谓词工厂"><a href="#1-1-After-路由谓词工厂" class="headerlink" title="1.1 After 路由谓词工厂"></a>1.1 After 路由谓词工厂</h4><p>采用一个 datetime 类型的参数<br>匹配当前日期时间之后发生的请求  </p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">spring</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">cloud</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">gateway</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">routes</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">id: after_route</span><br>        <span class="hljs-attribute">uri</span><span class="hljs-punctuation">:</span> <span class="hljs-string">https://www.baidu.com</span><br>        <span class="hljs-attribute">predicates</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">After=2018-12-20T17:20:30.00-07:00[Asia/Shanghai]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-Before-路由谓词工厂"><a href="#1-2-Before-路由谓词工厂" class="headerlink" title="1.2 Before 路由谓词工厂"></a>1.2 Before 路由谓词工厂</h4><p>采用一个 datetime 类型的参数<br>匹配当前日期时间之前发生的请求  </p>
+<h4 id="1-3-Between-路由谓词工厂"><a href="#1-3-Between-路由谓词工厂" class="headerlink" title="1.3 Between 路由谓词工厂"></a>1.3 Between 路由谓词工厂</h4><p>采用两个 datetime 类型的参数，参数 2 必须在参数 1 之后<br>匹配日期之前发生的请求  </p>
+<h4 id="1-4-Cookie-路由谓词工厂"><a href="#1-4-Cookie-路由谓词工厂" class="headerlink" title="1.4 Cookie 路由谓词工厂"></a>1.4 Cookie 路由谓词工厂</h4><p>采用两个参数，Cookie 名称和正则表达式<br>匹配具有给定名称的 cookie，值与正则表达式匹配  </p>
+<h4 id="1-5-Header-路由谓词工厂"><a href="#1-5-Header-路由谓词工厂" class="headerlink" title="1.5 Header 路由谓词工厂"></a>1.5 Header 路由谓词工厂</h4><p>采用两个参数，Header 名称和正则表达式<br>匹配具有给定名称且值与正则表达式匹配的 Header 匹配  </p>
+<h4 id="1-6-Host-路由谓词工厂"><a href="#1-6-Host-路由谓词工厂" class="headerlink" title="1.6 Host 路由谓词工厂"></a>1.6 Host 路由谓词工厂</h4><p>采用一个 主机名模式 的参数，该模式是一种 Ant 样式模式作为分隔符<br>匹配该模式的主机头部匹配  </p>
+<h4 id="1-7-Method-路由谓词工厂"><a href="#1-7-Method-路由谓词工厂" class="headerlink" title="1.7 Method 路由谓词工厂"></a>1.7 Method 路由谓词工厂</h4><p>采用一个 要匹配的 HTTP 方法 的参数  </p>
+<h4 id="1-8-Method-路由谓词工厂"><a href="#1-8-Method-路由谓词工厂" class="headerlink" title="1.8 Method 路由谓词工厂"></a>1.8 Method 路由谓词工厂</h4><p>采用一个 Spring PurthMatter 模式 的参数  </p>
+<h4 id="1-9-Query-路由谓词工厂"><a href="#1-9-Query-路由谓词工厂" class="headerlink" title="1.9 Query 路由谓词工厂"></a>1.9 Query 路由谓词工厂</h4><p>采用两个参数，一个必需的参数和一个可选的正则表达式  </p>
+<h4 id="1-10-RemoteAddr-路由谓词工厂"><a href="#1-10-RemoteAddr-路由谓词工厂" class="headerlink" title="1.10 RemoteAddr 路由谓词工厂"></a>1.10 RemoteAddr 路由谓词工厂</h4><p>采用 CIDR 符合（IPv4 或 IPv6）字符串的列表（最小值为1）</p>
+<h3 id="2-网关过滤器工厂链"><a href="#2-网关过滤器工厂链" class="headerlink" title="2. 网关过滤器工厂链"></a>2. 网关过滤器工厂链</h3><h4 id="2-1-AddRequestHeader-网关过滤器工厂"><a href="#2-1-AddRequestHeader-网关过滤器工厂" class="headerlink" title="2.1 AddRequestHeader 网关过滤器工厂"></a>2.1 AddRequestHeader 网关过滤器工厂</h4><h4 id="2-2-AddRequestParameter-网关过滤器工厂"><a href="#2-2-AddRequestParameter-网关过滤器工厂" class="headerlink" title="2.2 AddRequestParameter 网关过滤器工厂"></a>2.2 AddRequestParameter 网关过滤器工厂</h4><h4 id="2-3-AddResponseHeader-网关过滤器工厂"><a href="#2-3-AddResponseHeader-网关过滤器工厂" class="headerlink" title="2.3 AddResponseHeader 网关过滤器工厂"></a>2.3 AddResponseHeader 网关过滤器工厂</h4><h4 id="2-4-Hystrix-网关过滤器工厂"><a href="#2-4-Hystrix-网关过滤器工厂" class="headerlink" title="2.4 Hystrix 网关过滤器工厂"></a>2.4 Hystrix 网关过滤器工厂</h4><h4 id="2-5-PrefixPath-网关过滤器工厂"><a href="#2-5-PrefixPath-网关过滤器工厂" class="headerlink" title="2.5 PrefixPath 网关过滤器工厂"></a>2.5 PrefixPath 网关过滤器工厂</h4><h4 id="2-6-PreserverHostHeader-网关过滤器工厂"><a href="#2-6-PreserverHostHeader-网关过滤器工厂" class="headerlink" title="2.6 PreserverHostHeader 网关过滤器工厂"></a>2.6 PreserverHostHeader 网关过滤器工厂</h4><p>没有参数，设置路由过滤器将检查的请求属性，以确定是否应发送原始主机头，而不是 http 客户端确定的主机头  </p>
+<h4 id="2-7-RequestRateLimiter-网关过滤器工厂"><a href="#2-7-RequestRateLimiter-网关过滤器工厂" class="headerlink" title="2.7 RequestRateLimiter 网关过滤器工厂"></a>2.7 RequestRateLimiter 网关过滤器工厂</h4><p>使用 RateLimiter 实现来确定是否运行当前请求继续，如果不是，则返回 HTTP 429 - Too Many Requests (默认情况下)的状态  </p>
+<h4 id="2-8-RedirectTo-网关过滤器工厂"><a href="#2-8-RedirectTo-网关过滤器工厂" class="headerlink" title="2.8 RedirectTo 网关过滤器工厂"></a>2.8 RedirectTo 网关过滤器工厂</h4><h4 id="2-9-RemoveNonProxyHeaders-网关过滤器工厂"><a href="#2-9-RemoveNonProxyHeaders-网关过滤器工厂" class="headerlink" title="2.9 RemoveNonProxyHeaders 网关过滤器工厂"></a>2.9 RemoveNonProxyHeaders 网关过滤器工厂</h4><h4 id="2-10-RemoveRequestHeader-网关过滤器工厂"><a href="#2-10-RemoveRequestHeader-网关过滤器工厂" class="headerlink" title="2.10 RemoveRequestHeader 网关过滤器工厂"></a>2.10 RemoveRequestHeader 网关过滤器工厂</h4><h4 id="2-11-RemoveResponseHeader-网关过滤器工厂"><a href="#2-11-RemoveResponseHeader-网关过滤器工厂" class="headerlink" title="2.11 RemoveResponseHeader 网关过滤器工厂"></a>2.11 RemoveResponseHeader 网关过滤器工厂</h4><h4 id="2-12-RewritePath-网关过滤器工厂"><a href="#2-12-RewritePath-网关过滤器工厂" class="headerlink" title="2.12 RewritePath 网关过滤器工厂"></a>2.12 RewritePath 网关过滤器工厂</h4><h4 id="2-13-SaveSession-网关过滤器工厂"><a href="#2-13-SaveSession-网关过滤器工厂" class="headerlink" title="2.13 SaveSession 网关过滤器工厂"></a>2.13 SaveSession 网关过滤器工厂</h4><h4 id="2-14-SecureHeaders-网关过滤器工厂"><a href="#2-14-SecureHeaders-网关过滤器工厂" class="headerlink" title="2.14 SecureHeaders 网关过滤器工厂"></a>2.14 SecureHeaders 网关过滤器工厂</h4><h4 id="2-15-SetPath-网关过滤器工厂"><a href="#2-15-SetPath-网关过滤器工厂" class="headerlink" title="2.15 SetPath 网关过滤器工厂"></a>2.15 SetPath 网关过滤器工厂</h4><h4 id="2-16-SetResponseHeader-网关过滤器工厂"><a href="#2-16-SetResponseHeader-网关过滤器工厂" class="headerlink" title="2.16 SetResponseHeader 网关过滤器工厂"></a>2.16 SetResponseHeader 网关过滤器工厂</h4><h4 id="2-17-SetStatus-网关过滤器工厂"><a href="#2-17-SetStatus-网关过滤器工厂" class="headerlink" title="2.17 SetStatus 网关过滤器工厂"></a>2.17 SetStatus 网关过滤器工厂</h4><h4 id="2-18-StripPrefix-网关过滤器工厂"><a href="#2-18-StripPrefix-网关过滤器工厂" class="headerlink" title="2.18 StripPrefix 网关过滤器工厂"></a>2.18 StripPrefix 网关过滤器工厂</h4><h4 id="2-19-Retry-网关过滤器工厂"><a href="#2-19-Retry-网关过滤器工厂" class="headerlink" title="2.19 Retry 网关过滤器工厂"></a>2.19 Retry 网关过滤器工厂</h4><h4 id="2-20-RequestSize-网关过滤器工厂"><a href="#2-20-RequestSize-网关过滤器工厂" class="headerlink" title="2.20 RequestSize 网关过滤器工厂"></a>2.20 RequestSize 网关过滤器工厂</h4><h3 id="3-过滤器"><a href="#3-过滤器" class="headerlink" title="3. 过滤器"></a>3. 过滤器</h3><h4 id="3-1-Gateway-Filter"><a href="#3-1-Gateway-Filter" class="headerlink" title="3.1 Gateway Filter"></a>3.1 Gateway Filter</h4><p>相当于一个 Filter 过滤器，可以对访问的 URL 过滤，进行横切处理（切面处理），应用场景包括超时、安全  </p>
+<h4 id="3-2-Global-Filter"><a href="#3-2-Global-Filter" class="headerlink" title="3.2 Global Filter"></a>3.2 Global Filter</h4><p>全局的 Filter，作用于所有路由  </p>
+<h4 id="3-3-区别"><a href="#3-3-区别" class="headerlink" title="3.3 区别"></a>3.3 区别</h4><p>定义的方法一样都是 Moon filter()<br>Gateway Filter 应用到单个路由或者一个分组的路由上；继承了 ShortcutConfigurable<br>Global Filter 应用到所有的路由上;没有任何继承  </p>
+<h3 id="4-Https-的使用技巧"><a href="#4-Https-的使用技巧" class="headerlink" title="4. Https 的使用技巧"></a>4. Https 的使用技巧</h3><p>常规的做法是通过Nginx来配置SSL证书。<br>将生成的https证书放到 Spring Cloud Gateway 应用的类路径下  </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8762</span><br>  <span class="hljs-attr">ssl:</span><br>    <span class="hljs-attr">key-alias:</span> <span class="hljs-string">spring</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">key-store-password:</span> <span class="hljs-string">spring</span><br>    <span class="hljs-attr">key-store:</span> <span class="hljs-string">classpath:selfsigned.jks</span><br>    <span class="hljs-attr">key-store-type:</span> <span class="hljs-string">JKS</span><br>    <span class="hljs-attr">key-store-provider:</span> <span class="hljs-string">SUN</span><br>    <span class="hljs-attr">key-password:</span> <span class="hljs-string">spring</span><br></code></pre></td></tr></table></figure>
+
+<p>由于请求进来的协议是 Https，而后端被代理的服务是 http 协议的请求，所以 Gateway 用 Https 请求转发调用 HTTP 协议就会出现 “not an SSL&#x2F;TLS record”的错误。<br>修改方法：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.dog.filter;<br><br><span class="hljs-keyword">import</span> java.net.URI;<br><br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.LoadBalancerClientFilter;<br><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><span class="hljs-keyword">import</span> org.springframework.http.server.reactive.ServerHttpRequest;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpsToHttpFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">GlobalFilter</span>, Ordered &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;<br>        <span class="hljs-type">URI</span> <span class="hljs-variable">orignalUri</span> <span class="hljs-operator">=</span> exchange.getRequest().getURI();<br>        <span class="hljs-type">ServerHttpRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> exchange.getRequest();<br>        ServerHttpRequest.<span class="hljs-type">Builder</span> <span class="hljs-variable">mutate</span> <span class="hljs-operator">=</span> request.mutate();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">forwardedUri</span> <span class="hljs-operator">=</span> request.getURI().toString();<br>        <span class="hljs-keyword">if</span>(forwardedUri != <span class="hljs-literal">null</span> &amp;&amp; forwardedUri.startsWith(<span class="hljs-string">&quot;https&quot;</span>)) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">URI</span> <span class="hljs-variable">mutatedUri</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URI</span>(<span class="hljs-string">&quot;http&quot;</span>,<br>                        orignalUri.getUserInfo(),<br>                        orignalUri.getHost(),<br>                        orignalUri.getPort(),<br>                        orignalUri.getPath(),<br>                        orignalUri.getQuery(),<br>                        orignalUri.getFragment());<br>                mutate.uri(mutatedUri);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(e.getMessage(), e);<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">ServerHttpRequest</span> <span class="hljs-variable">build</span> <span class="hljs-operator">=</span> mutate.build();<br>        <span class="hljs-keyword">return</span> chain.filter(exchange.mutate().request(build).build());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getOrder</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> LoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER - <span class="hljs-number">1</span>;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="5-整合-Swagger2"><a href="#5-整合-Swagger2" class="headerlink" title="5. 整合 Swagger2"></a>5. 整合 Swagger2</h4><p>5.1 在 Gateway 网关创建三个类： SwaggerHandle, SwaggerProvider, SwaggerHeaderFilter   </p>
+<p>5.1.1 SwaggerHandler  </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">package</span> com.example.dog.swagger2;<br><br><span class="hljs-keyword">import</span> org.springframework.beans.factory.<span class="hljs-keyword">annotation</span>.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;<br><span class="hljs-keyword">import</span> org.springframework.http.ResponseEntity;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.<span class="hljs-keyword">annotation</span>.RestController;<br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><span class="hljs-keyword">import</span> springfox.documentation.swagger.web.*;<br><br><span class="hljs-keyword">import</span> java.util.Optional;<br><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(<span class="hljs-string">&quot;/swagger-resources&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SwaggerHandler</span> &#123;<br>    <span class="hljs-meta">@Autowired(required = false)</span><br>    <span class="hljs-keyword">private</span> SecurityConfiguration securityConfiguration;<br>    <span class="hljs-meta">@Autowired(required = false)</span><br>    <span class="hljs-keyword">private</span> UiConfiguration uiConfiguration;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> SwaggerResourcesProvider swaggerResources;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">public</span> SwaggerHandler(SwaggerResourcesProvider swaggerResources) &#123;<br>        <span class="hljs-keyword">this</span>.swaggerResources = swaggerResources;<br>    &#125;<br><br><br>    <span class="hljs-meta">@GetMapping(<span class="hljs-string">&quot;/configuration/security&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> Mono&lt;ResponseEntity&lt;SecurityConfiguration&gt;&gt; securityConfiguration() &#123;<br>        <span class="hljs-keyword">return</span> Mono.just(new ResponseEntity&lt;&gt;(<br>                Optional.ofNullable(securityConfiguration).orElse(SecurityConfigurationBuilder.builder().build()), HttpStatus.OK));<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(<span class="hljs-string">&quot;/configuration/ui&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> Mono&lt;ResponseEntity&lt;UiConfiguration&gt;&gt; uiConfiguration() &#123;<br>        <span class="hljs-keyword">return</span> Mono.just(new ResponseEntity&lt;&gt;(<br>                Optional.ofNullable(uiConfiguration).orElse(UiConfigurationBuilder.builder().build()), HttpStatus.OK));<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(<span class="hljs-string">&quot;&quot;</span>)</span><br>    <span class="hljs-keyword">public</span> Mono&lt;ResponseEntity&gt; swaggerResources() &#123;<br>        <span class="hljs-keyword">return</span> Mono.just((new ResponseEntity&lt;&gt;(swaggerResources.<span class="hljs-keyword">get</span>(), HttpStatus.OK)));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>5.1.2 GatewaySwaggerProvider  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.dog.swagger2;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.config.GatewayProperties;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.route.RouteLocator;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.support.NameUtils;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Primary;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-keyword">import</span> springfox.documentation.swagger.web.SwaggerResource;<br><span class="hljs-keyword">import</span> springfox.documentation.swagger.web.SwaggerResourcesProvider;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Primary</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GatewaySwaggerProvider</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SwaggerResourcesProvider</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">API_URI</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/v2/api-docs&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> RouteLocator routeLocator;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> GatewayProperties gatewayProperties;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">GatewaySwaggerProvider</span><span class="hljs-params">(RouteLocator routeLocator, GatewayProperties gatewayProperties)</span> &#123;<br>        <span class="hljs-built_in">this</span>.routeLocator = routeLocator;<br>        <span class="hljs-built_in">this</span>.gatewayProperties = gatewayProperties;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;SwaggerResource&gt; <span class="hljs-title function_">get</span><span class="hljs-params">()</span> &#123;<br>        List&lt;SwaggerResource&gt; resources = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        List&lt;String&gt; routes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-comment">//取出Spring Cloud Gateway中的route</span><br>        routeLocator.getRoutes().subscribe(route -&gt; routes.add(route.getId()));<br>        <span class="hljs-comment">//结合application.yml中的路由配置，只获取有效的route节点</span><br>        gatewayProperties.getRoutes().stream().filter(routeDefinition -&gt; routes.contains(routeDefinition.getId()))<br>                .forEach(routeDefinition -&gt; routeDefinition.getPredicates().stream()<br>                        .filter(predicateDefinition -&gt; (<span class="hljs-string">&quot;Path&quot;</span>).equalsIgnoreCase(predicateDefinition.getName()))<br>                        .forEach(predicateDefinition -&gt; resources.add(swaggerResource(routeDefinition.getId(),<br>                                predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + <span class="hljs-string">&quot;0&quot;</span>)<br>                                        .replace(<span class="hljs-string">&quot;/**&quot;</span>, API_URI)))));<br>        <span class="hljs-keyword">return</span> resources;<br>    &#125;<br>    <br>    <span class="hljs-keyword">private</span> SwaggerResource <span class="hljs-title function_">swaggerResource</span><span class="hljs-params">(String name, String location)</span> &#123;<br>        <span class="hljs-type">SwaggerResource</span> <span class="hljs-variable">swaggerResource</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwaggerResource</span>();<br>        swaggerResource.setName(name);<br>        swaggerResource.setLocation(location);<br>        swaggerResource.setSwaggerVersion(<span class="hljs-string">&quot;2.0&quot;</span>);<br>        <span class="hljs-keyword">return</span> swaggerResource;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>5.1.3 SwaggerHeaderFilter 这个类只是在 Finchley.RELEASE 版本需要实现，SR2 版本无需实现。  </p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">package</span> com.example.dog.swagger2;<br><br><br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;<br><span class="hljs-keyword">import</span> org.springframework.http.server.reactive.ServerHttpRequest;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.util.StringUtils;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><br>@Component<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwaggerHeaderFilter</span> <span class="hljs-keyword"><span class="hljs-keyword">extends</span> <span class="hljs-type">AbstractGatewayFilterFactory</span></span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> final <span class="hljs-keyword">String</span> HEADER_NAME = <span class="hljs-string">&quot;X-Forwarded-Prefix&quot;</span>;<br>    <br>    @Override<br>    <span class="hljs-keyword">public</span> GatewayFilter apply(Object config) &#123;<br>        <span class="hljs-keyword">return</span> (exchange, chain) -&gt; &#123;<br>            ServerHttpRequest request = exchange.getRequest();<br>            <span class="hljs-keyword">String</span> path = request.getURI().getPath();<br>            <span class="hljs-keyword">if</span>(!StringUtils.endsWithIgnoreCase(path, GatewaySwaggerProvider.API_URI)) &#123;<br>                <span class="hljs-keyword">return</span> chain.filter(exchange);<br>            &#125;<br>            <span class="hljs-keyword">String</span> basePath = path.substring(<span class="hljs-number">0</span>, path.lastIndexOf(GatewaySwaggerProvider.API_URI));<br>            ServerHttpRequest <span class="hljs-keyword">new</span><span class="hljs-type">Request</span> = request.mutate().header(HEADER_NAME, basePath).build();<br>            ServerWebExchange <span class="hljs-keyword">new</span><span class="hljs-type">Exchange</span> = exchange.mutate().request(<span class="hljs-keyword">new</span><span class="hljs-type">Request</span>).build();<br>            <span class="hljs-keyword">return</span> chain.filter(<span class="hljs-keyword">new</span><span class="hljs-type">Exchange</span>);<br>        &#125;;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>5.2 Gateway 的 application.yml 中配置：</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">spring</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-attribute">application</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">name</span><span class="hljs-punctuation">:</span> <span class="hljs-string">gateway_server</span><br><span class="hljs-comment"># Gateway注册到 Eureka, 默认服务名要大写</span><br><span class="hljs-comment"># 注册到 ZooKeeper 上，服务名默认小写</span><br><span class="hljs-comment"># 注册到 Consul 上，服务名默认小写</span><br><span class="hljs-comment"># 设置为 true 表示开启用小写的 serviceId 进行基于服务路由的转发</span><br>  <span class="hljs-attribute">cloud</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">gateway</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">discovery</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-attribute">locator</span><span class="hljs-punctuation">:</span><br>          <span class="hljs-attribute">lower-case-service-id</span><span class="hljs-punctuation">:</span> <span class="hljs-string">true</span><br><span class="hljs-comment"># 是否与服务发现组件进行结合，通过 seviceId 转发到具体的服务实例。</span><br><span class="hljs-comment"># 默认为 false，若为 true 便开启基于服务发现的路由规则</span><br>          <span class="hljs-attribute">enabled</span><span class="hljs-punctuation">:</span> <span class="hljs-string">true</span><br>      <span class="hljs-attribute">routes</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">id: gate-consumer</span><br>        <span class="hljs-attribute">uri</span><span class="hljs-punctuation">:</span> <span class="hljs-string">lb://gate-consumer</span><br>        <span class="hljs-attribute">predicates</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/client/**</span><br>        <span class="hljs-attribute">filters</span><span class="hljs-punctuation">:</span><br><span class="hljs-comment">#        - SwaggerHeaderFilter</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">id: sc-service</span><br>        <span class="hljs-attribute">uri</span><span class="hljs-punctuation">:</span> <span class="hljs-string">lb://sc-service</span><br>        <span class="hljs-attribute">predicates</span><span class="hljs-punctuation">:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/admin/**</span><br>        <span class="hljs-attribute">filters</span><span class="hljs-punctuation">:</span><br><span class="hljs-comment">#        - SwaggerHeaderFilter</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>在 SR2 中不需要添加 SwaggerHeaderFilter</p>
+</blockquote>
+<p>5.3 Swagger 基于 eureka 服务注册机制的实现，需要重写 SwaggerProvider, 基于DiscoveryClientRouteDefinitionLocator 发现的路由器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.dog.swagger2.provider;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Primary;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-keyword">import</span> springfox.documentation.swagger.web.SwaggerResource;<br><span class="hljs-keyword">import</span> springfox.documentation.swagger.web.SwaggerResourcesProvider;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Primary</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GatewaySwaggerProviderFromDiscovery</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SwaggerResourcesProvider</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">API_URI</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/v2/api-docs&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EUREKA_SUB_PRIX</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CompositeDiscoveryClient_&quot;</span>;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> DiscoveryClientRouteDefinitionLocator routeDefinitionLocator;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">GatewaySwaggerProviderFromDiscovery</span><span class="hljs-params">(DiscoveryClientRouteDefinitionLocator routeDefinitionLocator)</span> &#123;<br>        <span class="hljs-built_in">this</span>.routeDefinitionLocator = routeDefinitionLocator;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;SwaggerResource&gt; <span class="hljs-title function_">get</span><span class="hljs-params">()</span> &#123;<br>        List&lt;SwaggerResource&gt; resources = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <br>        <span class="hljs-comment">// 从 DiscoveryClientRouteDefinitionLocator 中取出 routes，构造 swaggerResource</span><br>        routeDefinitionLocator.getRouteDefinitions().subscribe(routeDefinition -&gt; &#123;<br>            resources.add(swaggerResource(routeDefinition.getId().substring(EUREKA_SUB_PRIX.length()),<br>                    routeDefinition.getPredicates()<br>                        .get(<span class="hljs-number">0</span>).getArgs().get(<span class="hljs-string">&quot;pattern&quot;</span>)<br>                            .replace(<span class="hljs-string">&quot;/**&quot;</span>, API_URI)));<br>        &#125;);<br>        <br>        <span class="hljs-keyword">return</span> resources;<br>    &#125;<br>    <br>    <span class="hljs-keyword">private</span> SwaggerResource <span class="hljs-title function_">swaggerResource</span><span class="hljs-params">(String name, String location)</span> &#123;<br>        <span class="hljs-type">SwaggerResource</span> <span class="hljs-variable">swaggerResource</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwaggerResource</span>();<br>        swaggerResource.setName(name);<br>        swaggerResource.setLocation(location);<br>        swaggerResource.setSwaggerVersion(<span class="hljs-string">&quot;2.0&quot;</span>);<br>        <span class="hljs-keyword">return</span> swaggerResource;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>application  </p>
+ <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">spring:</span><br><span class="hljs-symbol">  cloud:</span><br><span class="hljs-symbol">    gateway:</span><br><span class="hljs-symbol">      routes:</span><br>      - id: gate-consumer<br><span class="hljs-symbol">        uri:</span> lb:<span class="hljs-comment">//gate-consumer</span><br><span class="hljs-symbol">        predicates:</span><br>        - name: Path<br><span class="hljs-symbol">          args:</span><br><span class="hljs-symbol">            pattern:</span> <span class="hljs-keyword">/client/</span>**<br></code></pre></td></tr></table></figure>
+
+<h2 id="参考自-spring-cloud-gateway聚合swagger-以及-重新定义-Spring-Cloud"><a href="#参考自-spring-cloud-gateway聚合swagger-以及-重新定义-Spring-Cloud" class="headerlink" title="参考自 spring cloud gateway聚合swagger 以及 重新定义 Spring Cloud"></a>参考自 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37616173/article/details/83113813">spring cloud gateway聚合swagger</a> 以及 重新定义 Spring Cloud</h2><h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><h4 id="1-EnableEurekaClient-和-EnableDiscoveryClient注解"><a href="#1-EnableEurekaClient-和-EnableDiscoveryClient注解" class="headerlink" title="1. @EnableEurekaClient 和 @EnableDiscoveryClient注解"></a>1. @EnableEurekaClient 和 @EnableDiscoveryClient注解</h4><p>注解 @EnableEurekaClient上有 @EnableDiscoveryClient注解<br>1). @EnableDiscoveryClient注解是基于spring-cloud-commons依赖，并且在classpath中实现；<br>2). @EnableEurekaClient注解是基于spring-cloud-netflix依赖，只能为eureka作用；<br>如果你的classpath中添加了eureka，则它们的作用是一样的。</p>
+<h4 id="2-Feign熔断"><a href="#2-Feign熔断" class="headerlink" title="2. Feign熔断"></a>2. Feign熔断</h4><pre><code class="hljs">application.yml
+feign:
+    hystrix:
+        enabled: true
+</code></pre>
+<p>SpringBootApplication类名上添加</p>
+<pre><code class="hljs">@EnableHystrix  
+</code></pre>
+<p>EurekaClientFeign 方法上添加</p>
+<pre><code class="hljs">@FeignClient(value = &quot;demo-client&quot;, configuration = FeignConfig.class, fallback = UserServiceHystrix.class)
+</code></pre>
+<p>UserServiceHystrix 实现 EurekaClientFeign</p>
+<p>若</p>
+<pre><code class="hljs">@Configuration
+public class FeignConfig &#123;
+@Bean
+public Retryer feignRetryer() &#123;
+//        return new Retryer.Default();
+      return Retryer.NEVER_RETRY;
+  &#125;
+</code></pre>
+<p>則EurekaClientFeign接口的@FeignClient中的configuration必須是FeignConfig.class<br>否則可以不填，或者指定為configuration &#x3D; FeignClientConfiguration.class  </p>
+<h4 id="3-Ribbon-与-Hystrix"><a href="#3-Ribbon-与-Hystrix" class="headerlink" title="3. Ribbon 与 Hystrix"></a>3. Ribbon 与 Hystrix</h4><ul>
+<li>添加  <ul>
+<li>pom.xml  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>SpringBoot 启动类    <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@EnableHystrix</span><br></code></pre></td></tr></table></figure></li>
+<li>需要熔断方法上面  <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-meta">@HystrixCommand(fallbackMethod = <span class="hljs-string">&quot;error&quot;</span>)</span><br></code></pre></td></tr></table></figure>
+  注意error方法的参数要与原方法的参数一致，返回类型一致</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-出错信息：com-netflix-turbine-monitor-instance-InstanceMonitor-MisconfiguredHostException-“timestamp”-”2018-09-30T08-19-23-837-0000”-”status”-404-”error”-”Not-Found”-”message”-”No-message-available”-”path”-”-x2F-hystrix-stream”"><a href="#4-出错信息：com-netflix-turbine-monitor-instance-InstanceMonitor-MisconfiguredHostException-“timestamp”-”2018-09-30T08-19-23-837-0000”-”status”-404-”error”-”Not-Found”-”message”-”No-message-available”-”path”-”-x2F-hystrix-stream”" class="headerlink" title="4. 出错信息：com.netflix.turbine.monitor.instance.InstanceMonitor$MisconfiguredHostException: [{“timestamp”:”2018-09-30T08:19:23.837+0000”,”status”:404,”error”:”Not Found”,”message”:”No message available”,”path”:”&#x2F;hystrix.stream”}]"></a>4. 出错信息：com.netflix.turbine.monitor.instance.InstanceMonitor$MisconfiguredHostException: [{“timestamp”:”2018-09-30T08:19:23.837+0000”,”status”:404,”error”:”Not Found”,”message”:”No message available”,”path”:”&#x2F;hystrix.stream”}]</h4><p>查看 turbine 配置文件中是否缺少 turbine.instanceUrlSuffix &#x3D; XX&#x2F;hystrix.stream<br>是否与 app-config 中的 client 的配置文件中配置的相同<br>换句话说，如果 client 中配置了 management.endpoints.web.exposure &#x3D; “hystrix.stream”, 则 XX为 actuator; 如果 client 配置了 public ServletRegistrationBean getServlet(), 则 turbine.instanceUrlSuffix &#x3D; hystrix.stream。<br>需要注意的是集群中的 client 需要一致  </p>
+<h4 id="5-Zuul-的-EnableZuulServer-注解与-EnableZuulProxy-的区别"><a href="#5-Zuul-的-EnableZuulServer-注解与-EnableZuulProxy-的区别" class="headerlink" title="5. Zuul 的 @EnableZuulServer 注解与 @EnableZuulProxy 的区别"></a>5. Zuul 的 @EnableZuulServer 注解与 @EnableZuulProxy 的区别</h4><p>@EnableZuulServer 注解是高配版本<br>@EnableZuulProxy 注解是低配版本<br>如果不想让高版本多出的过滤器生效，可用低配版本注解<br>低配版本注解更适合自定义过滤器，因为经过的过滤器少，性能会比较高<br>@EnableZuulProxy 添加了对 Ribbo 和 Hystrix 支持  </p>
+<p>RequestContext：用于在过滤器之间传递上下文，如：请求路由到哪里、错误、HttpServletRequest、HttpServletResponse，数据保存在每个请求的ThreadLocal中。  </p>
+<hr>
+<h4 id="6-Jwt"><a href="#6-Jwt" class="headerlink" title="6. Jwt"></a>6. Jwt</h4><p><strong>1. Jwt 的原则</strong>  </p>
+<p>是在服务器身份验证之后，将生成一个 Json 对象并将其发送回用户；<br>之后，当用户与服务器通信时，客户在请求中发回 JSON 对象。服务器仅依赖于这个 JSON 对象来标识用户。<br>为了防止用户篡改数据，服务器将在生成对象时添加签名。  </p>
+<p>服务器不保存任何对话数据，即服务器变为无状态，使其更容易扩展。  </p>
+<p><strong>2. Jwt 的数据结构</strong></p>
+<p>很长的字符串，字符之间通过分隔符 “.” 分为3个子串<br>三个部分如下：  </p>
+<ul>
+<li><p>JWT 头部<br>  是一个描述 JWT 元数据的 JSON 对象  </p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br><span class="hljs-string">&quot;alg&quot;</span>: <span class="hljs-string">&quot;HS256&quot;</span>, <span class="hljs-regexp">//</span> alg属性表示签名使用的算法，默认为HMAC SHA256（写为HS256)<br><span class="hljs-string">&quot;typ&quot;</span>: <span class="hljs-string">&quot;JWT&quot;</span>   <span class="hljs-regexp">//</span> typ属性表示令牌的类型，JWT令牌统一写为JWT。<br>&#125;  <br></code></pre></td></tr></table></figure>
+
+<p>  使用 Base64 URL 算法将上述 JSON 对象转换为字符串保存  </p>
+</li>
+<li><p>有效载荷  </p>
+<p>  JWT的主体内容部分，也是一个 JSON 对象，包含需要传递的数据。  </p>
+<p>  指定七个默认字段供选择：<br>  iss: 发行人<br>  exp: 到期时间<br>  sub: 主题<br>  aud: 用户<br>  nbf: 在此之前不可用<br>  iat: 发布时间<br>  jti: JWT ID 用于标识该 JWT<br>  还可以自定义私用字段  </p>
+<p>  默认情况下 JWT 是为加密的，任何人都可以解读其内容，因此不要构建隐私信息字段，存放保密信息，以防止信息泄露  </p>
+<p>  也使用 Base64 URL 算法转换为字符串保存  </p>
+</li>
+<li><p>签名哈希  </p>
+<p>  对上面两部分数据签名，通过指定的算法生成哈希，以确保数据不会被篡改。  </p>
+<p>  首先，需要指定一个密码，该密码仅仅为保存在服务器中，并不能向用户公开。<br>  然后，使用标头中指定的签名算法（默认情况下为 HMAC SHA256）根据以下公式生成签名：<br>  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">HMACSHA256(<span class="hljs-params">base64UrlEncode</span>(<span class="hljs-params">header</span>)</span> + <span class="hljs-string">&quot;.&quot;</span> + base64<span class="hljs-constructor">UrlEncode(<span class="hljs-params">payload</span>)</span>, secret)<br></code></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<p>在计算出签名哈希后，JWT 头、有效载荷和签名哈希的三个部分用分隔符“.”连接组合成一个字符串。构成整个 JWT 对象。</p>
+<p><strong>3. JWT 的用法</strong>  </p>
+<p>客户端接收服务器返回的JWT，将其存储在 Cookie 或 localStorage 中。  </p>
+<p>此后，客户端将在与服务器交互中都会带 JWT。如果将它存储在 Cookie 中，就会自动发送，但是不会跨域，因此一般是将它放入到 HTTP 请求的 Header Authorization 字段中。  </p>
+<p>当跨域时，也可以将 JWT 放置于 POST 请求的数据主体中。  </p>
+<hr>
+<h4 id="7-跨域"><a href="#7-跨域" class="headerlink" title="7. 跨域"></a>7. 跨域</h4><p>浏览器从一个域名的网页去请求另一个域名的资源时，端口、域名、协议任一不同，都是跨域。  </p>
+<p><a target="_blank" rel="noopener" href="http://www.nealyang.cn/index.html">http://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a>  非跨域<br><a target="_blank" rel="noopener" href="http://www.nealyang.cn/index.html">http://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.neal.cn/server.php">http://www.neal.cn/server.php</a>  跨域, 主域不同<br><a target="_blank" rel="noopener" href="http://www.666.baidu.com/index.html">http://www.666.baidu.com/index.html</a> 调用 <a target="_blank" rel="noopener" href="http://www.555.baidu.com/test.js">http://www.555.baidu.com/test.js</a>   跨域, 子域名不同<br><a target="_blank" rel="noopener" href="http://www.nealyang.cn:8080/index.html">http://www.nealyang.cn:8080/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a> 跨域, 端口不同<br><a target="_blank" rel="noopener" href="https://www.nealyang.cn/index.html">https://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a>  跨域, 协议不同<br>localhost   调用 127.0.0.1 跨域  </p>
+<hr>
+<h4 id="8-域名"><a href="#8-域名" class="headerlink" title="8. 域名"></a>8. 域名</h4><p><strong>1. URL 构成</strong>  </p>
+<p><strong>protocol:&#x2F;&#x2F;hostname[post]&#x2F;path&#x2F;[;parameters][?query]#fragment</strong>  </p>
+<ul>
+<li>protocol 协议，常用的协议是http  </li>
+<li>hostname 主机地址，可以是域名，也可以是IP地址  </li>
+<li>port 端口 http协议默认端口是： 80 端口，如果不写默认就是: 80 端口  </li>
+<li>path 路径 网络资源在服务器中的指定路径  </li>
+<li>parameter 参数 如果要向服务器传入参数，在这部分输入  </li>
+<li>query 查询字符串 如果需要从服务器那里查询内容，在这里编辑  </li>
+<li>fragment 片段 网页中可能会分为不同的片段，如果想访问网页后直接到达指定位置，可以在这部分设置</li>
+</ul>
+<p><strong>2. 域名</strong>  </p>
+<p>一个完整的域名由二个或二个以上部分组成，各部分之间用英文 的句号”.”来分隔。  </p>
+<p>例如下列域名： yahoo.com， yahoo.ca.us， yahoo.co.uk。  </p>
+<p>其中第一个域名由二部分组成，第二个域名和第三个域名由 三部分 组成。  </p>
+<p>在一个完整的域名中， 最后一个”.”的右边部分称为顶级域名或一 级域名（TLD） ，在上面的域名例子中，com、us 和 uk 是顶级域名。<br>最后一个”.”的左边部分称为二级域名（SLD） ，例如，域名 yahoo.com 中 yahoo 是 二级域名，域名 yahoo.ca.us 中 ca<br>是二级域名，而域名 yahoo.co.uk 中 co 是二级域名。<br>二级域名的左边部分称 为三级域名。<br>三级域名的左边部分称为四级域名， 以此类推。 例如， 域名 yahoo.ca.us 和 yahoo.co.uk 中 yaho o 是三级域名。  </p>
+<hr>
+<h4 id="9-OAuth2-和-SSO（单点登录）"><a href="#9-OAuth2-和-SSO（单点登录）" class="headerlink" title="9. OAuth2 和 SSO（单点登录）"></a>9. OAuth2 和 SSO（单点登录）</h4><p>OAuth2: 解决的是服务提供方（微信等）给第三方应用授权的问题<br>SSO: 解决的是大型系统中各个子系统如何共享登录状态的问题  </p>
+<p>两者都是基于分布式系统，涉及到多个角色，但是不同的是，oauth2 是一种具体的协议，sso 可以说是一种技术，可以用 cookie 实现，甚至也可以用 oauth2 实现（虽然不是很好），比如 oauth 中的服务提供方可以充当 sso 认证中心，oauth 中的第三方应用也可以是 sso 中的子系统。  </p>
+<p>SSO是为了解决一个用户在鉴权服务器登陆过一次以后，可以在任何应用中畅通无阻，一次登陆，多系统访问，操作用户是实打实的该应用的官方用户，用户的权限和分域以鉴权服务器的存储为准。<br>OAuth2.0解决的是通过令牌获取某个系统的操作权限，因为有clientId的标识，一次登陆只能对该系统生效，第三方应用的操作用户不是鉴权系统的官方用户，授权权限鉴权中心可以做限制。<br>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yejingtao703/article/details/78847471">https://blog.csdn.net/yejingtao703/article/details/78847471</a>  </p>
+<ul>
+<li>单点登录原理：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/markleilei/p/6201665.html">http://www.cnblogs.com/markleilei/p/6201665.html</a>  </li>
+<li>oauth2 详解：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html</a></li>
+</ul>
+<p>学习资料：<br><a target="_blank" rel="noopener" href="http://www.zhenchao.org/2017/03/04/oauth-v2-principle/">http://www.zhenchao.org/2017/03/04/oauth-v2-principle/</a>  </p>
+<hr>
+<h4 id="10-如何获取client-id"><a href="#10-如何获取client-id" class="headerlink" title="10. 如何获取client_id"></a>10. 如何获取client_id</h4><p>这个需要第三方应用（这里就是慕课网）提前去服务提供商那（这里就是 QQ 服务器）里申请这种 Oauth 应用。提前申请好，提前商量好，然后 QQ 服务器就会给慕课网一个代表身份认证的东西，这里就是 client_id, client_secret 了。  </p>
+<p>因为除了慕课网可以去 QQ 服务器申请 Oauth 登录，那央视网，百度网址，任何其他合法的网站都可以去 QQ 服务器申请使用 Oauth 服务，那 QQ 服务器为了管理这些第三方们，所以给它们每个网站都分配一个标识，比如 client_id &#x3D; 999 代表是慕课网，client_id &#x3D; 3306 是百度网站。当然还会分配 client_secret。  </p>
+<p>所以，client_id, client_secret 是 QQ 服务器给的。第三方（慕课网）需要提前去 QQ 服务器那申请。如何申请，需要什么资质，看 QQ 的相关文档介绍就行了</p>
+<hr>
+<h4 id="11-由于安全认证，Eureka-服务连不上注册中心"><a href="#11-由于安全认证，Eureka-服务连不上注册中心" class="headerlink" title="11. 由于安全认证，Eureka 服务连不上注册中心"></a>11. 由于安全认证，Eureka 服务连不上注册中心</h4><p>security默认启用了csrf检验，要在eureka服务端那边配置security的csrf检验为false  </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-meta">@EnableWebSecurity</span><br>public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebSecurityConfigurer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebSecurityConfigurerAdapter</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> void configure(<span class="hljs-type">HttpSecurity</span> http) <span class="hljs-keyword">throws</span> <span class="hljs-type">Exception</span> &#123;<br>        http.csrf().disable();<br>        <span class="hljs-keyword">super</span>.configure(http);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>Grape 是一个内嵌在 Groovy 里的 Jar 包依赖管理器。Grape 让你可以快速添加 maven 仓库依赖到你的 classpath 里，使脚本运行更加简单。最简单的一种用法是只需要在你的脚本里添加一个注解：<br><code>@Grab(group=&#39;org.springframework&#39;, module=&#39;spring-orm&#39;, version=&#39;3.2.5.RELEASE&#39;)</code><br>@Grab 也支持简洁版：  </p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@<span class="hljs-constructor">Grab(&#x27;<span class="hljs-params">org</span>.<span class="hljs-params">springframework</span>:<span class="hljs-params">spring</span>-<span class="hljs-params">orm</span>:3.2.5.RELEASE&#x27;)</span><br>import org.springframework.jdbc.core.JdbcTemplate<br></code></pre></td></tr></table></figure>
+
+<h4 id="12-Zuul-配置项中-sensitiveHeaders-和-ignoredHeaders-的不同"><a href="#12-Zuul-配置项中-sensitiveHeaders-和-ignoredHeaders-的不同" class="headerlink" title="12. Zuul 配置项中 sensitiveHeaders 和 ignoredHeaders 的不同"></a>12. Zuul 配置项中 sensitiveHeaders 和 ignoredHeaders 的不同</h4><p>spring cloud netflix 组件 zuul 一般是用来作为网关服务开发，在涉及到转发路由的时候，zuul 会改写 request 中的头部信息。那么怎么样在项目中配置呢？请看下面：  </p>
+<p>sensitiveHeaders 会过滤客户端附带的 headers<br>例如：<code>zuul.sensitiveHeaders=Cookie,Set-Cookie</code>  </p>
+<p>如果客户端在发请求是带了Cookie，那么 Cookie 不会传递给下游服务。  </p>
+<p>默认：<code>zuul.sensitiveHeaders=</code>  </p>
+<p>什么都不设置代表不过滤任何信息，但 <code>zuul.sensitiveHeaders=</code>一定要附上。  </p>
+<p>zuul.ignoredHeaders 会过滤服务之间通信附带的 headers<br>例如：zuul.ignoredHeaders &#x3D; Cookie,Set-Cookie<br>如果客户端在发请求是带了 Cookie，那么 Cookie 依然会传递给下游服务。但是如果下游服务再转发就会被过滤。作用与上面敏感的 Header 差不多，事实上 sensitive-headers 会被添加到 ignored-headers 中。  </p>
+<p>还有一种情况就是客户端带了 Cookie，在 ZUUL 的 Filter 中有 addZuulRequestHeader(“Cookie”, “new”),<br>那么客户端的 Cookie 将会被覆盖，此时不需要 sensitiveHeaders。  </p>
+<p>如果设置了 sensitiveHeaders: Cookie，那么 Filter 中设置的 Cookie 依然不会被过滤。  </p>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ahutdbx/article/details/84192573">https://blog.csdn.net/ahutdbx/article/details/84192573</a>  </p>
+<h4 id="13-SpringBoot-使用feign时报错Service-id-not-legal-hostname"><a href="#13-SpringBoot-使用feign时报错Service-id-not-legal-hostname" class="headerlink" title="13. SpringBoot 使用feign时报错Service id not legal hostname"></a>13. SpringBoot 使用feign时报错Service id not legal hostname</h4><p>feign 不支持下划线 “_”，支持 “-“, 改成 xx-sss 即可  </p>
+<hr>
+<h3 id="学习网址"><a href="#学习网址" class="headerlink" title="学习网址"></a>学习网址</h3><p>学习 Spring Cloud 的博客： <a target="_blank" rel="noopener" href="https://windmt.com/">https://windmt.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/owenwangwen/open-capacity-platform.git">https://gitee.com/owenwangwen/open-capacity-platform.git</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/fp2952/spring-cloud-base">https://github.com/fp2952/spring-cloud-base</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/owenwangwen/open-capacity-platform/tree/master">https://gitee.com/owenwangwen/open-capacity-platform/tree/master</a></p>
+<hr>
+<p><code>keytool -genkeypair -alias mytest -keyalg RSA -keypass mypass -keystore keystore.jks -storepass mypass</code></p>
+<p>JKS 密钥库使用专用格式。建议使用 “keytool -importkeystore -srckeystore keystore.<br>jks -destkeystore keystore.jks -deststoretype pkcs12” 迁移到行业标准格式 PKCS12<br>。  </p>
+<p><code>keytool -export -alias mytest -keystore keystore.jks -file pubkey.txt -rfc</code>: 导出公钥<br>在导出证书时加上-rfc参数则可以使用一种可打印的编码格式来保存证书，否则是二进制文件，有些内容无法显示  </p>
+<hr>
+<p>1、什么是跨域Web SSO:  </p>
+<p>域名通过“.”号切分后，从右往左看，不包含”.”的是顶级域名,包含一个”.”的是一级域名，包含两个”.”的是二级域名，依次类推。  </p>
+<p><a href="https://www.baidu.com:com是顶级域名，baidu.com是一级域名，www.baidu.com是二级域名。">https://www.baidu.com:com是顶级域名，baidu.com是一级域名，www.baidu.com是二级域名。</a>  </p>
+<p>2、浏览器读写cookie的安全性限制：一级或顶级域名不同的网站，无法读取到彼此写的cookie  </p>
+<p>一级域名相同，只是二级或更高级域名不同的站点，可以通过设置domain参数共享cookie的读写。这种场景可以选择不跨域的SSO方案  </p>
+<p>域名相同，只是https和http协议不同的URL默认cookie可以共享。  </p>
+<p>3、http协议是无状态协议，浏览器访问服务器时，要让服务器知道你是谁，只有两种方式：  </p>
+<p>1）将信息写入cookie，它会随着每次HTTP请求带到服务端  </p>
+<p>2）在URL、表单数据中带上用户信息（也可能在HTTP头部）。这种方式依赖于从特定的网页入口进入，因为只有走特定的入口，才有机会拼装出相应的信息，提交到服务端。  </p>
+<hr>
+<p>iperf 单节点系统吞吐量测试软件</p>
+<hr>
+<p>采用Zuul网关和Spring Security搭建一个基于JWT的全局验证架构<br><a target="_blank" rel="noopener" href="https://github.com/shuaicj/zuul-auth-example">https://github.com/shuaicj/zuul-auth-example</a>  </p>
+<p>central-platform简称CP，基于Spring Cloud(Finchley.SR1) 、Spring Boot(2.0.1)、Spring Security jwt开发 基于layui前后分离的开发平台,其中包括Gateway网关、Oauth认证服务、User用户服务、 Eureka注册中心等多个服务, 为微服务开发所需配置管理、服务发现、断路器、智能路由、 微代理等,努力为企业级打造最全面的微服务开发解决方案;<br><a target="_blank" rel="noopener" href="https://gitee.com/GeekPerson/central-platform">https://gitee.com/GeekPerson/central-platform</a>  </p>
+<p>FCat项目基于 Angular 4 + Spring Cloud 的企业级基础功能框架 全栈必备<br><a target="_blank" rel="noopener" href="https://gitee.com/xfdm/FCat">https://gitee.com/xfdm/FCat</a></p>
+<p>慕课网正在学习中的项目<br><a target="_blank" rel="noopener" href="https://gitee.com/krui/tiger-security">https://gitee.com/krui/tiger-security</a>  </p>
+<p>蘑菇博客，一个基于微服务架构的前后端分离博客系统。前台使用 Vue +Element , 后端使用spring boot + spring cloud + mybatis-plus进行开发<br><a target="_blank" rel="noopener" href="https://gitee.com/moxi159753/mogu_blog_v2">https://gitee.com/moxi159753/mogu_blog_v2</a>  </p>
+<p>一个基于SpringBoot 2的管理后台系统<br><a target="_blank" rel="noopener" href="https://gitee.com/xiandafu/springboot-plus">https://gitee.com/xiandafu/springboot-plus</a>  </p>
+<p>spring-cloud2-demo<br><a target="_blank" rel="noopener" href="https://github.com/RuvikVan/spring-cloud2-demo">https://github.com/RuvikVan/spring-cloud2-demo</a>  </p>
+<p>登录对比：cas（单点登录）；oauth2（授权）；单一登录的区别<br><a target="_blank" rel="noopener" href="http://375287760.iteye.com/blog/2400976">http://375287760.iteye.com/blog/2400976</a>  </p>
+<p>SpringCloud 学习研究项目，内部包含相关的一整套信息。<br><a target="_blank" rel="noopener" href="https://gitee.com/cmlbeliever/springcloud/tree/master/">https://gitee.com/cmlbeliever/springcloud/tree/master/</a> </p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="一、bootstrap-yml（bootstrap-properties）"><a href="#一、bootstrap-yml（bootstrap-properties）" class="headerlink" title="一、bootstrap.yml（bootstrap.properties）####"></a>一、bootstrap.yml（bootstrap.properties）####</h4><p>bootstrap.yml（bootstrap.properties）用来程序引导时执行，应用于更加早期配置信息读取，如可以使用来配置 application.yml 中使用到参数等</p>
+<p>application.yml（application.properties) 应用程序特有配置信息，可以用来配置后续各个模块中需使用的公共参数等。</p>
+<p>bootstrap.yml 先于 application.yml 加载</p>
+<p>bootstrap.yml 可以理解成系统级别的一些参数配置，这些参数一般是不会变动的。<br>application.yml 可以用来定义应用级别的，如果搭配 spring-cloud-config 使用 application.yml 里面定义的文件可以实现动态替换。</p>
+<p>使用Spring Cloud Config Server时，应在 bootstrap.yml 中指定：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">spring<span class="hljs-selector-class">.application</span><span class="hljs-selector-class">.name</span><br>spring<span class="hljs-selector-class">.cloud</span><span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.server</span><span class="hljs-selector-class">.git</span><span class="hljs-selector-class">.uri</span><br>一些加密/解密信息<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：一旦bootStrap.yml 被加载，则内容不会被覆盖，即便后期加载的application.yml的内容标签与bootstrap的标签一致，application 也不会覆盖bootstrap, 而application.yml 里面的内容可以动态替换。</p>
+</blockquote>
+<p>推荐在<code>bootstrap.yml</code> or <code>application.yml</code>里面配置<code>spring.application.name</code>. 你可以通过设置<code>spring.cloud.bootstrap.enabled=false</code>来禁用<code>bootstrap</code>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/Spring-Cloud/" class="category-chain-item">Spring Cloud</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Spring-Cloud/">#Spring Cloud</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring Cloud</div>
+      <div>http://example.com/2023/12/31/springcloud/SpringCloud/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E4%B9%A6/%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" title="编写高质量代码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">编写高质量代码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/docker/%E7%AC%AC%E4%B8%80%E6%9C%AC%20Docker%20%E4%B9%A6%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" title="第一本Docker书 阅读笔记">
+                        <span class="hidden-mobile">第一本Docker书 阅读笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

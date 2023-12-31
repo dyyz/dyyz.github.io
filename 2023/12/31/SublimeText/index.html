@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Sublime Text 使用指南1. 注册码12345678910111213----- BEGIN LICENSE -----sgbteamSingle User LicenseEA7E-11532598891CBB9 F1513E4F 1A3405C1 A865D53F115F202E 7B91AB2D 0D2A40ED 352B269B76E84F0B CD69BFC7 59F2DFEF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SublimeText">
+<meta property="og:url" content="http://example.com/2023/12/31/SublimeText/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="Sublime Text 使用指南1. 注册码12345678910111213----- BEGIN LICENSE -----sgbteamSingle User LicenseEA7E-11532598891CBB9 F1513E4F 1A3405C1 A865D53F115F202E 7B91AB2D 0D2A40ED 352B269B76E84F0B CD69BFC7 59F2DFEF">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.458Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="SublimeText">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>SublimeText - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SublimeText"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SublimeText</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Sublime-Text-使用指南"><a href="#Sublime-Text-使用指南" class="headerlink" title="Sublime Text 使用指南"></a>Sublime Text 使用指南</h2><h3 id="1-注册码"><a href="#1-注册码" class="headerlink" title="1. 注册码"></a>1. 注册码</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dns">----- BEGIN LICENSE -----<br>sgbteam<br>Single User License<br>EA7E-<span class="hljs-number">1153259</span><br><span class="hljs-number">8891</span>CBB9 F1513E4F <span class="hljs-number">1A3405C1</span> A865D53F<br><span class="hljs-number">115</span>F202E <span class="hljs-number">7</span>B91AB2D <span class="hljs-number">0</span>D2A40ED <span class="hljs-number">352</span>B269B<br><span class="hljs-number">76</span>E84F0B CD69BFC7 <span class="hljs-number">59</span>F2DFEF E267328F<br><span class="hljs-number">215652A3</span> E88F9D8F <span class="hljs-number">4</span>C38E3BA <span class="hljs-number">5</span>B2DAAE4<br><span class="hljs-number">969624E7</span> DC9CD4D5 <span class="hljs-number">717</span>FB40C <span class="hljs-number">1</span>B9738CF<br><span class="hljs-number">20B3C4F1</span> E<span class="hljs-number">917B5B3</span> <span class="hljs-number">87</span>C38D9C ACCE7DD8<br><span class="hljs-number">5</span>F7EF854 <span class="hljs-number">86</span>B9743C FADC04AA FB0DA5C0<br>F913BE58 <span class="hljs-number">42</span>FEA319 F954EFDD AE881E0B<br>------ END LICENSE ------<br></code></pre></td></tr></table></figure>
+
+<p>Sublime Text 默认插件的安装目录为 C:\Users\用户名\AppData\Roaming\Sublime Text 3\Packages，可以将默认的目录下的 Packages 删除，在 Sublime 的安装路径下新建一个 Data 文件夹（D:\Program Files\Sublime Text 3\Data），则插件会被自动安装至该目录下。<br>设置(Preferences) &gt;&gt; 浏览资源包(Browse Packages …) 即是打开 sublime 的插件的安装路径</p>
+<h3 id="2-安装-Package-Control"><a href="#2-安装-Package-Control" class="headerlink" title="2. 安装 Package Control"></a>2. 安装 Package Control</h3><p>由于 packagecontrol.io 这个地址无法打开，所以没法通过控制台安装</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/wbond/package_control/releases">点击</a>下载最新的 package control 解压到 Sublime Text 设置 &gt;&gt; 浏览资源包 目录下，并重命名为 Package Control</p>
+</li>
+<li><p>如果点击 设置（Perferences） &gt;&gt; Package Control 或者（ctrl + shift +p &gt;&gt; install Package）没有反应，则打开 设置 &gt;&gt; Package Settings &gt;&gt; Package Control &gt;&gt; Setting User，复制下面代码</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs prolog">&#123;<br>    <span class="hljs-string">&quot;channels&quot;</span>:<br>    [<br>        <span class="hljs-string">&quot;https://github.com/JavenZ/channel_v3/raw/master/channel_v3.json&quot;</span><br>    ],<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果报找不到 Package Control 或者 设置 &gt;&gt; 没有Package Control，则打开 设置 &gt;&gt; 用户设置，将 ignored_packages 属性中包含的 Package Control 删掉，即可</p>
+</li>
+</ol>
+<h3 id="3-插件"><a href="#3-插件" class="headerlink" title="3. 插件"></a>3. 插件</h3><ol>
+<li><p>LocalizedMenu<br>汉化插件，安装成功后 设置（Prefrences） &gt;&gt; 显示语言(Languages) 切换为中文即可  </p>
+</li>
+<li><p>Emmet<br>编码快捷键，使用教材： <a target="_blank" rel="noopener" href="http://docs.emmet.io/cheat-sheet/%E3%80%81http://peters-playground.com/Emmet-Css-Snippets-for-Sublime-Text-2/">http://docs.emmet.io/cheat-sheet/、http://peters-playground.com/Emmet-Css-Snippets-for-Sublime-Text-2/</a></p>
+</li>
+<li><p>html-css-jsprettify<br>对 Html&#x2F;CSS&#x2F;JS文件进行格式化，代替了 JsFormat 和 CSSFormat<br>快捷键配置:  <code>&#123;&quot;keys&quot;: [&quot;ctrl+shift+i&quot;],&quot;command&quot;: &quot;htmlprettify&quot;&#125;,</code></p>
+</li>
+<li><p>Color Highlighter<br>颜色选择器  </p>
+</li>
+<li><p>Agila Theme<br>设置 &gt;&gt; 主题方案 可更改主题方案  </p>
+</li>
+<li><p>Alignment<br>“&#x3D;” 号对齐，默认快捷键 <code>ctrl+shift+a</code>  </p>
+</li>
+<li><p>All Autocomplete<br>搜索所有打开的文件来寻找匹配的提示词  </p>
+</li>
+<li><p>AutoFileName<br>对文件路径补全提示，使用 <code>\</code> 即可看到相对于本项目文件夹的其他文件  </p>
+</li>
+<li><p>BracketHighlighter<br>代码匹配，让你的代码有不同的颜色区分该插件提供的匹对标签，或大括号或字符串引号的配对的高亮显示  </p>
+</li>
+<li><p>ConvertToUTF8<br>文件转码成 utf-8  </p>
+</li>
+<li><p>DocBlockr<br>生成注释  </p>
+</li>
+<li><p>IMESupport<br>Sublime 中文输入法 跟随光标  </p>
+</li>
+<li><p>JavaScript Completions<br>对 javascript 原生语法提示  </p>
+</li>
+<li><p>jQuery<br>对 jQuery 函数提示  </p>
+</li>
+<li><p>Keymaps<br>快速查找所有插件的快捷键  </p>
+</li>
+<li><p>MarkdownEditing<br>MarkdownEditing: Markdown 编辑器，可以高亮显示 Markdown 语法还支持很多编程语言的语法高亮显示。<br>只针对 md\mdown\mmd\txt 格式文件才启用<br>Markdown __去除左侧空白和更改主题__：<br>打开 设置 &gt;&gt; Package Settings &gt;&gt; Markdown Editing，然后打开 Markdown GFM Settings - Default 和 Markdown GFM Settings - User，将以下内容从 default 拷贝至 user:  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>    <span class="hljs-regexp">//</span> <span class="hljs-string">&quot;color_scheme&quot;</span>: <span class="hljs-string">&quot;Packages/MarkdownEditing/MarkdownEditor.tmTheme&quot;</span>,<br>    <span class="hljs-string">&quot;color_scheme&quot;</span>: <span class="hljs-string">&quot;Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme&quot;</span>,<br>    <span class="hljs-regexp">//</span> <span class="hljs-string">&quot;color_scheme&quot;</span>: <span class="hljs-string">&quot;Packages/MarkdownEditing/MarkdownEditor-Yellow.tmTheme&quot;</span>,<br>    <span class="hljs-regexp">//</span> Markdown 主题颜色<br><br>    <span class="hljs-string">&quot;draw_centered&quot;</span>: false, <span class="hljs-regexp">//</span> 两侧空白是否需要<br>    <span class="hljs-string">&quot;line_numbers&quot;</span>: true, <span class="hljs-regexp">//</span> 行号是否显示<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>MarkdownEditing<br>MarkdownPreview: 支持在浏览器中预览 markdown 文件以及将 md 导出为 html<br>快捷键打开设置： 设置 &gt;&gt; 热键设置  添加 <code>&#123; &quot;keys&quot;: [ &quot;alt+m&quot; ], &quot;command&quot;: &quot;markdown_preview&quot;, &quot;args&quot;: &#123;&quot;target&quot;: &quot;browser&quot;, &quot;parser&quot;:&quot;markdown&quot;&#125; &#125;,</code>  </p>
+</li>
+<li><p>Nodejs<br>node 代码提示，<a target="_blank" rel="noopener" href="https://sublime.wbond.net/packages/Nodejs">教程</a><br>配置方法：</p>
+</li>
+</ol>
+<ul>
+<li><p>第一种：<br>设置 &gt;&gt; 浏览资源包 &gt;&gt; Nodejs &gt;&gt; Nodejs.sublime-build  </p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs nsis">&#123;<br>  <span class="hljs-string">&quot;cmd&quot;</span>: [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>],<br>  <span class="hljs-string">&quot;file_regex&quot;</span>: <span class="hljs-string">&quot;^[ ]*File \&quot;</span>(...*?)\<span class="hljs-string">&quot;, line ([0-9]*)&quot;</span>,<br>  <span class="hljs-string">&quot;selector&quot;</span>: <span class="hljs-string">&quot;source.js&quot;</span>,<br>  <span class="hljs-string">&quot;shell&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;encoding&quot;</span>: <span class="hljs-string">&quot;utf8&quot;</span>,<br>  <span class="hljs-string">&quot;windows&quot;</span>:<br>    &#123;<br>//        <span class="hljs-string">&quot;shell_cmd&quot;</span>: <span class="hljs-string">&quot;taskkill /F /IM node.exe &amp; node <span class="hljs-variable">$file</span>&quot;</span><br>//            <span class="hljs-string">&quot;cmd&quot;</span>: [<span class="hljs-string">&quot;taskkill&quot;</span>, <span class="hljs-string">&quot;/F&quot;</span>, <span class="hljs-string">&quot;/IM&quot;</span>, <span class="hljs-string">&quot;node.exe&quot;</span>, <span class="hljs-string">&quot;&amp;&quot;</span>, <span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>]<br>        <span class="hljs-string">&quot;cmd&quot;</span>: [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>]<br>    &#125;,<br>    <span class="hljs-string">&quot;linux&quot;</span>:<br>    &#123;<br>        <span class="hljs-string">&quot;shell_cmd&quot;</span>: <span class="hljs-string">&quot;killall node; /usr/bin/env node <span class="hljs-variable">$file</span>&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;osx&quot;</span>:<br>    &#123;<br>        <span class="hljs-string">&quot;shell_cmd&quot;</span>: <span class="hljs-string">&quot;killall node; /usr/bin/env node <span class="hljs-variable">$file</span>&quot;</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>Nodejs.sublime-settings  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>  <span class="hljs-regexp">//</span> save before running commands<br>  <span class="hljs-string">&quot;save_first&quot;</span>: true,<br>  <span class="hljs-regexp">//</span> <span class="hljs-keyword">if</span> present, use this command instead of plain <span class="hljs-string">&quot;node&quot;</span><br>  <span class="hljs-regexp">//</span> e.g. <span class="hljs-string">&quot;/usr/bin/node&quot;</span> or <span class="hljs-string">&quot;C:\bin\node.exe&quot;</span><br>  <span class="hljs-string">&quot;node_command&quot;</span>: <span class="hljs-string">&quot;D:/Program Files/nodejs/node.exe&quot;</span>,<br>  <span class="hljs-regexp">//</span> Same <span class="hljs-keyword">for</span> NPM command<br>  <span class="hljs-string">&quot;npm_command&quot;</span>: <span class="hljs-string">&quot;d:/Program Files/nodejs/npm.cmd&quot;</span>,<br>  <span class="hljs-regexp">//</span> as <span class="hljs-string">&#x27;NODE_PATH&#x27;</span> environment variable <span class="hljs-keyword">for</span> node runtime<br>  <span class="hljs-string">&quot;node_path&quot;</span>: false,<br><br>  <span class="hljs-string">&quot;expert_mode&quot;</span>: false,<br><br>  <span class="hljs-string">&quot;output_to_new_tab&quot;</span>: false<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>第二种<br>工具 &gt;&gt; 编译系统 &gt;&gt; 新建编译系统…  粘贴以下代码并保存为 node.sublime-build：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">&#123;<br>    <span class="hljs-string">&quot;cmd&quot;</span>: [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;--use-strict&quot;</span>, <span class="hljs-string">&quot;--harmony&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span>], <br>    <span class="hljs-string">&quot;selector&quot;</span>: <span class="hljs-string">&quot;source.js&quot;</span>, <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>即可<br>在js页面选择 工具 &gt;&gt; 编译系统 &gt;&gt; node，然后 <code>ctrl + b</code> 即可</p>
+</li>
+</ul>
+<ol start="19">
+<li><p>SideBarEnhancements<br>扩充左侧菜单的功能</p>
+</li>
+<li><p>SublimeREPL<br>允许你在 Sublime Text 允许各种语言  </p>
+</li>
+<li><p>SyncedSideBar<br>自动展开打开的文件梭子的目录  </p>
+</li>
+<li><p>Terminal<br>使用终端<br>在 设置 &gt;&gt; Package Settings &gt;&gt; Terminal &gt;&gt; Settings-User 中添加：  </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs swift">&#123;<br>    <span class="hljs-string">&quot;terminal&quot;</span>: <span class="hljs-string">&quot;C:<span class="hljs-subst">\\</span>windows<span class="hljs-subst">\\</span>system32<span class="hljs-subst">\\</span>cmd.exe&quot;</span>,<br>    <span class="hljs-string">&quot;parameters&quot;</span>: [<span class="hljs-string">&quot;/START&quot;</span>,<span class="hljs-string">&quot;%CWD%&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>还有 CMD-Caller 插件也可以打开 cmd<br>需要配置：  </p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs nsis">&#123;<br>    <span class="hljs-string">&quot;windows&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;default&quot;</span>: <span class="hljs-string">&quot;CMD&quot;</span>,<br>        <span class="hljs-string">&quot;apps&quot;</span>:&#123;<br>            <span class="hljs-string">&quot;CMD&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Run cmd.exe Here&quot;</span>,<br>            <span class="hljs-string">&quot;cmd&quot;</span>: <span class="hljs-string">&quot;cmd.exe /s /k pushd \&quot;</span><span class="hljs-variable">$&#123;file_path&#125;</span>\<span class="hljs-string">&quot;&quot;</span><br>        &#125;<br>      &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>TrailingSpaces<br>检查并意见去除代码中多余的空格<br>快捷键设置： <code>&#123; &quot;keys&quot;: [&quot;ctrl+shift+t&quot;], &quot;command&quot;: &quot;delete_trailing_spaces&quot; &#125;，</code>  </p>
+</li>
+<li><p>View In Browser<br>通过浏览器打开文件<br>打开 设置 &gt;&gt; Package Settings &gt;&gt; View In Browser &gt;&gt; Settings Default 和 Settings User，将 default 中的以下内容拷贝到 user:  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>    <span class="hljs-string">&quot;nt&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;win32&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;chrome&quot;</span>: <span class="hljs-string">&quot;C:/Program Files (x86)/Google/Chrome/Application/chrome.exe&quot;</span>, <span class="hljs-regexp">//</span> 浏览器路径<br>        &#125;<br>    &#125;,<br><br>    <span class="hljs-string">&quot;browser&quot;</span>: <span class="hljs-string">&quot;chrome&quot;</span> <span class="hljs-regexp">//</span> 默认浏览器<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>快捷键设置： <code>&#123; &quot;keys&quot;: [ &quot;alt+k&quot; ], &quot;command&quot;: &quot;view_in_browser&quot;, &quot;args&quot;: &#123; &quot;browser&quot;: &quot;chrome&quot; &#125; &#125;,</code>  </p>
+</li>
+<li><p>Vue Syntax Highlight<br>Vue 高亮</p>
+</li>
+</ol>
+<h3 id="4-常用快捷键"><a href="#4-常用快捷键" class="headerlink" title="4. 常用快捷键"></a>4. 常用快捷键</h3><p><code>Ctrl+D</code> 选中一个单词，继续 <code>Ctrl+D</code>可以直接选中下一个相同的单词进入多光标模式，在多光标模式下可以在多处位置同时进行编辑。  </p>
+<p><code>Ctrl+L</code> 选中当前光标所在的行。可以快速选中一行，而不用通过鼠标点击行首来选中一行。  </p>
+<pre><code class="hljs">- 多行选择: 按住Ctrl键同时鼠标左键点击你想要选择的行的行首。  
+- 多光标模式: 按住Ctrl键同时鼠标左键点击你想要编辑的位置，可以在代码中插入多个光标，同时进行编辑。  
+- 列选择模式: 按住Shift键同时鼠标右键选择列，同时进入多光标模式进行多行编辑。  
+</code></pre>
+<p><code>Shift+Delete</code> 直接删除一行，或者<code>Ctrl+Shift+K</code>  </p>
+<p><code>Ctrl+Delete</code> 向前删除，即删除光标所在位置内容的剩余部分。  </p>
+<p><code>Ctrl+Backspace</code> 向后删除，即删除光标所在位置之前的内容。  </p>
+<p><code>Alt/ Alt+Shift-</code> 向后或者向前导航跳转。该快捷键在配合<code>Ctrl+P</code>时十分有用。  </p>
+<p><code>Ctrl+[ 或 ]</code> 代码缩进。  </p>
+<p><code>Ctrl+Shift+Up 或 Down</code> 将当前行向上移动一行或向下移动一行。  </p>
+<p><code>Ctrl+Shift+D</code> 快速复制一行。  </p>
+<p><code>Ctrl+/</code> 注释或去掉注释。  </p>
+<p><code>Ctrl+K+K</code> 从当前光标位置直接删除到行末。  </p>
+<p><code>Ctrl+K+Backspace</code> 从当前光标位置直接删除到行首（不常用）。  </p>
+<p><code>Ctrl+Shift+Enter</code> 在当前光标所在的行之前插入一行。  </p>
+<p><code>Ctrl+Enter</code> 在当前光标所在的行之后插入一行。  </p>
+<p><code>Ctrl+K+U</code> 将光标所在的内容变成大写字母（不用选中单词）。  </p>
+<p><code>Ctrl+K+L</code> 将光标所在的内容变成小写字母（不用选中单词）。  </p>
+<p><code>Alt+Left/Right</code> 向左或向右移动光标时，每次移动一个单词的位置。如果不加Alt键每次只移动一个字符的位置。  </p>
+<p><code>Alt+Shift+Left/Right</code> 从当前光标所在位置向左或向右选择整个内容。  </p>
+<p><code>Ctrl+Shift+V</code> 在当前光标所在位置粘贴代码，并保持代码缩进和格式不变。  </p>
+<p><code>Ctrl+P</code> 打开快速文件切换面板。  </p>
+<p><code>Ctrl+W</code> 关闭当前tab。  </p>
+<p><code>Ctrl+/-</code> 放大或缩小字体。  </p>
+<p><code>Ctrl+K+B</code> 隐藏或显示side bar  </p>
+<hr>
+<h5 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h5><ol>
+<li><p>Markdown<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20011607/article/details/81370236">https://blog.csdn.net/qq_20011607/article/details/81370236</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/TheMisery_Hang/article/details/80176317">https://blog.csdn.net/TheMisery_Hang/article/details/80176317</a>  </p>
+</li>
+<li><p>View In Browser<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/686672aff949">https://www.jianshu.com/p/686672aff949</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qwj-sysu/p/4058840.html">https://www.cnblogs.com/qwj-sysu/p/4058840.html</a>  </p>
+</li>
+<li><p>插件<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3cb5c6f2421c">https://www.jianshu.com/p/3cb5c6f2421c</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qingkong/p/5039527.html">https://www.cnblogs.com/qingkong/p/5039527.html</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/news/303054">https://cloud.tencent.com/developer/news/303054</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/junwu/p/5660934.html">https://www.cnblogs.com/junwu/p/5660934.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jaxu/p/5037547.html">https://www.cnblogs.com/jaxu/p/5037547.html</a>  </p>
+</li>
+<li><p>Package Control 安装<br><a target="_blank" rel="noopener" href="https://www.eyuyun.com/246.html">https://www.eyuyun.com/246.html</a>  </p>
+</li>
+<li><p>NodeJs<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3cb5c6f2421c">https://www.jianshu.com/p/3cb5c6f2421c</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7f7c7f3d98b9">https://www.jianshu.com/p/7f7c7f3d98b9</a><br><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/tangxiujiang/article/details/76620701">https://blog.csdn.net/tangxiujiang/article/details/76620701</a></strong></p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%BE%91%E6%9C%AC/" class="category-chain-item">编辑本</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SublimeText/">#SublimeText</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SublimeText</div>
+      <div>http://example.com/2023/12/31/SublimeText/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO/" title="单点登录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单点登录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/01/%E5%91%BD%E4%BB%A4/window%E5%91%BD%E4%BB%A4/" title="windows操作命令">
+                        <span class="hidden-mobile">windows操作命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="虚拟机CentOS安装docker一、CentOS Docker 安装Docker支持以下的CentOS版本：    CentOS 7 (64-bit)   CentOS 6.5 (64-bit) 或更高的版本  前提条件目前，CentOS 仅发行版本中的内核支持 Docker。Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。Docker 运行在 Ce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机">
+<meta property="og:url" content="http://example.com/2023/12/31/%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="虚拟机CentOS安装docker一、CentOS Docker 安装Docker支持以下的CentOS版本：    CentOS 7 (64-bit)   CentOS 6.5 (64-bit) 或更高的版本  前提条件目前，CentOS 仅发行版本中的内核支持 Docker。Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。Docker 运行在 Ce">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.536Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="虚拟机">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>虚拟机 - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="虚拟机"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          137 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">虚拟机</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><h4 id="CentOS安装docker"><a href="#CentOS安装docker" class="headerlink" title="CentOS安装docker"></a>CentOS安装docker</h4><h5 id="一、CentOS-Docker-安装"><a href="#一、CentOS-Docker-安装" class="headerlink" title="一、CentOS Docker 安装"></a>一、CentOS Docker 安装</h5><p>Docker支持以下的CentOS版本：  </p>
+<ul>
+<li>CentOS 7 (64-bit)  </li>
+<li>CentOS 6.5 (64-bit) 或更高的版本</li>
+</ul>
+<h5 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h5><p>目前，CentOS 仅发行版本中的内核支持 Docker。<br>Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。<br>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。  </p>
+<h5 id="使用-yum-安装（CentOS-7-下）"><a href="#使用-yum-安装（CentOS-7-下）" class="headerlink" title="使用 yum 安装（CentOS 7 下）"></a>使用 yum 安装（CentOS 7 下）</h5><p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。<br>通过 uname -r 命令查看你当前的内核版本<br>[root@runoob ~]# uname -r</p>
+<h6 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h6><p>Docker CE 和 Docker EE。<br>Docker CE 即社区免费版，Docker EE 即企业版，强调安全，但需付费使用。  </p>
+<p>安装一些必要的系统工具：  </p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">sudo</span> yum install -y yum-utils device-mapper-persistent-<span class="hljs-class"><span class="hljs-keyword">data</span> lvm2</span><br></code></pre></td></tr></table></figure>
+
+<p>添加软件源信息：  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo yum-config-manager --add-repo http:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/docker-ce/</span>linux<span class="hljs-regexp">/centos/</span>docker-ce.repo<br></code></pre></td></tr></table></figure>
+
+<p>更新 yum 缓存：  </p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo yum makecache fast</span><br></code></pre></td></tr></table></figure>
+
+<p>安装 Docker-ce：  </p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo yum -y <span class="hljs-keyword">install</span> docker-ce<br></code></pre></td></tr></table></figure>
+
+<p>启动 Docker 后台服务  </p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">sudo systemctl <span class="hljs-literal">start</span> docker<br></code></pre></td></tr></table></figure>
+
+<p>测试运行 hello-world  </p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@runoob</span> ~]<span class="hljs-meta"># docker run hello-world</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="镜像加速"><a href="#镜像加速" class="headerlink" title="镜像加速"></a>镜像加速</h6><p>您可以使用以下命令直接从该镜像加速地址进行拉取：<br>$ docker pull registry.docker-cn.com&#x2F;myname&#x2F;myrepo:mytag<br>例如:<br>$ docker pull registry.docker-cn.com&#x2F;library&#x2F;ubuntu:16.04</p>
+<blockquote>
+<p> 注: 除非您修改了 Docker 守护进程的 <code>--registry-mirror</code> 参数 (见下文), 否则您将需要完整地指定官方镜像的名称。例如，library&#x2F;ubuntu、library&#x2F;redis、library&#x2F;nginx。  </p>
+</blockquote>
+<p>您可以在 Docker 守护进程启动时传入 –registry-mirror 参数：<br>$ docker –registry-mirror&#x3D;<a target="_blank" rel="noopener" href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a> daemon<br>为了永久性保留更改，您可以修改 &#x2F;etc&#x2F;docker&#x2F;daemon.json 文件并添加上 registry-mirrors 键值。  </p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs prolog">&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://registry.docker-cn.com&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>修改保存后重启 Docker 以使配置生效。  　</p>
+<blockquote>
+<p> 注: 您也可以使用适用于 Mac 的 Docker 和适用于 Windows 的 Docker 来进行设置。<br>原文链接： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/weifeng1463/p/7468391.html">https://www.cnblogs.com/weifeng1463/p/7468391.html</a>  </p>
+</blockquote>
+<h6 id="删除-Docker-CE"><a href="#删除-Docker-CE" class="headerlink" title="删除 Docker CE"></a>删除 Docker CE</h6><p>执行以下命令来删除 Docker CE：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo yum remove docker-ce</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">sudo <span class="hljs-built_in">rm</span> -rf /var/lib/docker</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="镜像（Image）和容器（Container）"><a href="#镜像（Image）和容器（Container）" class="headerlink" title="镜像（Image）和容器（Container）"></a>镜像（Image）和容器（Container）</h4><p>镜像：一堆只读层的统一视角<br>容器： 一堆层的统一视角，唯一区别在于容器的最上面那一层是可读可写的<br>容器 &#x3D; 镜像 + 读写层<br>运行态容器（running container）：一个可读写的统一文件系统加上隔离的进程空间和包含其中的进程<br>只读层和读写层都包含元数据，元数据是这个层的额外信息，它不仅能够让Docker获取运行和构建时的信息，还包括父层的层次信息。读写层和只读层都包含元数据。<br>每一层都包含一个指向父层的指针。如果一个层没有这个指针，说明它处于最底层。  </p>
+<h4 id="安装-Dubbo"><a href="#安装-Dubbo" class="headerlink" title="安装 Dubbo"></a>安装 Dubbo</h4><ol>
+<li>安装 Zookeeper  </li>
+<li>下载 <a target="_blank" rel="noopener" href="https://github.com/apache/incubator-dubbo/tree/2.5.x">Dubbo</a>  </li>
+<li>解压，<code>mvn clean install -Dmaven.test.skip=true</code>，将 dubbo-admin\target\dubbo-admin-xxx.war 移入到虚拟机的 tomcat\webapps 下，将 tomcat 的端口改掉，以防 zookeeper 会暂用这个端口  </li>
+<li>tomcat\bin <code>chmod +x *.sh</code> <code>./startup.sh</code>启动tomcat  </li>
+<li>关闭防火墙 <code>systemctl stop &#39;firewalld.service&#39;</code>，否则 主机无法访问 tomcat  </li>
+<li>输入URL ： <code>http://127.0.0.1:8888/dubbo-admin-2.5.10/</code> 即可访问  </li>
+<li>登录密码在 dubbo.properties 文件中配置</li>
+</ol>
+<p>####安装 zookeeper<br>*下载解压zookeeper<br><code>tar -zxvf zookeeper-3.4.12.tar.gz</code></p>
+<ul>
+<li><p>root 修改 &#x2F;etc&#x2F;profile，增加<br><code>export ZOOKEEPER_HOME=/opt/zookeeper-3.4.6</code><br><code>export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf</code></p>
+</li>
+<li><p>source &#x2F;etc&#x2F;profile 使配置奏效  </p>
+</li>
+<li><p>在 zookeeper 目录下创建数据文件目录及日志文件目录  </p>
+</li>
+<li><p><code>cd conf</code> <code>cp zoo_sample.cfg zoo.cfg</code>  </p>
+</li>
+<li><p><code>vim zoo.cfg</code> 修改如下配置：<br><code>dataDir=/home/hadoop/usr/local/zookeeper/data #目录上文创建，同下</code><br><code>dataLogDir=/home/hadoop/usr/local/zookeeper/logs</code><br><code>server.1=192.168.126:2888:3888 第一个端口用于集合体中 follower 以侦听 leader； 第二个端口用于 Leader 选举; 第一个 hostname 即为本服务器地址</code></p>
+<blockquote>
+<p>最好用cat &#x2F;etc&#x2F;hosts中的主机名配置，如 localhost:2888:3888<br>否则 Dubbo 中的 provider 无法注册到虚拟机的 Zookeeper 中  </p>
+</blockquote>
+</li>
+<li><p>启动<br><code>cd bin</code><br><code>zkServer.sh start</code>： 启动<br><code>zkServer.sh status</code>: 检查状态<br><code>zkServer.sh stop</code>： 停止<br>或者<br><code>bin/zkServer.sh start</code></p>
+</li>
+</ul>
+<h5 id="单机伪分布式搭建zookeeper集群"><a href="#单机伪分布式搭建zookeeper集群" class="headerlink" title="单机伪分布式搭建zookeeper集群"></a>单机伪分布式搭建zookeeper集群</h5><ol>
+<li>cd conf  </li>
+<li>cp zoo_sample.cfg zoo.cfg  </li>
+<li>vim zoo.cfg  <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">tickTime</span>=<span class="hljs-number">2000</span><br><span class="hljs-attr">initLimit</span>=<span class="hljs-number">10</span><br><span class="hljs-attr">syncLimit</span>=<span class="hljs-number">5</span><br><span class="hljs-attr">dataDir</span>=/usr/local/zookeeper00/dataDir<br><span class="hljs-attr">dataLogDir</span>=/usr/local/zookeeper00/dataLogDir<br><span class="hljs-attr">clientPort</span>=<span class="hljs-number">2181</span><br><span class="hljs-attr">server.1</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2888</span>:<span class="hljs-number">3888</span>  <span class="hljs-comment"># master节点，ip后面跟的是集群通信的端口</span><br><span class="hljs-attr">server.2</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2889</span>:<span class="hljs-number">3889</span><br><span class="hljs-attr">server.3</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2890</span>:<span class="hljs-number">3890</span><br></code></pre></td></tr></table></figure></li>
+<li>cd ..&#x2F; &amp;&amp; mkdir {dataDir, dataLogDir}  </li>
+<li>cd dataDir&#x2F; &amp;&amp; vim myid<br><code>1</code>  </li>
+<li>cp zookeeper00 zookeeper01 -rf   </li>
+<li>cp zookeeper00 zookeeper02 -rf   </li>
+<li>配置 zookeeper01  <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">ickTime</span>=<span class="hljs-number">2000</span><br><span class="hljs-attr">initLimit</span>=<span class="hljs-number">10</span><br><span class="hljs-attr">syncLimit</span>=<span class="hljs-number">5</span><br><span class="hljs-attr">dataDir</span>=/usr/local/zookeeper01/dataDir<br><span class="hljs-attr">dataLogDir</span>=/usr/local/zookeeper01/dataLogDir<br><span class="hljs-attr">clientPort</span>=<span class="hljs-number">2182</span>  <span class="hljs-comment"># 端口号必须要修改</span><br><span class="hljs-attr">server.1</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2888</span>:<span class="hljs-number">3888</span><br><span class="hljs-attr">server.2</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2889</span>:<span class="hljs-number">3889</span><br><span class="hljs-attr">server.3</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">190.129</span>:<span class="hljs-number">2890</span>:<span class="hljs-number">3890</span><br></code></pre></td></tr></table></figure>
+cd dataDir&#x2F; &amp;&amp; vim myid &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt; <code>2</code>  </li>
+<li>zookeeper2 配置同上<br>cd dataDir&#x2F; &amp;&amp; vim myid &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt; <code>3</code>  </li>
+<li>测试<br>分别启动： <code>bin/zkServer.sh start</code><br>查看监听的端口： <code>netstat -lntp |grep java</code>  </li>
+<li>创造节点，是否同步到集群中的其它节点  <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim">bin/zkCli.<span class="hljs-keyword">sh</span> -server localhos<span class="hljs-variable">t:2181</span>  <br><span class="hljs-keyword">ls</span> /  <br>create /data test-data<br><span class="hljs-keyword">ls</span> /<br><span class="hljs-keyword">quit</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim">bin/zkCli.<span class="hljs-keyword">sh</span> -server localhos<span class="hljs-variable">t:2182</span>  <br><span class="hljs-keyword">ls</span> /  # 可以查看到我们在第一个节点上创建的znode，代表集群中的节点能够正常同步数据<br><span class="hljs-built_in">get</span> /data<br><span class="hljs-keyword">quit</span><br></code></pre></td></tr></table></figure>
+<ol start="12">
+<li>查看集群的状态、主从信息需要使用 .&#x2F;zkServer.sh status 命令 可以写一个简单的 shell 脚本批量执行命令<br><a target="_blank" rel="noopener" href="http://blog.51cto.com/zero01/2107174">原文链接</a></li>
+</ol>
+<h4 id="Kafka-安装"><a href="#Kafka-安装" class="headerlink" title="Kafka 安装"></a>Kafka 安装</h4><ol>
+<li>下载解压 kafka  </li>
+<li>修改配置文件 vim config&#x2F;server.properties   <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">broker.id</span>=<span class="hljs-number">0</span><br><span class="hljs-attr">port</span>=<span class="hljs-number">9092</span><br><span class="hljs-attr">host.name</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">22.128</span><br><span class="hljs-attr">log.dirs</span>=data/kafka-logs<br></code></pre></td></tr></table></figure></li>
+<li>可以启动系统中的 zookeeper，或者见步骤4</li>
+<li>修改config&#x2F;zookeeper.properties<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">dataDir</span>=zookeeper/data<br><span class="hljs-attr">dataLogDir</span>=zookeeper/log<br><span class="hljs-comment"># the port at which the clients will connect</span><br><span class="hljs-attr">clientPort</span>=<span class="hljs-number">2181</span><br><span class="hljs-comment"># disable the per-ip limit on the number of connections since this is a non-production config</span><br><span class="hljs-attr">maxClientCnxns</span>=<span class="hljs-number">100</span><br><span class="hljs-attr">tickTime</span>=<span class="hljs-number">2000</span><br><span class="hljs-attr">initLimit</span>=<span class="hljs-number">10</span><br><span class="hljs-attr">syncLimit</span>=<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure></li>
+<li>新建 kafka 文件夹，新建 kafkastart.sh<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gradle">#!<span class="hljs-regexp">/bin/</span>sh<br>~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/bin/</span>zookeeper-server-start.sh ~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/config/</span>zookeeper.properties &amp;<br># 或者<br># ~<span class="hljs-regexp">/software/</span>decompression_package<span class="hljs-regexp">/zookeeper-3.4.12/</span>bin/zkServer.sh start<br><br>sleep <span class="hljs-number">3</span><br><br>~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/bin/</span>kafka-server-start.sh ~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/config/</span>server.properties &amp;<br></code></pre></td></tr></table></figure></li>
+<li>新建 kafkastop.sh<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle">#!<span class="hljs-regexp">/bin/</span>sh<br><br>~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/bin/</span>kafka-server-stop.sh ~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/config/</span>server.properties &amp;<br><br>sleep <span class="hljs-number">3</span><br><br>~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/bin/</span>zookeeper-server-stop.sh ~<span class="hljs-regexp">/application/</span>kafka_2.<span class="hljs-number">12</span>-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/config/</span>zookeeper.properties &amp;<br># 或者<br># ~<span class="hljs-regexp">/software/</span>decompression_package<span class="hljs-regexp">/zookeeper-3.4.12/</span>bin/zkServer.sh stop<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><code>lsof -i:2181</code>： 查看端口进程  </p>
+</blockquote>
+<ol start="7">
+<li><p>chmod +x *.sh  </p>
+</li>
+<li><p>.&#x2F;kafkastart.sh 启动  </p>
+</li>
+<li><p>.&#x2F;kafkastop.sh 关闭  </p>
+</li>
+<li><p>生成者创建 topic<br><code>bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka</code><br>生产者查询主题<br><code>bin/kafka-topics.sh --list --zookeeper localhost:2181</code></p>
+</li>
+</ol>
+<p><code>bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic Hello-Kafka</code><br>删除主题<br><code>bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic Hello-Kafka</code>  </p>
+<p>生产者发送主题消息<br><code>bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka</code>  </p>
+<p>消费主题消息<br><code>bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 -topic Hello-Kafka  --from-beginning</code>  </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/belalds/article/details/80575751">Kafka 彻底被删除</a>  </p>
+<hr>
+<h3 id="错误信息："><a href="#错误信息：" class="headerlink" title="错误信息：###"></a>错误信息：###</h3><h4 id="1-cannot-find-a-valid-baseurl-for-repo-base-x2F-7-x2F-x86-64"><a href="#1-cannot-find-a-valid-baseurl-for-repo-base-x2F-7-x2F-x86-64" class="headerlink" title="1. cannot find a valid baseurl for repo:base&#x2F;7&#x2F;x86_64"></a>1. cannot find a valid baseurl for repo:base&#x2F;7&#x2F;x86_64</h4><p> 一、<br>如果有timeout，可能是网络问题，网络连接选择NAT模式<br>二、<br>进入&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts目录，查找ifcfg开头的文件，将配置ONBOOT&#x3D;no，改为ONBOOT&#x3D;yes, 添加<br>DNS1&#x3D;8.8.8.8<br>DNS2&#x3D;4.2.2.2<br>具体命令如下：  </p>
+<pre><code class="hljs"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /etc/sysconfig/network-scripts<br><span class="hljs-built_in">ls</span><br><span class="hljs-comment"># 每个机子都可能不一样，但格式会是“ifcfg-eth数字”</span><br></code></pre></td></tr></table></figure>
+</code></pre>
+<p>使用vim打开文件ifcfg-ens33，并做更改  </p>
+<pre><code class="hljs"><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">vi ifcfg-e<span class="hljs-symbol">ns33</span>  <br></code></pre></td></tr></table></figure>
+</code></pre>
+<blockquote>
+<p>ONBOOT&#x3D;no在最后一行，可以shift+g键，使光标直接跳到最后一行，按l右移光标，按h左移光标，按x键删除光标所在位置的字符；然后shift+a键，使光标移动到本行末尾，进行插入操作，键盘输入‘yes’，按一下 esc键退出编辑模式，然后shift+z+z键保存并退出vim。</p>
+</blockquote>
+<p>重启网络：service network restart </p>
+<p>三、  </p>
+<pre><code class="hljs"><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/etc/</span>resolv.conf<br></code></pre></td></tr></table></figure>
+nameserver 8.8.8.8
+nameserver 4.2.2.2
+nameserver 172.19.0.6
+nameserver 172.19.0.5
+</code></pre>
+<p>重启网络</p>
+<h4 id="2-Centos如何进入和退出Vim编辑器"><a href="#2-Centos如何进入和退出Vim编辑器" class="headerlink" title="2. Centos如何进入和退出Vim编辑器"></a>2. Centos如何进入和退出Vim编辑器</h4><p>1、进入VIM编辑器，可以新建文件也可以修改文件，命令为：vim  &#x2F;usr&#x2F;local&#x2F;con.cfg<br>2、如果这个文件，以前是没有的，则为新建，则下方有提示为新文件。<br>如果文件已存在，则没有提示。<br>3、进入编辑器后，我们先按”I”，即切换到“插入”状态。就可以通过上下左右移动光标，或空格、退格及回车等进行编辑内容了，和WINDOWS是一样的了。  </p>
+<p>按ESC键 跳到命令模式，然后：<br>:w 保存文件但不退出vi<br>:w file 将修改另外保存到file中，不退出vi<br>:w! 强制保存，不推出vi<br>:wq 保存文件并退出vi<br>:wq! 强制保存文件，并退出vi<br>q: 不保存文件，退出vi<br>:q! 不保存文件，强制退出vi<br>:e! 放弃所有修改，从上次保存文件开始再编辑  </p>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/heliosj/article/details/78191857">https://blog.csdn.net/heliosj/article/details/78191857</a>   </p>
+<h4 id="3-VM-虚拟机上翻屏"><a href="#3-VM-虚拟机上翻屏" class="headerlink" title="3. VM 虚拟机上翻屏"></a>3. VM 虚拟机上翻屏</h4><p>shift + page up  </p>
+<h4 id="4-docker启动-重启-命令"><a href="#4-docker启动-重启-命令" class="headerlink" title="4. docker启动 || 重启 || 命令"></a>4. docker启动 || 重启 || 命令</h4><p>启动        systemctl start docker<br>守护进程重启   sudo systemctl daemon-reload<br>重启docker服务   systemctl restart  docker<br>重启docker服务  sudo service docker restart<br>关闭docker   service docker stop<br>关闭docker  systemctl stop docker  </p>
+<h4 id="5-“Cannot-connect-to-the-Docker-daemon-at-unix-x2F-x2F-x2F-var-x2F-run-x2F-docker-sock-Is-the-docker-daemon-running-”"><a href="#5-“Cannot-connect-to-the-Docker-daemon-at-unix-x2F-x2F-x2F-var-x2F-run-x2F-docker-sock-Is-the-docker-daemon-running-”" class="headerlink" title="5. “Cannot connect to the Docker daemon at unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock. Is the docker daemon running?”"></a>5. “Cannot connect to the Docker daemon at unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock. Is the docker daemon running?”</h4><p>问题原因是因为docker服务没有启动<br>执行 service docker start 命令，启动docker服务  </p>
+<h4 id="6-外部网络通过端口映射访问部署在虚拟机里-Docker-中的-Web-应用"><a href="#6-外部网络通过端口映射访问部署在虚拟机里-Docker-中的-Web-应用" class="headerlink" title="6. 外部网络通过端口映射访问部署在虚拟机里 Docker 中的 Web 应用"></a>6. 外部网络通过端口映射访问部署在虚拟机里 Docker 中的 Web 应用</h4><p>win + r  —-&gt; cmd —-&gt; ipconfig 查看 windows 主机： 192.168.23.62<br>虚拟机   —–&gt; ip addr —-&gt; ens33 中 inet 后的 IP 为虚拟机中操作系统（如 CentOS）的 IP 地址: 192.168.22.128<br>虚拟机   —–&gt; ip addr —-&gt; docker0 中 inet 后的 IP 为 docker 的IP 地址： 172.17.0.1  </p>
+<p>通过 <code>docker run -p</code> 中 <code>-p</code> 将 docker 端口映射到虚拟机端口。 可通过 curl localhost:port 访问映射端口，如<code>docker run -d -p 8080:80 image</code>  </p>
+<p>虚拟机菜单栏编辑 —-&gt;  虚拟机网络映射编辑 —-&gt;  更改设置 —-&gt; 选择 NAT 模式 —-&gt; NAT 设置 —-&gt; 添加 —-&gt; 主机端口（windows 访问的端口，如8800）, 类型 tcp ,虚拟机 IP 地址（192.168.22.128），虚拟机端口(8080)，描述（随意）  </p>
+<p>虚拟机启动防守进程，windows 浏览器访问地址 127.0.0.1:8800 即可访问  </p>
+<p>dockfile 文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">FROM</span> nginx<br>RUN echo <span class="hljs-string">&#x27;&lt;h1&gt;Hello Docker!&lt;/h1&gt;&#x27;</span> &gt; <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/nginx/</span>html/index.html<br></code></pre></td></tr></table></figure>
+
+<p>原文链接： <a target="_blank" rel="noopener" href="https://blog.csdn.net/liwenxia626/article/details/80848377">https://blog.csdn.net/liwenxia626/article/details/80848377</a>  </p>
+<p>原文链接： <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35673617/article/details/80561489">https://blog.csdn.net/qq_35673617/article/details/80561489</a><br>Redis Desktop 链接 Centos7上部署的 redis 数据库<br><code>bind 0.0.0.0</code><br><code>firewall-cmd --query-port=6379/tcp</code>，如果出现<code>no</code>，此时执行命令：<code>firewall-cmd --add-port=6379/tcp</code>，将 6379 端口开启，返回 success，执行完查询端口是否已开启  </p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">启动一个服务： <span class="hljs-string">systemctl</span> <span class="hljs-string">start</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>关闭一个服务： <span class="hljs-string">systemctl</span> <span class="hljs-string">stop</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>重启一个服务： <span class="hljs-string">systemctl</span> <span class="hljs-string">restart</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>显示一个服务的状态： <span class="hljs-string">systemctl</span> <span class="hljs-string">status</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>在开机时启用一个服务： <span class="hljs-string">systemctl</span> <span class="hljs-string">enable</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>在开机时禁用一个服务： <span class="hljs-string">systemctl</span> <span class="hljs-string">disable</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>查看服务是否开机启动： <span class="hljs-string">systemctl</span> <span class="hljs-string">is-enabled</span> <span class="hljs-string">firewalld</span>.<span class="hljs-string">service</span><br>查看已启动的服务列表： <span class="hljs-string">systemctl</span> <span class="hljs-built_in">list-unit-files|grep</span> <span class="hljs-string">enabled</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="7-Linux-下的-gt-和-gt-gt"><a href="#7-Linux-下的-gt-和-gt-gt" class="headerlink" title="7. Linux 下的 &gt; 和 &gt;&gt;"></a>7. Linux 下的 &gt; 和 &gt;&gt;</h4><p><code>&gt;</code>： 覆盖写<br><code>&gt;&gt;</code>： 追加写  </p>
+<p><code>ls -l &gt; list.txt</code>： 将 ls 执行结果保存到 list 文件中  </p>
+<h4 id="8-vi-退出命令"><a href="#8-vi-退出命令" class="headerlink" title="8. vi 退出命令"></a>8. vi 退出命令</h4><p>进入编辑模式，按 i 进行编辑<br>编辑结束，按ESC 键 跳到命令模式，然后输入退出命令：<br>    :w保存文件但不退出vi 编辑<br>    :w! 强制保存，不退出vi 编辑<br>    :w file将修改另存到file中，不退出vi 编辑<br>    :wq保存文件并退出vi 编辑<br>    :wq!强制保存文件并退出vi 编辑<br>    q:不保存文件并退出vi 编辑<br>    :q!不保存文件并强制退出vi 编辑<br>    :e!放弃所有修改，从上次保存文件开始在编辑  </p>
+<h4 id="9-apt-get-update-以及-apt-get-upgrade"><a href="#9-apt-get-update-以及-apt-get-upgrade" class="headerlink" title="9. apt-get update 以及 apt-get upgrade"></a>9. apt-get update 以及 apt-get upgrade</h4><p>update 是更新软件列表，upgrade 是更新软件<br>update 会访问源列表里的每个网址，并读取软件列表，然后保存在本地电脑<br>upgrade 会把本地已安装的软件，与刚下载的软件列表里对应软件进行对比，如果发现已安装的软件版本太低，就会提示你更新。如果你的软件都是最新版本，会提示： 1  </p>
+<h4 id="10-wget-command-not-found"><a href="#10-wget-command-not-found" class="headerlink" title="10. wget command not found"></a>10. wget command not found</h4><p>安装的是CentOS，wget默认不会被安装，所以找不到wget这个命令，解决方式是安装wget<br>yum安装wget:  <code>yum -y install wget</code>  </p>
+<h4 id="11-删除文件夹"><a href="#11-删除文件夹" class="headerlink" title="11. 删除文件夹"></a>11. 删除文件夹</h4><p>使用rm -rf 目录名字 命令即可<br>-r 就是向下递归，不管有多少级目录，一并删除<br>-f 就是直接强行删除，不作任何提示的意思<br>–force    忽略不存在的文件，从不给出提示。<br>-i, –interactive 进行交互式删除，在删除前询问用户是否操作<br>-r, -R, –recursive   指示rm将参数中列出的全部目录和子目录均递归地删除。<br>-v, –verbose    详细显示进行的步骤<br>–help     显示此帮助信息并退出<br>–version  输出版本信息并退出  </p>
+<h4 id="12-移动文件"><a href="#12-移动文件" class="headerlink" title="12. 移动文件"></a>12. 移动文件</h4><p>mv [-fiv] source destination<br>参数说明：  </p>
+<ul>
+<li>-f:force，强制直接移动而不询问  </li>
+<li>-i:若目标文件(destination)已经存在，就会询问是否覆盖  </li>
+<li>-u:若目标文件已经存在，且源文件比较新，才会更新</li>
+</ul>
+<h4 id="13-复制文件"><a href="#13-复制文件" class="headerlink" title="13. 复制文件"></a>13. 复制文件</h4><p>cp [option] source1 source2 source3 … directory<br>cp -r dir1 dir2 : dir2 目录不存在<br>cp -r dir1&#x2F;. dir2 : dir2 目录已存在  </p>
+<p>参数说明：  </p>
+<ul>
+<li>-a:是指archive的意思，也说是指复制所有的目录  </li>
+<li>-d:若源文件为连接文件(link file)，则复制连接文件属性而非文件本身  </li>
+<li>-f:强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制  </li>
+<li>-i:若目标文件(destination)已存在，在覆盖时会先询问是否真的操作  </li>
+<li>-l:建立硬连接(hard link)的连接文件，而非复制文件本身  </li>
+<li>-p:与文件的属性一起复制，而非使用默认属性  </li>
+<li>-r:递归复制，用于目录的复制操作  </li>
+<li>-s:复制成符号连接文件(symbolic link)，即“快捷方式”文件  </li>
+<li>-u:若目标文件比源文件旧，更新目标文件</li>
+</ul>
+<h4 id="14-nginx-x2F-1-14-0-Ubuntu-Forbidden"><a href="#14-nginx-x2F-1-14-0-Ubuntu-Forbidden" class="headerlink" title="14. nginx&#x2F;1.14.0 (Ubuntu) Forbidden"></a>14. nginx&#x2F;1.14.0 (Ubuntu) Forbidden</h4><p>Nginx 出现 403 Forbidden 最终解决<br>步骤一：<br>    检查目录权限。权限不足的就加个权限吧。<br>    例子：chmod -R 755 &#x2F; var&#x2F;www<br>步骤二：<br>    打开nginx.conf<br>    例子：vim &#x2F;etc&#x2F;nginx&#x2F;nginx.conf<br>    把 user 用户名 改为 user root 或 其它有高权限的用户名称即可  </p>
+<h4 id="15-standard-init-linux-go-190-exec-user-process-caused-“exec-format-error"><a href="#15-standard-init-linux-go-190-exec-user-process-caused-“exec-format-error" class="headerlink" title="15. standard_init_linux.go:190: exec user process caused “exec format error"></a>15. standard_init_linux.go:190: exec user process caused “exec format error</h4><p>Script脚本 开头必须加 #!&#x2F;bin&#x2F;bash<br><code>#</code>和<code>！</code>之间没有空格  </p>
+<h4 id="16-centos中执行apt-get命令提示apt-get-command-not-found"><a href="#16-centos中执行apt-get命令提示apt-get-command-not-found" class="headerlink" title="16. centos中执行apt-get命令提示apt-get command not found"></a>16. centos中执行apt-get命令提示apt-get command not found</h4><p>在 centos 下用 yum install xxx</p>
+<p>yum 和 apt-get 的区别  </p>
+<p>一般来说著名的 linux 系统基本上分两大类：  </p>
+<ol>
+<li>RedHat 系列：Redhat、Centos、Fedora 等  </li>
+<li>Debian 系列：Debian、Ubuntu 等</li>
+</ol>
+<p>RedHat 系列  </p>
+<p>1. 常见的安装包格式 rpm 包,安装 rpm 包的命令是“rpm -参数”<br>2. 包管理工具 yum<br>3. 支持 tar 包  </p>
+<p>Debian 系列  </p>
+<p>1. 常见的安装包格式 deb 包,安装 deb 包的命令是“dpkg -参数”<br>2. 包管理工具 apt-get<br>3. 支持 tar 包   </p>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lydong_/article/details/79812694">https://blog.csdn.net/lydong_/article/details/79812694</a>  </p>
+<h4 id="15-Redis-安装"><a href="#15-Redis-安装" class="headerlink" title="15. Redis 安装"></a>15. Redis 安装</h4><ol>
+<li>由于CentOS官方yum源里面没有Redis,这里我们需要安装一个第三方的yum源,这里用了Fedora的epel仓库<br>yum install epel-release<br>安装过程中会有让你确认的,输入y按回车就可以了  </li>
+<li>安装Redis<br>yum install redis<br>安装过程中会有让你确认的,输入y按回车就可以了  </li>
+<li>启动Redis<br>service redis start  </li>
+<li>修改端口号&#x2F;密码等配置<br>vim &#x2F;etc&#x2F;redis.conf  </li>
+<li>注释掉 ip 绑定(这个只允许本地调试,不注释掉这个,你远程这个 redis 的时候会提示:<br>redis.clients.jedis.exceptions.JedisConnectionException:  java.net.ConnectException: Connection refused: connect）  </li>
+<li>关闭保护模式(不关闭的话远程这个 redis 会提示:<br>redis.clients.jedis.exceptions.JedisDataException: DENIED Redis is running in protected mode）</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/haoxin963/article/details/82585684">https://blog.csdn.net/haoxin963/article/details/82585684</a>  </p>
+<h4 id="16-虚拟机-IP"><a href="#16-虚拟机-IP" class="headerlink" title="16. 虚拟机 IP"></a>16. 虚拟机 IP</h4><p><code>ip a show docker0</code>： 查询指定 IP<br><code>ipconfig docker0</code>  </p>
+<h4 id="17-linux-ping-command-not-found"><a href="#17-linux-ping-command-not-found" class="headerlink" title="17. linux ping: command not found"></a>17. linux ping: command not found</h4><p>apt-get install inetutils-ping  </p>
+<h4 id="18-bash-vi-command-not-found"><a href="#18-bash-vi-command-not-found" class="headerlink" title="18. bash: vi: command not found"></a>18. bash: vi: command not found</h4><p>apt-get update<br>apt-get install vim  </p>
+<h4 id="14-apt-get"><a href="#14-apt-get" class="headerlink" title="14. apt-get"></a>14. apt-get</h4><p>下载安装软件包的简单命令行接口<br><code>apt-get [OPTIONS] [COMMANDS] [PACKAGE_NAMES]</code>  </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs routeros">OPTIONS:<br>-h      帮助信息<br>-q      输出到日志<br>-qq     不输出信息，错误除外<br>-d      仅下载（不安装或解压归档文件）<br>-s      不实际安装（模拟运行命令）<br>-y      假定对全部的询问选是<br>-f      尝试修正系统依赖损坏处<br>-m      假设归档无法定位，尝试继续<br>-u      同一时候显示更新软件包的列表<br>-b      获取源代码包后编译<br>-v      显示具体的版本<br><span class="hljs-attribute">-c</span>=？    阅读此配置文件<br><span class="hljs-attribute">-o</span>=?    设置自己定义的配置选项，如 -o dir::<span class="hljs-attribute">cache</span>=/tmp<br><br>COMMANDS:<br>update              又一次获取软件包列表<span class="hljs-built_in"></span><br><span class="hljs-built_in">upgrade </span>            进行更新<br>install             安装新的软件包<br><span class="hljs-built_in">remove</span>              移出软件包<br>autoremove          自己主动移出所有不使用的软件包<br>purge               移除软件包和配置文件<br>source              下载源代码档案<br>build-dep           为源代码包配置编译依赖<br>dist-upgrade        发行版升级<br>dselect-upgrade     按照 dselect 的选择更新<br>clean               清除下载的归档文件<br>autoclean           清除旧的已下载的归档文件<br>check               检验是否有损坏的依赖<br><br><br>经常使用实例：<br>apt-cache search PACKAGE_NAMES              搜索包<br>apt-cache show PACKAGE_NAMES                获取包的相关信息，如说明、大小、版本号等<br>apt-<span class="hljs-built_in">get</span> install PACKAGE_NAMES               安装包<br>apt-<span class="hljs-built_in">get</span> install PACKAGE_NAMES --reinstall           又一次安装包<br>apt-<span class="hljs-built_in">get</span> -f install PACKAGE_NAMES            修复安装包<br>apt-<span class="hljs-built_in">get</span> <span class="hljs-built_in">remove</span> PACKAGE_NAMES                删除包<br>apt-<span class="hljs-built_in">get</span> <span class="hljs-built_in">remove</span> PACKAGE_NAMES --purge                删除包，包含删除配置文件等<br>apt-<span class="hljs-built_in">get</span> update                      更新源<br>apt-<span class="hljs-built_in">get</span><span class="hljs-built_in"> upgrade </span>                    更新已安装的包<br>apt-<span class="hljs-built_in">get</span> dist-upgrade                        升级系统<br>apt-<span class="hljs-built_in">get</span> dselect-upgrade                 使用 dselect 升级<br>apt-cache depends PACKAGE_NAMES             了解使用依赖<br>apt-cache rdepends PACKAGE_NAMES            查看该包被那些包依赖<br>apt-<span class="hljs-built_in">get</span> build-dep PACKAGE_NAMES             安装相关的编译环境<br>apt-<span class="hljs-built_in">get</span> source PACKAGE_NAMES                下载该包的源码<br>apt-<span class="hljs-built_in">get</span> clean                               清理没用的包<br>apt-<span class="hljs-built_in">get</span> autoclean                           清理没用的包<br>apt-<span class="hljs-built_in">get</span> check                               检查是否有损坏的依赖<br></code></pre></td></tr></table></figure>
+
+<h4 id="15-杀死包含-simple-service-的进程"><a href="#15-杀死包含-simple-service-的进程" class="headerlink" title="15. 杀死包含 simple-service 的进程"></a>15. 杀死包含 simple-service 的进程</h4><p><code>kill -s `ps -ef | grep simple-service | grep -v grep | awk &#39;&#123;print $2&#125;&#39;</code>  </p>
+<h3 id="16-Jenkins-启动-Spring-Boot"><a href="#16-Jenkins-启动-Spring-Boot" class="headerlink" title="16. Jenkins 启动 Spring Boot"></a>16. Jenkins 启动 Spring Boot</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs gradle">#!<span class="hljs-regexp">/bin/</span>bash<br><br># export BUILD_ID=dontkillMe<br># www_path=<span class="hljs-regexp">/tmp/</span>jenkins-buildenv<span class="hljs-regexp">/springcloud_inaction/</span>www<br># jar_path=<span class="hljs-regexp">/tmp/</span>jenkins-buildenv<span class="hljs-regexp">/springcloud_inaction/</span>workspace<br># jar_name=spring<br><br>kill -s `ps -ef | <span class="hljs-keyword">grep</span> simple-service | <span class="hljs-keyword">grep</span> -v <span class="hljs-keyword">grep</span> | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span>`<br><br>docker rm spring_demo -f<br><br>cd <span class="hljs-regexp">/var/</span>jenkins_home<span class="hljs-regexp">/workspace/</span><span class="hljs-string">&quot;SpringCloud In Action - Ch 01&quot;</span><span class="hljs-regexp">/simpleservice/</span>src<span class="hljs-regexp">/main/</span>docker<br># docker build -t dy/openjdk:<span class="hljs-number">8</span>-<span class="hljs-number">1.0</span> .<br><br># cd <span class="hljs-regexp">/var/</span>jenkins_home<span class="hljs-regexp">/workspace/</span><span class="hljs-string">&quot;SpringCloud In Action - Ch 01&quot;</span><span class="hljs-regexp">/simpleservice/</span>target<br># java -jar simple-service-<span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.jar --server.port=<span class="hljs-number">8088</span><br><br><br>cp -rf ..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/target/</span>simple-service-<span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.jar simple-service-<span class="hljs-number">0.0</span>.<span class="hljs-number">1</span>-SNAPSHOT.jar<br><br>docker build -f <span class="hljs-regexp">/var/</span>jenkins_home<span class="hljs-regexp">/workspace/</span><span class="hljs-string">&quot;SpringCloud In Action - Ch 01&quot;</span><span class="hljs-regexp">/simpleservice/</span>src<span class="hljs-regexp">/main/</span>docker<span class="hljs-regexp">/Dockerfile -t dy/</span>openjdk:<span class="hljs-number">8</span>-<span class="hljs-number">1.0</span> .<br><br>docker run -d -p <span class="hljs-number">8088</span>:<span class="hljs-number">8088</span> --name spring_demo dy/openjdk:<span class="hljs-number">8</span>-<span class="hljs-number">1.0</span><br></code></pre></td></tr></table></figure>
+
+<p>####17. abrt-cli…… no more mirrors to try<br>在 CentOS 使用 yum 安装软件的时候 出现错误 no more mirrors to try，导致软件无法继续安装。  </p>
+<p>可能原因是不正当的删除造成的。  </p>
+<p>尝试  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">yum clean <span class="hljs-keyword">all</span> <br>yum makecache <br>yum <span class="hljs-operator">-</span>y <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
+<p>然后重新安装  </p>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26769677/article/details/80439868">https://blog.csdn.net/qq_26769677/article/details/80439868</a>  </p>
+<p>####18. centOS7下安装GUI图形界面<br>当你安装 centOS7 服务器版本的时候，系统默认是不会安装 GUI 的图形界面程序，这个需要手动安装 CentOS7 Gnome GUI 包  </p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs clean">yum grouplist<br>yum groupinstall <span class="hljs-string">&quot;GNOME Desktop&quot;</span> <span class="hljs-string">&quot;Graphical Administration Tools&quot;</span> ## 名字对应 grouplist 中的字段<br><br></code></pre></td></tr></table></figure>
+
+<p>####19. VM 安装 Vmware tools</p>
+<ol>
+<li>启动 CentOS</li>
+<li>菜单栏  —-&gt; 虚拟机 —-&gt;  重新安装 VMware Tools …  </li>
+<li>Centos 桌面 打开 VMware Tools  </li>
+<li>复制 VMwareTools-10.3.2-9925305.tar.gz 到 CentOS 随意目录  </li>
+<li>cmd 进入该目录  </li>
+<li><code>tar zxf VMwareTools-10.3.2-9925305.tar.gz</code>： 解压  </li>
+<li><code>sudo ./vmware-tools-distrib/vmware-install.pl</code>: 执行，yes|no 的时候 y，其余回车即可  </li>
+<li><code>reboot</code>： 重启  </li>
+<li>菜单栏  —-&gt; 虚拟机 —-&gt;  设置  —-&gt;  选项  —-&gt;  共享文件夹  </li>
+<li>总是启用  </li>
+<li>文件夹 —-&gt; 添加  —-&gt;  主机路径（本机（windows）要共享数据的文件夹绝对路径）  —-&gt;  名称（CentOS 中该文件夹的名称（默认位于 &#x2F;mnt&#x2F;hgfs 目录下））</li>
+</ol>
+<p>####20. CentOS赋权限<br>修改 &#x2F;etc&#x2F;sudoers 文件，找到下面一行，在root下面添加一行，如下所示：  </p>
+<h2 id="Allow-root-to-run-any-commands-anywhere"><a href="#Allow-root-to-run-any-commands-anywhere" class="headerlink" title="Allow root to run any commands anywhere"></a>Allow root to run any commands anywhere</h2><p>root    ALL&#x3D;(ALL)     ALL<br>tommy   ALL&#x3D;(ALL)     ALL<br>修改完毕，现在可以用tommy帐号登录，然后用命令 su - ，即可获得root权限进行操作。  </p>
+<p>####21. Failed to start mysql.service: Unit not found.<br>yum list installed | grap mysql<br>卸载 (yum -yqq remove)<br>1.安装:<br><code>yum install -y mariadb-server</code><br>2.启动maria DB服务:<br><code>systemctl start mariadb.service</code><br>(说明：CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。)<br>3.添加至开机自启动：<br><code>systemctl enable mariadb.service</code>  </p>
+<p>在新版的 Mariadb 安装过程中没有设置密码的过程了，而用 <code>mysql_secure_installation</code> 命令设置 Root 密码<br>使用 <code>mysql -u root -p</code> 登录</p>
+<p>####22. Office 2016激活<br>cmd<br>cscript “C:\Program Files\Microsoft Office\Office16\ospp.vbs” &#x2F;dstatus  </p>
+<p>slmgr.vbs -xpr</p>
+<p>slmgr &#x2F;xpr 00339-10000-00000-AA701</p>
+<h4 id="23-宿主机不能访问虚拟机中CentOS的Tomcat服务器"><a href="#23-宿主机不能访问虚拟机中CentOS的Tomcat服务器" class="headerlink" title="23. 宿主机不能访问虚拟机中CentOS的Tomcat服务器"></a>23. 宿主机不能访问虚拟机中CentOS的Tomcat服务器</h4><p>CentOS 7，使用iptables的版本是7以前的，CentOS 7使用firewall作为防火墙。  </p>
+<p>查看已经开放的端口： <code>firewall-cmd --list-ports</code><br>开启端口： <code>firewall-cmd --zone=public --add-port=80/tcp --permanent</code>  </p>
+<p>命令含义：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">–zone <span class="hljs-comment">#作用域</span><br>–<span class="hljs-keyword">add</span><span class="language-bash">-port=80/tcp <span class="hljs-comment">#添加端口，格式为：端口/通讯协议</span></span><br>–permanent <span class="hljs-comment">#永久生效，没有此参数重启后失效</span><br></code></pre></td></tr></table></figure>
+
+<p>重启、停止、禁用、查看防火墙  </p>
+<p><code>firewall-cmd --reload</code> #重启firewall<br><code>systemctl stop firewalld.service</code> #停止firewall<br><code>systemctl disable firewalld.service</code> #禁止firewall开机启动<br><code>firewall-cmd --state</code> #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）  </p>
+<p>因此结合上述命令来看，需要将8080端口添加到防火墙的开放端口中，然后重新载入防火墙的配置即可。如下：</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">sudo firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> <span class="hljs-literal">--</span><span class="hljs-comment">zone=public</span> <span class="hljs-literal">--</span><span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=8080/tcp</span> <span class="hljs-literal">--</span><span class="hljs-comment">permanent</span><br><span class="hljs-comment">sudo firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> <span class="hljs-literal">--</span><span class="hljs-comment">reload</span><br><span class="hljs-comment">sudo firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span><span class="hljs-literal">-</span><span class="hljs-comment">ports</span><br></code></pre></td></tr></table></figure>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/asahinokawa/article/details/82285390">https://blog.csdn.net/asahinokawa/article/details/82285390</a> </p>
+<p>####24. windows 端口<br><code>netstat -ano</code>：列出所有端口的情况。<br><code>netstat -aon|findstr &quot;端口号&quot;</code>：查看被占用端口对应的PID<br><code>tasklist|findstr &quot;PID&quot;</code>：查看是哪个进程或者程序占用了</p>
+<p>####25. Yum Remove<br><code>yum remove</code>会删除依赖的库<br>推荐使用 <code>rpm -e --nodeps xxx</code> 这种删除软件命令<br><a target="_blank" rel="noopener" href="https://blog.kazaff.me/2018/12/20/yum%20remove%E5%AE%B3%E6%AD%BB%E4%BA%BA/">原文链接</a></p>
+<p>####26.<br><code>rpm -qa | grep Java</code>： 查询出系统自带的 jdk<br>系统自带的 jdk  </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">java</span>-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.8.0.191</span>.b12-<span class="hljs-number">1</span>.el7_6.x86_64  <br><span class="hljs-attribute">java</span>-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-headless-<span class="hljs-number">1.8.0.191</span>.b12-<span class="hljs-number">1</span>.el7_6.x86_64  <br><span class="hljs-attribute">java</span>-<span class="hljs-number">1</span>.<span class="hljs-number">7</span>.<span class="hljs-number">0</span>-openjdk-headless-<span class="hljs-number">1.7.0.201</span>-<span class="hljs-number">2.6.16.1</span>.el7_6.x86_64  <br><span class="hljs-attribute">java</span>-<span class="hljs-number">1</span>.<span class="hljs-number">7</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.7.0.201</span>-<span class="hljs-number">2.6.16.1</span>.el7_6.x86_64  <br></code></pre></td></tr></table></figure>
+
+<p><code>rpm -e --nodeps jdk名</code>： 删除系统自带的 jdk  </p>
+<p><code>rpm -qa | grep Java</code>： 查询出是否删除掉  </p>
+<p>查看系统有没有自带的 openjdk  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm -<span class="hljs-keyword">qa</span> |<span class="hljs-keyword">grep</span> java<br>rpm -<span class="hljs-keyword">qa</span> |<span class="hljs-keyword">grep</span> jdk<br>rpm -<span class="hljs-keyword">qa</span> |<span class="hljs-keyword">grep</span> gcj<br></code></pre></td></tr></table></figure>
+
+<p><code>yum list java-1.8*</code>： 检索 yum 中有没有 java1.8<br><code>yum install java-1.8.0-openjdk.x86_64</code>： 安装 Java<br><code>yum install java-1.8.0-openjdk-devel.x86_64</code>： 解决 <code>bash: jsp: 未找到命令...</code><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/leshami/article/details/78562642">JPS 命令找不到的原文链接</a><br>jps 只显示 java 进程，准确的说是当前用户已启动的部分 java 进程信息，信息包括进程号和简短的进程 command。<br>(1) -q ：只显示 pid，不显示 class 名称，jar 文件名和传递给 main 方法的参数<br>(2) -m ：输出传递给 main 方法的参数，在嵌入式 jvm 上可能是 null<br>(3) -l ：输出应用程序 main class 的完整 package 名或者应用程序的 jar 文件完整路径名<br>(4) -v ：输出传递给JVM的参数<br>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/samyang1/article/details/80517657">https://blog.csdn.net/samyang1/article/details/80517657</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ios9/p/9333631.html">Java 安装</a>  </p>
+<p><code>rpm -qa | grep jdk</code>： 查看 rpm 包安装的 jdk  </p>
+<p>###27. centos 安装 maven</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal">[root<span class="hljs-variable">@localhost</span> docker_demo]<span class="hljs-comment"># vim /etc/profile</span><br><br>M2_HOME=~<span class="hljs-regexp">/application/apache</span>-maven-<span class="hljs-number">3.3</span>.<span class="hljs-number">3</span>/<br>export PATH=<span class="hljs-variable">$&#123;</span>M2_HOME&#125;/<span class="hljs-symbol">bin:</span><span class="hljs-variable">$&#123;</span>PATH&#125;<br><br>[root<span class="hljs-variable">@localhost</span> docker_demo]<span class="hljs-comment"># source /etc/profile</span><br>[root<span class="hljs-variable">@localhost</span> docker_demo]<span class="hljs-comment"># mvn -v</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="category-chain-item">虚拟机</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">#虚拟机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>虚拟机</div>
+      <div>http://example.com/2023/12/31/虚拟机/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BB%BA%E8%AE%AE%E7%82%B9/" title="数据库优化建议">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据库优化建议</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO/" title="单点登录">
+                        <span class="hidden-mobile">单点登录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="不清楚的点1. Java8 中接口 增加了 default 方法和 static 法，这两种方法完全可以有方法体   default 方法属于实例， static 方法属于类（接口），接口中静态方法并不能继承   接口中的静态方法不会被继承，接口中的静态变量会被继承   如果一个实现类继承了两个接口（这两个接口没有继承关系，有同名的默认方法），那么必须在实现类，显示声明，否则编译器不知道调用哪个而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8">
+<meta property="og:url" content="http://example.com/2023/12/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF/Java/Java8%20%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="不清楚的点1. Java8 中接口 增加了 default 方法和 static 法，这两种方法完全可以有方法体   default 方法属于实例， static 方法属于类（接口），接口中静态方法并不能继承   接口中的静态方法不会被继承，接口中的静态变量会被继承   如果一个实现类继承了两个接口（这两个接口没有继承关系，有同名的默认方法），那么必须在实现类，显示声明，否则编译器不知道调用哪个而">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.973Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="Java8">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Java8 - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java8"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java8</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="不清楚的点"><a href="#不清楚的点" class="headerlink" title="不清楚的点"></a>不清楚的点</h3><h4 id="1-Java8-中接口"><a href="#1-Java8-中接口" class="headerlink" title="1. Java8 中接口"></a>1. Java8 中接口</h4><ol>
+<li>增加了 default 方法和 static 法，这两种方法完全可以有方法体  </li>
+<li>default 方法属于实例， static 方法属于类（接口），接口中静态方法并不能继承  </li>
+<li>接口中的静态方法不会被继承，接口中的静态变量会被继承  </li>
+<li>如果一个实现类继承了两个接口（这两个接口没有继承关系，有同名的默认方法），那么必须在实现类，显示声明，否则编译器不知道调用哪个而报错；而且可以通过 XXInterface.super.重名method(); 指定需要实现的是哪个接口</li>
+</ol>
+<p>@FunctionInterface<br>限定接口只能有一个抽象方法，<br>该注解只能标记在”有且仅有一个抽象方法”的接口上<br>该注解不是必须的，如果一个接口符合”函数式接口”定义，那么加不加该注解都没有影响。加上该注解能够更好地让编译器进行检查。如果编写的不是函数式接口，但是加上了 @FunctionInterface，那么编译器会报错  </p>
+<p>1、接口有且只能有个一个抽象方法，只有方法定义，没有方法<br>体<br>2、在接口中覆写 Object 类中的 public 方法，不算是函数式接口的方法。如 Comparator 仍是一个函数式接口  </p>
+<p>JDK8接口中的静态方法和默认方法，都不算是抽象方法<br>接口默认继承java.lang.Object，所以如果接口显示声明覆盖了Object中方法，那么也不算抽象方法。  </p>
+<p>Object 不是函数式接口  </p>
+<h4 id="2-接口-和-Object-类"><a href="#2-接口-和-Object-类" class="headerlink" title="2. 接口 和 Object 类"></a>2. 接口 和 Object 类</h4><p>一、 如果接口继承 Object 类，则可以直接在接口后面加 extends Object。 很明显会报错，编译通不过。<br>二、 隐含继承<br>List 接口中如果没有 toString() 方法，那么由多态或继承的原理，System.out.println(array.toString()) 会报错，但事实确实不会报错。<br><a target="_blank" rel="noopener" href="https://www.aliyun.com/jiaocheng/1437510.html">原文链接</a><br>三、 会默认被 Object 实现（我自已的意见）<br>如果新建一个 interface，无论是不是函数式接口，编写一个 toString() 或其他 Object 的方法，Ctrl open implementation(打开实现类) 会跳转至 Object 类中。  </p>
+<h4 id="3-File-file-x3D-new-File-“路径名”-路径名的2种写法"><a href="#3-File-file-x3D-new-File-“路径名”-路径名的2种写法" class="headerlink" title="3. File file &#x3D; new File(“路径名”) 路径名的2种写法"></a>3. File file &#x3D; new File(“路径名”) 路径名的2种写法</h4><p>只有在 src 或者 java 文件夹下的 java 文件或资源文件才会编译，然后通过打包，会复制到 commlib 中  </p>
+<p>1.绝对路径  </p>
+<p>a. 带盘符,如E:&#x2F;book.xml<br>b. 以http开头,<a target="_blank" rel="noopener" href="http://img.baidu.com/img/book.jpg">http://img.baidu.com/img/book.jpg</a>  </p>
+<ol start="2">
+<li>相对路径</li>
+</ol>
+<p>a. 带 “&#x2F;“ 开头,如 &#x2F;book.xml<br>b. 不带 “&#x2F;“ 开头,如 book.xml  </p>
+<p>现在项目结构如下,项目 System.getProperty(“user.dir”)&#x3D;E:\ProjectTest\javaEE\  </p>
+<p>new File(“E:&#x2F;ProjectTest&#x2F;javaEE&#x2F;src&#x2F;com&#x2F;ly&#x2F;javaee&#x2F;xml&#x2F;dom4j&#x2F;book.xml”)—OK  </p>
+<p>相对路径<br>new File(“book.xml”)—-报错(此时相当于 System.getProperty(“user.dir”) + “book.xml”,这是文件 book.xml 不存在 user.dir 下面)  </p>
+<p>new File(“src&#x2F;com&#x2F;ly&#x2F;javaee&#x2F;xml&#x2F;dom4j&#x2F;book.xml”)—-OK(不带 “&#x2F;“ 可见在项目中相对的是以项目名为根路径,此时相当于 System.getProperty(“user.dir”) + “src&#x2F;com&#x2F;ly&#x2F;javaee&#x2F;xml&#x2F;dom4j&#x2F;book.xml”)  </p>
+<p>new File(“&#x2F;book.xml”)—-以下可以看出本JVM运行在E盘下,此时带 “&#x2F;“ 就相当于 “E:&#x2F;book.xml” ,JVM 运行在哪个盘符就以哪个为根路径</p>
+<p>new File(“.&#x2F;book.xml”);—报错(同 new File(“book.xml”) 效果)  </p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/cs-lcy/p/7499959.html">原文链接</a>  </p>
+<h4 id="4-堆（heap）和栈（stack）"><a href="#4-堆（heap）和栈（stack）" class="headerlink" title="4. 堆（heap）和栈（stack）"></a>4. 堆（heap）和栈（stack）</h4><ol>
+<li><p>与 C++ 不同，Java 自动管理栈和堆，程序员不能直接设置栈和堆。  </p>
+</li>
+<li><p>栈的存取速度比堆快；数据大小与生存期必须是确定的，缺乏灵活性；栈数据可以共享<br>堆动态地分配内存大小，生存期也不必事先告诉编译器，java 的垃圾收集器会自动收走这些不再使用的数据；由于运行时动态分配内存，存取速度较慢。 </p>
+</li>
+<li><ul>
+<li><p>基本数据类型（8种）<br>  定义是通过 int a &#x3D; 3; long b &#x3D; 255L; 的形式定义的，称为自动变量。<br>  自动变量存的是字面值，不是类的实例，即不是类的引用，这里没有类的存在。<br>  如 int a &#x3D; 3; a 是一个指向 int 类型的引用，指向 3 这个字面值<br>  这些字面值的数据，由于大小可知，生存期可知(这些字面值固定定义在某个程序块里面，程序块退出后，字段值就消失了)，出于追求速度的原因，就存在于栈中。<br>  另外，栈有一个很重要的特殊性，就是存在栈中的数据可以共享。假设我们同时定义：<br>  int a &#x3D; 3; int b &#x3D; 3;<br>  编译器先处理 int a &#x3D; 3；首先它会在栈中创建一个变量为 a 的引用，然后查找有没有字面值为 3 的地址，没找到，就开辟一个存放 3 这个字面值的地址，然后将 a 指向 3 的地址。接着处理 int b &#x3D; 3；在创建完 b 的引用变量后，由于在栈中已经有 3 这个字面值，便将 b 直接指向 3 的地址。这样，就出现了 a 与 b 同时均指向 3 的情况。  </p>
+</li>
+<li><p>包装类数据<br> 如 Integer, String, Double 等将相应的基本数据类型包装起来的类。这些类数据全部存在于堆中，Java 用 new() 语句来显示地告诉编译器，在运行时才根据需要动态创建，因此比较灵活，但缺点是要占用更多的时间。</p>
+</li>
+</ul>
+</li>
+<li><p>String 是一个特殊的包装类数据。<br> 即可以用 String str &#x3D; new String(“abc”); 的形式来创建，也可以用 String str &#x3D; “abc”； 的形式来创建(作为对比，在 JDK 5.0 之前，你从未见过 Integer i &#x3D; 3; 的表达式，因为类与字面值是不能通用的，除了 String。而在 JDK 5.0 中，这种表达式是可以的！因为编译器在后台进行 Integer i &#x3D; new Integer(3) 的转换)。前者是规范的类的创建过程，即在 Java 中，一切都是对象，而对象是类的实例，全部通过 new() 的形式来创建。Java 中的有些类，如 DateFormat 类，可以通过该类的 getInstance() 方法来返回一个新创建的类，似乎违反了此原则。其实不然。该类运用了单例模式来返回类的实例，只不过这个实例是在该类内部通过 new() 来创建的，而 getInstance() 向外部隐藏了此细节。那为什么在 String str &#x3D; “abc”；中，并没有通过 new() 来创建实例，是不是违反了上述原则？其实没有。 </p>
+</li>
+<li><p>关于String str &#x3D; “abc”的内部工作。Java内部将此语句转化为以下几个步骤：  </p>
+<ul>
+<li>先定义一个名为str的对String类的对象引用变量：String str；  </li>
+<li>在栈中查找有没有存放值为 “abc” 的地址，如果没有，则开辟一个存放字面值为 “abc” 的地址，接着创建一个新的 String 类的对象 o，并将 o 的字符串值指向这个地址，而且在栈中这个地址旁边记下这个引用的对象 o。如果已经有了值为 “abc” 的地址，则查找对象 o，并返回 o 的地址。  </li>
+<li>将 str 指向对象 o 的地址。<br> 值得注意的是，一般 String 类中字符串值都是直接存值的。但像 String str &#x3D; “abc”；这种场合下，其字符串值却是保存了一个指向存在栈中数据的引用！</li>
+</ul>
+<p> 只要是用 new() 来新建对象的，都会在堆中创建，而且其字符串是单独存值的，即使与栈中的数据相同，也不会与栈中的数据共享。  </p>
+</li>
+<li><p>数据类型包装类的值不可修改。不仅仅是String类的值不可修改，所有的数据类型包装类都不能更改其内部的值。  </p>
+</li>
+<li><p>结论与建议  </p>
+<ul>
+<li><p>使用诸如 String str &#x3D; “abc”；的格式定义类时，总是想当然地认为，我们创建了 String 类的对象 str。担心陷阱！对象可能并没有被创建！唯一可以肯定的是，指向 String 类的引用被创建了。至于这个引用到底是否指向了一个新的对象，必须根据上下文来考虑，除非你通过 new() 方法来显要地创建一个新的对象。因此，更为准确的说法是，我们创建了一个指向 String 类的对象的引用变量 str，这个对象引用变量指向了某个值为 “abc” 的 String 类。清醒地认识到这一点对排除程序中难以发现的bug是很有帮助的。  </p>
+</li>
+<li><p>使用 String str &#x3D; “abc”；的方式，可以在一定程度上提高程序的运行速度，因为 JVM 会自动根据栈中数据的实际情况来决定是否有必要创建新对象。而对于 String str &#x3D; new String(“abc”)；的代码，则一概在堆中创建新对象，而不管其字符串值是否相等，是否有必要创建新对象，从而加重了程序的负担。这个思想应该是享元模式的思想，但 JDK 的内部在这里实现是否应用了这个模式，不得而知。  </p>
+</li>
+<li><p>当比较包装类里面的数值是否相等时，用 equals() 方法；当测试两个包装类的引用是否指向同一个对象时，用 &#x3D;&#x3D;。  </p>
+</li>
+<li><p>由于 String 类的不可变性质，当 String 变量需要经常变换其值时，应该考虑使用 StringBuffer 类，以提高程序效率。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>栈(stack): 是一个先进后出的数据结构,通常用于保存方法(函数)中的参数,局部变量.<br>在 java 中,所有基本类型和引用类型都在栈中存储.栈中数据的生存空间一般在当前 scopes 内(就是由{…}括起来的区域).   </p>
+<p>堆(heap): 是一个可动态申请的内存空间(其记录空闲内存空间的链表由操作系统维护),C 中的 malloc 语句所产生的内存空间就在堆中.<br>在 java 中,所有使用 new xxx() 构造出来的对象都在堆中存储,当垃圾回收器检测到某对象未被引用,则自动销毁该对象.所以,理论上说java中对象的生存空间是没有限制的,只要有引用类型指向它,则它就可以在任意地方被使用. </p>
+<p>在JAVA中，有六个不同的地方可以存储数据：  </p>
+<ol>
+<li>寄存器（register）。这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。  </li>
+<li>堆栈（stack）。位于通用 RAM 中，但通过它的“堆栈指针”可以从处理器哪里获得支持。堆栈指针若向下移动，则分配新的内存；若向上移动，则释放那些 内存。这是一种快速有效的分配存储方法，仅次于寄存器。创建程序时候，JAVA 编译器必须知道存储在堆栈内所有数据的确切大小和生命周期，因为它必须生成 相应的代码，以便上下移动堆栈指针。这一约束限制了程序的灵活性，所以虽然某些JAVA数据存储在堆栈中——特别是对象引用，但是JAVA对象不存储其中。  </li>
+<li>堆（heap）。一种通用性的内存池（也存在于RAM中），用于存放所以的 JAVA 对象。堆不同于堆栈的好处是：编译器不需要知道要从堆里分配多少存储区 域，也不必知道存储的数据在堆里存活多长时间。因此，在堆里分配存储有很大的灵活性。当你需要创建一个对象的时候，只需要new写一行简单的代码，当执行 这行代码时，会自动在堆里进行存储分配。当然，为这种灵活性必须要付出相应的代码。用堆进行存储分配比用堆栈进行存储存储需要更多的时间。  </li>
+<li>静态存储（static storage）。这里的“静态”是指“在固定的位置”。静态存储里存放程序运行时一直存在的数据。你可用关键字static来标识一个对象的特定元素是静态的，但 JAVA 对象本身从来不会存放在静态存储空间里。  </li>
+<li>常量存储（constant storage）。常量值通常直接存放在程序代码内部，这样做是安全的，因为它们永远不会被改变。有时，在嵌入式系统中，常量本身会和其他部分分割离开，所以在这种情况下，可以选择将其放在ROM中  </li>
+<li>非 RAM 存储。如果数据完全存活于程序之外，那么它可以不受程序的任何控制，在程序没有运行时也可以存在。<br>就速度来说，有如下关系：<br>寄存器 &lt; 堆栈 &lt; 堆 &lt; 其他</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iliuyuet/p/5603618.html">原文链接</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/Java/" class="category-chain-item">Java</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java8/">#Java8</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java8</div>
+      <div>http://example.com/2023/12/31/服务器端/Java/Java8 实战/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E6%B5%8B%E8%AF%95/Jmeter%20%E7%AC%94%E8%AE%B0/" title="JMeter 笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JMeter 笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF/dubbo/Dubbo/" title="Dubbo">
+                        <span class="hidden-mobile">Dubbo</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

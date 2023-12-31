@@ -1,0 +1,834 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="容器容器的命名必须是唯一的。很多docker 命令中，都可以用容器的名称来替代容器ID。合法的容器的名称只能包含大小写字母，下划线，圆点，横线即（[a-zA-Z.-]） docker -v | --version： 查看版本   docker container ls： 查看所有当前运行的容器docker container ls -l： 查看最新创建的一条容器，包含所有状态docker cont">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一本Docker书 阅读笔记">
+<meta property="og:url" content="http://example.com/2023/12/31/docker/%E7%AC%AC%E4%B8%80%E6%9C%AC%20Docker%20%E4%B9%A6%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="容器容器的命名必须是唯一的。很多docker 命令中，都可以用容器的名称来替代容器ID。合法的容器的名称只能包含大小写字母，下划线，圆点，横线即（[a-zA-Z.-]） docker -v | --version： 查看版本   docker container ls： 查看所有当前运行的容器docker container ls -l： 查看最新创建的一条容器，包含所有状态docker cont">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:04.708Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>第一本Docker书 阅读笔记 - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第一本Docker书 阅读笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          90 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第一本Docker书 阅读笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>容器的命名必须是唯一的。<br>很多docker 命令中，都可以用容器的名称来替代容器ID。<br>合法的容器的名称只能包含大小写字母，下划线，圆点，横线即（[a-zA-Z.<em>-</em>]）</p>
+<p><code>docker -v | --version</code>： 查看版本  </p>
+<p><code>docker container ls</code>： 查看所有当前运行的容器<br><code>docker container ls -l</code>： 查看最新创建的一条容器，包含所有状态<br><code>docker container ls -a</code>： 这将列出任何状态的容器，无论是创建，运行还是退出<br><code>docker container ls -q</code>： 列出所有容器的ID<br><code>docker ps -n x</code>： 显示最后x个容器，无论是否运行  </p>
+<p><code>docker ps</code>命令默认情况下仅显示运行容器。 要查看所有容器，请使用<code>-a</code>(或<code>--all</code>)标志<br>过滤标志(<code>-f</code>或<code>--filter</code>)格式是<code>key = value</code>对。如果有多个过滤器，则传递多个标志(例如<code>--filter “foo = bar” --filter “bif = baz”</code>)<br><code>docker ps --filter &#39;exited=0&#39;</code><br><code>docker ps --filter &#39;name=demo&#39;</code>  </p>
+<p><code>docker inspect</code>： 返回其配置信息  </p>
+<p><code>docker container rm </code>： 删除容器。如果要强制删除正在运行的程序，可以使用命令行参数 -f 或 -force。<br><code>docker rm</code>： 删除容器  </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">docker rm `docker ps -<span class="hljs-selector-tag">a</span> -<span class="hljs-selector-tag">q</span>`<br></code></pre></td></tr></table></figure>
+<p>删除所有容器  </p>
+<p><code>docker start</code> || <code>docker restart</code>： 启动容器  </p>
+<p><code>docker attach</code>： 重新附着到容器的会话，沿用docker run命令时指定的参数来运行，容器必须运行；连接到正在运行中的容器，可以同时连接上同一个container来共享屏幕（与screen命令的attach类似）；退出后，docker容器也退出<br><code>docker exec</code>： 在运行的容器中执行命令，退出后，docker 容器继续运行，容器后必须紧跟 命令，默认-d(分离模式)  </p>
+<p><code>docker top</code>： 查看容器中运行的进程信息，支持 ps 命令参数。<br><code>docker logs 容器名|ID</code>： 获取容器的日志，查看容器内部的运行  </p>
+<ul>
+<li>-f : 跟踪日志输出, ctrl + c 退出日志跟踪  </li>
+<li>–since :显示某个开始时间的所有日志  </li>
+<li>-t : 显示时间戳  </li>
+<li>–tail :仅列出最新N条容器日志</li>
+</ul>
+<p><code>docker stop</code>： 停止容器<br><code>docker kill</code>： 快速停止容器  </p>
+<p><code>docker run</code>  </p>
+<ul>
+<li><code>--restart</code>： <ul>
+<li>no – 是默认策略，在任何情况下都不会restart容器  </li>
+<li>on-failure[:max-retries] – 只在容器以非0状态码退出时重启。可选的，可以退出 docker daemon 尝试重启容器的次数。<br>  好处是：如果容器以正常 exit code 终止，将不会 restart  </li>
+<li>always – 不管退出状态码是什么始终重启容器。<br>  当指定 always 时，docker daemon 将无限次数地重启容器。容器也会在 daemon 启动时尝试重启，不管容器当时的状态如何。<br>  列举几个场景：  <ul>
+<li>容器以非正常状态码终止(如应用内存不足导致终止)  </li>
+<li>容器被正常 stopped，然后机器重启或Docker服务重启  </li>
+<li>容器在宕机在正常运行，然后重启机器或Docker服务重启</li>
+</ul>
+</li>
+<li>unless-stopped – 和 always 基本一样，只有一个场景 unless-stopped 有点特殊：<br>  如果容器正常 stopped，然后机器重启或 docker 服务重启，这种情况下容器将不会被 restart</li>
+</ul>
+</li>
+</ul>
+<p>&#x2F;var&#x2F;lib&#x2F;docker 目录存放 Docker 镜像、容器以及容器的配置<br>&#x2F;var&#x2F;lib&#x2F;docker&#x2F;containers 目录存放所有的容器</p>
+<p>SIGKILL ： 发送一个进程导致立即杀死  </p>
+<hr>
+<h3 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h3><p>用来启动容器的构建基石  </p>
+<p><code>docker images</code>： 列出镜像</p>
+<p><code>docker run</code>： 从镜像启动一个容器时，如果镜像不再本地，从 Docker Hub 下载该镜像。如果没有指定具体的镜像标签，会自动下载 latest标签的镜像<br><code>docker pull</code>： 预先拉取镜像到本地。节省从一个镜像启动一个容器所需的时间。未指定具体的镜像标签，会自动下载 latest  </p>
+<p><code>docker search</code>： 查找镜像  </p>
+<p><code>docker build [OPTIONS] PATH | URL | -</code>： 用于使用 Dockerfile 创建镜像<br>使用当前目录的 Dockerfile 创建镜像，标签为 runoob&#x2F;ubuntu:v1。  </p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">docker</span> build -t runoob/ubuntu:<span class="hljs-built_in">v1</span> . <br></code></pre></td></tr></table></figure>
+
+<p>使用URL github.com&#x2F;creack&#x2F;docker-firefox 的 Dockerfile 创建镜像。  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker build github.com<span class="hljs-regexp">/creack/</span>docker-firefox<br></code></pre></td></tr></table></figure>
+
+<p>也可以通过 -f Dockerfile 文件的位置,文件的名称：  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ docker build -f <span class="hljs-regexp">/path/</span>to<span class="hljs-regexp">/a/</span>Dockerfile .<br></code></pre></td></tr></table></figure>
+
+<p>ubuntu 镜像，实际上并不是一个完整的操作系统，只是一个裁剪版，只包含最低限度的支持系统运行的组件  </p>
+<p><strong>构建容器时指定仓库的标签</strong>  </p>
+<p><code>docker port 容器 [端口]</code>： 查看容器的端口映射情况  </p>
+<p><code>docker run</code>：  </p>
+<ul>
+<li>-p： Docker 在运行时应该公开哪些端口给外部（宿主机）。<br>  灵活管理容器和宿主机之间的端口映射。<br>  分配端口：  <ol>
+<li>随机选择49153~65535的一个端口来映射  </li>
+<li>指定一个具体的端口号来映射<br><code>docker run -d -p --name demo dy/container:tag \nginx -g &quot;daemon off;&quot;</code><br><code>docker run -d -p 127.0.0.1:80:80 --name demo dy/container:tag \nginx -g &quot;daemon off;&quot;</code><br><code>docker run -d -p 127.0.0.1::80 --name demo dy/container:tag \nginx -g &quot;daemon off;&quot;</code>： 只指定了一个 IP 地址</li>
+</ol>
+</li>
+<li>-P ： 该参数可以用来对外公开在Dockerfile 中的 EXPOSE 指令中设置的所有端口。</li>
+</ul>
+<p><code>docker images -f reference=&quot;*/static_web:v*</code><br><strong>DockerFile 指令</strong>  </p>
+<ul>
+<li><strong>FROM</strong></li>
+<li><strong>MAINTAINER</strong>  </li>
+<li><strong>RUN</strong>  </li>
+<li><strong>CMD</strong><br>  用于制定一个 <em>容器启动</em> 时要运行的命令<br>  类似于 RUN 指令，只是 RUN 指令是指定 <em>镜像被构建</em> 时要运行的命令<br>  和 <code>docker run</code> 命令启动容器时指定要运行的命令非常类似。<br>  要运行的命令存放在一个数组结构中，不使用数组指定 cmd 指令，Docker 会在指定的命令前加上 &#x2F;bin&#x2F;sh -c。<br>  docker run 命令可以覆盖 cmd 指令<br>  只能指定一条 CMD 指令。如果指定多条，只会使用最后一条。  </li>
+<li><strong>ENTRYPOINT</strong><br>  指令与 CMD 相似，但提供的命令则不易在启动容器时被覆盖。<br>  docker run 命令行中指定的任何参数都会被当做参数再次传递给 ENTRYPOINT 指令中指定的命令。<br>  如果 docker run 中没有参数，CMD 指令中的指定的参数会被传递给 ENTRYPOINT。<br>  可以在运行时通过 docker run 的 –entrypoint 标识覆盖 ENTRYPOINT 中的参数。<br>  ENTRYPOINT [“curl”, “-s”] &#x2F;&#x2F; 注意一定要双引号，一定要安装相对应的命令如 curl  </li>
+<li><strong>WORKDIR</strong>  </li>
+<li><strong>ENV</strong>  </li>
+<li><strong>ADD</strong><br>  <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/#add">https://docs.docker.com/engine/reference/builder/#add</a><br>  将主机构建环境（上下文）目录中的文件和目录、以及一个 URL 标记的文件拷贝到镜像中。  <ol>
+<li>如果源路径是个文件，且目标路径是以 &#x2F; 结尾， 则docker会把目标路径当作一个目录，会把源文件拷贝到该目录下。如果目标路径不存在，则会自动创建目标路径。  </li>
+<li>如果源路径是个文件，且目标路径是不是以 &#x2F; 结尾，则docker会把目标路径当作一个文件。如果目标路径不存在，会以目标路径为名创建一个文件，内容同源文件；如果目标文件是个存在的文件，会用源文件覆盖它，当然只是内容覆盖，文件名还是目标文件名。如果目标文件实际是个存在的目录，则会源文件拷贝到该目录下。 注意，这种情况下，最好显示的以 &#x2F; 结尾，以避免混淆。  </li>
+<li>如果源路径是个目录，且目标路径(无论是否以&#x2F;结尾)不存在，则docker会自动以目标路径创建一个目录，把源路径目录下的文件拷贝进来。如果目标路径是个已经存在的目录，则docker会把源路径目录下的文件拷贝到该目录下。  </li>
+<li>如果源文件是个归档文件（压缩文件），则docker会自动帮解压。</li>
+</ol>
+</li>
+<li><strong>COPY</strong><br>  类似 ADD，但不会去做文件提取和解压的工作  </li>
+<li><strong>ONBUILD</strong><br>  并不会在自己的构建中执行</li>
+</ul>
+<p>wget <a target="_blank" rel="noopener" href="https://github.com/turnbullpress/dockerbook-code/blob/master/code/5/sample/nginx/global.conf">https://github.com/turnbullpress/dockerbook-code/blob/master/code/5/sample/nginx/global.conf</a><br>wget <a target="_blank" rel="noopener" href="https://github.com/turnbullpress/dockerbook-code/blob/master/code/5/sample/nginx/nginx.conf">https://github.com/turnbullpress/dockerbook-code/blob/master/code/5/sample/nginx/nginx.conf</a>  </p>
+<p><strong>使用 Docker 测试静态网站</strong>  </p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-number">1</span>. mkdir sample<br><span class="hljs-number">2</span>. cd mkdir<br><span class="hljs-number">3</span>. touch Dockerfile<br><span class="hljs-number">4</span>. vi Dockerfile  <br>    FROM ubuntu<br>    MAINTAINER DY<br>    ENV REFRESHED_AT <span class="hljs-number">2018</span><span class="hljs-regexp">/11/</span><span class="hljs-number">16</span><br>    RUN apt-get update<br>    RUN apt-get -y -q install nginx<br>    RUN mkdir <span class="hljs-regexp">/var/</span>www/html<br>    ADD nginx<span class="hljs-regexp">/global.conf /</span>ect<span class="hljs-regexp">/nginx/</span>conf.d/<br>    ADD nginx<span class="hljs-regexp">/nginx.conf /</span>ect<span class="hljs-regexp">/nginx/</span><br>    EXPOSE <span class="hljs-number">80</span><br><span class="hljs-number">5</span>. cd &amp;&amp; cd sample<br><span class="hljs-number">6</span>. mkdir nginx<br><span class="hljs-number">7</span>. cd nginx &amp;&amp; touch global.conf &amp;&amp; touch nginx.conf<br><span class="hljs-number">8</span>. vi global.conf<br>    server &#123;<br>        listen          <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>:<span class="hljs-number">80</span>;<br>        server_name     _;<br><br>        root            <span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>website;<br>        index           index.html index.htm;<br><br>        access_log      <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>default_access.log;<br>        error_log       <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>default_error.log;<br>    &#125;<br><span class="hljs-number">9</span>. vi nginx.conf<br>    user www-data; <span class="hljs-comment"># 最好修改为 root，否则可能出现 403，权限不足</span><br>    worker_processes <span class="hljs-number">4</span>;<br>    pid <span class="hljs-regexp">/run/</span>nginx.pid;<br>    daemon off;  <span class="hljs-comment"># 组织 Nginx 进入后台，强制其在前台运行  </span><br><br>    events &#123;  &#125;<br><br>    http &#123;<br>      sendfile on;<br>      tcp_nopush on;<br>      tcp_nodelay on;<br>      keepalive_timeout <span class="hljs-number">65</span>;<br>      types_hash_max_size <span class="hljs-number">2048</span>;<br>      include <span class="hljs-regexp">/etc/</span>nginx/mime.types;<br>      default_type application/octet-stream;<br>      access_log <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>access.log;<br>      error_log <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>error.log;<br>      gzip on;<br>      gzip_disable <span class="hljs-string">&quot;msie6&quot;</span>;<br>      include <span class="hljs-regexp">/etc/</span>nginx<span class="hljs-regexp">/conf.d/</span>*.conf;<br>    &#125;<br><span class="hljs-number">10</span>. cd sample<br><span class="hljs-number">11</span>. docker build -t dy/nginx:v1.<span class="hljs-number">1</span> .<br><span class="hljs-number">12</span>. docker run -d -p <span class="hljs-number">8800</span>:<span class="hljs-number">80</span> --name website -v <span class="hljs-variable">$PWD</span><span class="hljs-regexp">/website/</span>:var<span class="hljs-regexp">/www/</span>html<span class="hljs-regexp">/website dy/</span>nginx:v1.<span class="hljs-number">1</span> nginx<br><span class="hljs-comment"># -v 将宿主机的目录作为卷，挂载到容器里</span><br><span class="hljs-comment"># PWD 显示当前路径</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>使用 Docker 构建并测试 web 应用程序</strong></p>
+<ul>
+<li><strong>构建 Sinatra 应用程序</strong></li>
+</ul>
+<ol>
+<li><p>mkdir sinatra  </p>
+</li>
+<li><p>touch Dockerfile  </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">FROM</span> ubuntu:18.04<br>LABEL <span class="hljs-attribute">maintainer</span>=<span class="hljs-string">&quot;james@example.com&quot;</span><br>ENV REFRESHED_AT 2014-06-01<br><br><span class="hljs-built_in">RUN</span> apt-<span class="hljs-built_in">get</span> -qq update &amp;&amp; apt-<span class="hljs-built_in">get</span> -qq install ruby ruby-dev build-essential redis-tools<br><span class="hljs-built_in">RUN</span> gem install --no-rdoc --no-ri sinatra json redis<br><br><span class="hljs-built_in">RUN</span> mkdir -p /opt/webapp<br><br>EXPOSE 4567<br><br>CMD [ <span class="hljs-string">&quot;/opt/webapp/bin/webapp&quot;</span> ]<br></code></pre></td></tr></table></figure></li>
+<li><p>mkdir webapp &amp;&amp; cd webapp &amp;&amp; mkdir bin &amp;&amp; mkdir lib  </p>
+</li>
+<li><p>cd bin &amp;&amp; touch webapp &amp;&amp; vi webapp  </p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs gradle">#!<span class="hljs-regexp">/usr/</span>bin/ruby<br><br>$:.unshift(<span class="hljs-keyword">File</span>.expand_path(<span class="hljs-keyword">File</span>.<span class="hljs-keyword">join</span>(<span class="hljs-keyword">File</span>.dirname(__FILE__), <span class="hljs-string">&quot;..&quot;</span>, <span class="hljs-string">&quot;lib&quot;</span>)))<br><br>require <span class="hljs-string">&#x27;app&#x27;</span><br><br>App.run!<br></code></pre></td></tr></table></figure></li>
+<li><p>cd &#x2F;root&#x2F;sinatra&#x2F;webapp&#x2F;lib &amp;&amp; touch app.rb &amp;&amp; vi app.rb  </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;rubygems&quot;</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;sinatra&quot;</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;json&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> &lt; <span class="hljs-title class_ inherited__">Sinatra::Application</span><br><br>  set <span class="hljs-symbol">:bind</span>, <span class="hljs-string">&#x27;0.0.0.0&#x27;</span><br><br>  get <span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-keyword">do</span><br>    <span class="hljs-string">&quot;&lt;h1&gt;DockerBook Test Sinatra app&lt;/h1&gt;&quot;</span><br>  <span class="hljs-keyword">end</span><br><br>  post <span class="hljs-string">&#x27;/json/?&#x27;</span> <span class="hljs-keyword">do</span><br>    params.to_json<br>  <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>cd &#x2F;root&#x2F;sinatra &amp;&amp; chmod +x $PWD&#x2F;webapp&#x2F;bin&#x2F;webapp<br>保证 webapp&#x2F;bin&#x2F;webapp 文件可执行  </p>
+</li>
+<li><p>docker build -t dy&#x2F;sinatra:v1.0 .  </p>
+</li>
+<li><p>docker run -d -p 4567 –name webapp -v $PWD&#x2F;webapp:&#x2F;opt&#x2F;webapp dy&#x2F;sinatra:v1.0<br>目前只是接受参数，并将输入转化为 JSON 输出。  </p>
+</li>
+<li><p>curl -i -H ‘Accept:application&#x2F;json’ -d ‘name&#x3D;foo&amp;status&#x3D;Bar’ localhost:32771&#x2F;json</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>构建 Redis 镜像和容器</strong><br>两种方法：<br>  第一种：直接 docker pull redis<br>  第二种：Dockerfile, 以下步骤是 Dockerfile  </p>
+<ol>
+<li><p>cd &#x2F;root&#x2F;sinatra &amp;&amp; mkdir redis &amp;&amp; cd redis &amp;&amp; touch Dockerfile &amp;&amp; vi Dockerfile</p>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">FROM</span> ubuntu<br>MAINTAINER DY<br>ENV REFRESHED_AT 2018/11/21<br><br><span class="hljs-built_in">RUN</span> apt-<span class="hljs-built_in">get</span> -y update &amp;&amp; apt-<span class="hljs-built_in">get</span> -y install redis-server redis-tools<br><span class="hljs-built_in">RUN</span> apt-<span class="hljs-built_in">get</span> -y install vim<br><span class="hljs-built_in">RUN</span> apt-<span class="hljs-built_in">get</span> -y install inetutils-ping<br><br>EXPOSE 6379<br><br>ENTRYPOINT [<span class="hljs-string">&quot;/usr/bin/redis-server&quot;</span> ]<br>CMD []<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>docker build -t dy&#x2F;redis:v1.0 .  </p>
+</li>
+<li><p>docker run -d -p 6379 –name redis dy&#x2F;redis  </p>
+</li>
+<li><p>关闭保护模式</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker exec -it redis redis-cli<br><br>config set protected-mode no<br><span class="hljs-keyword">exit</span><br></code></pre></td></tr></table></figure>
+<p>  或者在 第一部 Dockerfile 的 ENTRYPOINT 中添加 “–protected-mode no”</p>
+</li>
+<li><p>docker port redis 6379<br>  查看映射端口(如 32772)  </p>
+</li>
+<li><p>本地安装 redis, centos 安装查看虚拟机.md  </p>
+</li>
+<li><p>redis-cli -h 127.0.0.1 -p 32772  </p>
+</li>
+<li><p>get p 查看是否可用（关键在于不报守护进程的错误）</p>
+</li>
+</ol>
+</li>
+<li><p><strong>连接 Redis 容器</strong></p>
+<ol>
+<li><p>修改或新建 &#x2F;sinatra&#x2F;webapp&#x2F;lib&#x2F;app.rb  </p>
+  <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;rubygems&quot;</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;sinatra&quot;</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;json&quot;</span><br><span class="hljs-keyword">require</span> <span class="hljs-string">&quot;redis&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> &lt; <span class="hljs-title class_ inherited__">Sinatra::Application</span><br><br>      redis = <span class="hljs-title class_">Redis</span>.new(<span class="hljs-symbol">:host</span> =&gt; <span class="hljs-string">&#x27;db&#x27;</span>, <span class="hljs-symbol">:port</span> =&gt; <span class="hljs-string">&#x27;6379&#x27;</span>)<br><br>      set <span class="hljs-symbol">:bind</span>, <span class="hljs-string">&#x27;0.0.0.0&#x27;</span><br><br>      get <span class="hljs-string">&#x27;/&#x27;</span> <span class="hljs-keyword">do</span><br>        <span class="hljs-string">&quot;&lt;h1&gt;DockerBook Test Redis-enabled Sinatra app&lt;/h1&gt;&quot;</span><br>      <span class="hljs-keyword">end</span><br><br>      get <span class="hljs-string">&#x27;/json&#x27;</span> <span class="hljs-keyword">do</span><br>        params = redis.get <span class="hljs-string">&quot;params&quot;</span><br>        params.to_json<br>      <span class="hljs-keyword">end</span><br><br>      post <span class="hljs-string">&#x27;/json/?&#x27;</span> <span class="hljs-keyword">do</span><br>        redis.set <span class="hljs-string">&quot;params&quot;</span>, [params].to_json<br>        params.to_json<br>      <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker run -p 4567 –name webapp –link redis:db -d -v $PWD&#x2F;webapp:&#x2F;opt&#x2F;webapp<br>  假设映射到宿主机端口 32773<br>  <code>--link</code> 创建了两个容器间的父子连接。两个参数：一个是要连接的容器名字，另一个是连接后的别名  </p>
+</li>
+<li><p>启动 Redis 容器时，不需要 -p 标志公开 Redis 端口。因为父容器直接访问子容器的公开端口，只有使用 –link 标志连接到这个容器的容器才能连接到这个端口。容器的端口不需要对本地宿主机公开，安全模型。限制容器化应用程序的被攻击面，减少应用暴露的网络。  </p>
+</li>
+<li>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it webapp /bin/bash<br><span class="hljs-comment"># 包含连接信息</span><br><span class="hljs-built_in">cat</span> /etc/hosts<br><span class="hljs-comment"># 查看环境变量</span><br><span class="hljs-built_in">env</span><br></code></pre></td></tr></table></figure></li>
+<li><p>curl -i -H ‘Accept:application&#x2F;json’ -d ‘name&#x3D;foo&amp;status&#x3D;Bar’ localhost:32773&#x2F;json  </p>
+</li>
+<li><p>curl -i localhost:32773&#x2F;json<br>  确认 Redis 实例接收到这个更新</p>
+</li>
+</ol>
+</li>
+<li><p><strong>Jenkis 安装</strong>  </p>
+<ol>
+<li>docker pull jenkinsci&#x2F;jenkins:lts  </li>
+<li>docker run -p 8080:8080 -p 50000:50000 –name jenkins -u root -v &#x2F;var&#x2F;jenkins_home:&#x2F;var&#x2F;jenkins_home -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock -v $(which docker):&#x2F;usr&#x2F;bin&#x2F;docker jenkinsci&#x2F;jenkins:lts  </li>
+<li>docker exec -it jenkins &#x2F;bin.bash  </li>
+<li>doker –version<br>  如果报 error while loading shared libraries: libltdl.so.7 错误信息：  <ul>
+<li>apt-get update  </li>
+<li>apt-get install libltdl7</li>
+</ul>
+</li>
+<li>127.0.0.1:8080 启动 jenkins，</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。  </p>
+<p>Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。  </p>
+<p>Linux 的 Shell 种类众多，常见的有：  </p>
+<p>Bourne Shell（&#x2F;usr&#x2F;bin&#x2F;sh或&#x2F;bin&#x2F;sh）<br>Bourne Again Shell（&#x2F;bin&#x2F;bash）<br>C Shell（&#x2F;usr&#x2F;bin&#x2F;csh）<br>K Shell（&#x2F;usr&#x2F;bin&#x2F;ksh）<br>Shell for Root（&#x2F;sbin&#x2F;sh）  </p>
+<hr>
+<p><a target="_blank" rel="noopener" href="http://blog.chinaunix.net/uid-27037833-id-3431985.html">http://blog.chinaunix.net/uid-27037833-id-3431985.html</a><br>Bourne shell 是 UNIX 最初使用的 shell，并且在每种 UNIX 上都可以使用, 在 shell 编程方面相当优秀，但在处理与用户的交互方面做得不如其他几种shell。<br>Linux 操作系统缺省的 shell 是Bourne Again shell，它是 Bourne shell 的扩展，简称 Bash，与 Bourne shell 完全向后兼容，并且在Bourne shell 的基础上增加、增强了很多特性。 Bash放在 &#x2F;bin&#x2F;bash 中，它有许多特色，可以提供如命令补全、命令编辑和命令历史表等功能，它还包含了很多 C shell 和 Korn shell 中的优点，有灵活和强大的编程接口，同时又有很友好的用户界面。  </p>
+<p>GNU&#x2F;Linux 操作系统中的 &#x2F;bin&#x2F;sh 本是 bash (Bourne-Again Shell) 的符号链接，但鉴于 bash 过于复杂，有人把 ash 从 NetBSD 移植到 Linux 并更名为 dash (Debian Almquist Shell)，并建议将 &#x2F;bin&#x2F;sh 指向它，以获得更快的脚本执行速度。Dash Shell 比 Bash Shell 小的多，符合POSIX标准。  </p>
+<p> &#x2F;bin&#x2F;sh 与 &#x2F;bin&#x2F;bash 虽然大体上没什么区别, 但仍存在不同的标准. 标记为 “#!&#x2F;bin&#x2F;sh” 的脚本不应使用任何 POSIX 没有规定的特性 (如 let 等命令, 但 “#!&#x2F;bin&#x2F;bash” 可以)</p>
+<p> &#x2F;bin&#x2F;sh -c<br>    -c string If  the  -c  option  is  present, then commands are read from<br>          string.  If there are arguments after the  string,  they  are<br>          assigned to the positional parameters, starting with $0.  </p>
+<hr>
+<p>daemon on | off   默认on<br>是否以守护进程的方式运行nginx，守护进程是指脱离终端并且在后头运行的进程，关闭守护进程执行的方式可以让我们方便调试nginx  </p>
+<hr>
+<p>yum 介绍  </p>
+<p>Yum(全称为 Yellow dogUpdater, Modified)是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。  </p>
+<p>1 安装<br>yum install 全部安装<br>    -y 安装，没有则会询问<br>yum install package1 安装指定的安装包package1<br>yum groupinsall group1 安装程序组group1  </p>
+<p>2 更新和升级<br>yum update 全部更新<br>yum update package1 更新指定程序包package1<br>yum check-update 检查可更新的程序<br>yum upgrade package1 升级指定程序包package1<br>yum groupupdate group1 升级程序组group1  </p>
+<p>3 查找和显示<br>yum info package1 显示安装包信息package1<br>yum list 显示所有已经安装和可以安装的程序包<br>yum list package1 显示指定程序包安装情况package1<br>yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包  </p>
+<p>4 删除程序<br>yum remove &amp;#124; erase package1 删除程序包package1<br>yum groupremove group1 删除程序组group1<br>yum deplist package1 查看程序package1依赖情况  </p>
+<p>5 清除缓存<br>yum clean packages 清除缓存目录下的软件包<br>yum clean headers 清除缓存目录下的 headers<br>yum clean oldheaders 清除缓存目录下旧的 headers<br>yum clean, yum clean all (&#x3D; yum clean packages; yum clean oldheaders)清 除缓存目录下的软件包及旧的header  </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/Docker/" class="category-chain-item">Docker</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Docker/">#Docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第一本Docker书 阅读笔记</div>
+      <div>http://example.com/2023/12/31/docker/第一本 Docker 书阅读笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/springcloud/SpringCloud/" title="Spring Cloud">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Spring Cloud</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/docker/Docker-Compose/" title="Docker Compose">
+                        <span class="hidden-mobile">Docker Compose</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

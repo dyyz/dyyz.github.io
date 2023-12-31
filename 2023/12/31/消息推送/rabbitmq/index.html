@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Dong Yan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、RabbitMQ 安装rabbitMQ 是一个在 AMQP 协议标准基础上完整的，可服用的企业消息系统。它遵循 Mozilla Public License 开源协议，采用 Erlang 实现的工业级的消息队列 (MQ) 服务器，Rabbit MQ 是建立在 Erlang OTP 平台上。所以需要先安装 Erlang。    安装 Erlang官网下载地址： http:&#x2F;&#x2F;www.erlang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbitMQ">
+<meta property="og:url" content="http://example.com/2023/12/31/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/rabbitmq/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一、RabbitMQ 安装rabbitMQ 是一个在 AMQP 协议标准基础上完整的，可服用的企业消息系统。它遵循 Mozilla Public License 开源协议，采用 Erlang 实现的工业级的消息队列 (MQ) 服务器，Rabbit MQ 是建立在 Erlang OTP 平台上。所以需要先安装 Erlang。    安装 Erlang官网下载地址： http:&#x2F;&#x2F;www.erlang">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-31T10:22:05.036Z">
+<meta property="article:modified_time" content="2023-02-27T05:39:50.000Z">
+<meta property="article:author" content="Dong Yan">
+<meta property="article:tag" content="MPush">
+<meta property="article:tag" content="消息推送">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>RabbitMQ - 个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="RabbitMQ"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-31 18:22" pubdate>
+          2023年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          54 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">RabbitMQ</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、RabbitMQ-安装"><a href="#一、RabbitMQ-安装" class="headerlink" title="一、RabbitMQ 安装"></a>一、RabbitMQ 安装</h2><p>rabbitMQ 是一个在 AMQP 协议标准基础上完整的，可服用的企业消息系统。它遵循 Mozilla Public License 开源协议，采用 Erlang 实现的工业级的消息队列 (MQ) 服务器，Rabbit MQ 是建立在 Erlang OTP 平台上。所以需要先安装 Erlang。  </p>
+<ol>
+<li><p>安装 Erlang<br>官网下载地址： <a target="_blank" rel="noopener" href="http://www.erlang.org/downloads">http://www.erlang.org/downloads</a>  </p>
+</li>
+<li><p>rabbitmq-server-3.7.0.exe<br>下载地址 ：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/install-windows.html">http://www.rabbitmq.com/install-windows.html</a>  </p>
+</li>
+<li><p>开启插件<br><strong>rabbitmq_managemen</strong> 是管理后台的插件<br>激活 RabbitMQ’s Management Plugin<br>使用 RabbitMQ 管理插件，可以更好的可视化方式查看Rabbit MQ 服务器实例的状态。<br>进入到安装目录的 sbin 目录下，cmd 输入 <strong>rabbitmq-plugins enable rabbitmq_management</strong><br>服务会自动开启</p>
+</li>
+<li><p>可以以管理员身份运行 cmd，开启或关闭 rabbitmq<br>net start rabbitmq<br>net stop rabbitmq  </p>
+</li>
+<li><p>进入管理后台<br>访问地址： <a target="_blank" rel="noopener" href="http://localhost:15672/">http://localhost:15672</a><br>默认 userName 是 <strong>guest</strong><br>默认 password 是 <strong>guest</strong>  </p>
+</li>
+<li><p>创建用户、密码、绑定角色<br>使用rabbitmqctl控制台命令（位于安装目录 \sbin&gt;）来创建用户，密码，绑定权限等  </p>
+<ul>
+<li><p>查看已有用户以及用户的角色<br> <strong>rabbitmqctl list_users</strong>  </p>
+</li>
+<li><p>创建用户<br> <strong>rabbitmqctl add_user dy 123456</strong>  </p>
+</li>
+<li><p>创建角色<br> 角色分为五类：  </p>
+<ul>
+<li>超级管理员(administrator)<br>  可查看所有的信息，并且可以对用户、策略进行操作  </li>
+<li>监控者(monitoring)<br>  同时可以查看 rabbitmq 节点的相关信息（进程数、内存使用情况、磁盘使用情况等）  </li>
+<li>策略制定者(policymaker)<br>  同时对 policy 进行管理  </li>
+<li>普通管理者(management)<br>  仅可登陆管理控制台，无法看到节点信息，也无法对策略进行管理  </li>
+<li>其他的<br>  无法登陆管理控制台，通常就是普通的生产者和消费者</li>
+</ul>
+</li>
+</ul>
+<p> <strong>rabbitmqctl  set_user_tags  username tag1 [tag2 …]</strong>  </p>
+<ul>
+<li><p>修改密码<br> <strong>rabbitmqctl change_password userName newPassword</strong>  </p>
+</li>
+<li><p>删除用户<br> <strong>rabbitmqctl delete_user username</strong>  </p>
+</li>
+<li><p>权限设置  </p>
+<ul>
+<li>设置用户权限<br>  rabbitmqctl  set_permissions  -p  VHostPath  User  ConfP  WriteP  ReadP</li>
+<li>查看(指定hostpath)所有用户的权限信息<br>  rabbitmqctl  list_permissions  [-p  VHostPath]</li>
+<li>查看指定用户的权限信息<br>  rabbitmqctl  list_user_permissions  User</li>
+<li>清除用户的权限信息<br>  rabbitmqctl  clear_permissions  [-p VHostPath]  User</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Spring-Boot-整合-RabbitMQ"><a href="#Spring-Boot-整合-RabbitMQ" class="headerlink" title="Spring Boot 整合 RabbitMQ"></a>Spring Boot 整合 RabbitMQ</h3><p><strong>spring-boot-starter-amqp</strong>  </p>
+<p>高级消息队列协议（AMQP）是面向消息中间件的平台中立的有线协议。Spring AMQP 项目将核心 Spring 概念应用于基于 AMQP 的消息传递解决方案的开发。Spring Boot 为通过 RabbitMQ 与 AMQP 一起工作提供了一些便利，包括 spring-boot-starter-amqp “Starter”。  </p>
+<p>springboot集成RabbitMQ非常简单，如果只是简单的使用配置非常少，springboot提供了spring-boot-starter-amqp项目对消息各种支持。  </p>
+<ul>
+<li>添加依赖  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>属性配置  <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">spring.rabbitmq.host</span>=localhost<br><span class="hljs-attr">spring.rabbitmq.port</span>=<span class="hljs-number">5672</span><br><span class="hljs-attr">spring.rabbitmq.username</span>=guest<br><span class="hljs-attr">spring.rabbitmq.password</span>=guest<br></code></pre></td></tr></table></figure></li>
+<li>一对一发送配置  <ul>
+<li>队列配置  <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RabbitConfig</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">Queue</span> <span class="hljs-title function_">queue</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;hello&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>发送者  <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloSender</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span> <span class="hljs-keyword">private</span> <span class="hljs-title class_">AmqpTemplate</span> amqpTemplate;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">send</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-title class_">String</span> context = <span class="hljs-string">&quot;hello----&quot;</span>+<span class="hljs-title class_">LocalDateTime</span>.<span class="hljs-title function_">now</span>();<br>        <span class="hljs-title class_">System</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">println</span>(<span class="hljs-string">&quot;send:&quot;</span>+context);<br>        <span class="hljs-comment">//往名称为 hello 的queue中发送消息</span><br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">amqpTemplate</span>.<span class="hljs-title function_">convertAndSend</span>(<span class="hljs-string">&quot;hello&quot;</span>,context);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>接受者  <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Component</span><br><span class="hljs-variable">@RabbitListener</span>(queues = <span class="hljs-string">&quot;hello&quot;</span>) <span class="hljs-comment">//监听 名称为 hello 的queue</span><br>public class HelloReceiver &#123;<br><br>    <span class="hljs-comment">//消息处理器</span><br>    <span class="hljs-variable">@RabbitHandler</span><br>    public void <span class="hljs-built_in">process</span>(String message)&#123;<br>        <span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-class">.println</span>(<span class="hljs-string">&quot;Receiver:&quot;</span>+message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>一对多发送：一个发送者多个接受者  <ul>
+<li>队列配置    <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> <span class="hljs-title class_">Queue</span> <span class="hljs-title function_">multiReceiverQueue</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;hello_multi&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>发送者  <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title">sendMulti</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span> </span>&#123;<br>        <span class="hljs-type">String</span> context = i + <span class="hljs-string">&quot;&quot;</span>;<br>        System.out.<span class="hljs-built_in">println</span>(context + <span class="hljs-string">&quot; --- send: &quot;</span>);<br>        <span class="hljs-keyword">this</span>.amqpTemplate.<span class="hljs-built_in">convertAndSend</span>(<span class="hljs-string">&quot;hello_multi&quot;</span>, context);<br>    &#125;<br></code></pre></td></tr></table></figure></li>
+<li>接收者  <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-comment">//多个</span><br><span class="hljs-variable">@Component</span><br><span class="hljs-variable">@RabbitListener</span>(queues = <span class="hljs-string">&quot;hello_multi&quot;</span>)<br>public class HelloReceiver2 &#123;<br><br>    <span class="hljs-variable">@RabbitHandler</span><br>    public void <span class="hljs-built_in">process</span>(String message) &#123;<br>        <span class="hljs-selector-tag">System</span><span class="hljs-selector-class">.out</span><span class="hljs-selector-class">.println</span>(<span class="hljs-string">&quot;Receiver2: &quot;</span> + message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>一个发送者，N个接受者,经过测试会均匀的将消息发送到N个接收者中</p>
+</blockquote>
+<ul>
+<li>多对多发送<br>test时：  <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">many2many</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">100</span>;i++)&#123;<br>    helloSender.send2(i);<br>    helloSender2.send2(i);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>和一对多一样，接收端仍然会均匀接收到消息</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Exchange-Type"><a href="#Exchange-Type" class="headerlink" title="Exchange Type"></a>Exchange Type</h3><p>abbitMQ 常用的Exchange Type 有 fanout、direct、topic、headers 这四种（AMQP规范里还提到两种 Exchange Type，分别为 system 与自定义，这里不予以描述），下面分别进行介绍</p>
+<h4 id="Fanout"><a href="#Fanout" class="headerlink" title="Fanout"></a>Fanout</h4><p>又叫广播形式，不管路由键或者是路由模式，会把消息发给绑定给它的全部队列，如果配置了routing_key会被忽略。<br>当使用fanout交换器时，他会将消息广播到与该交换器绑定的所有队列上。  </p>
+<ul>
+<li>Queue 配置  <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> <span class="hljs-title class_">Queue</span> <span class="hljs-title class_">AMessage</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;fanout.A&quot;</span>);<br>&#125;<br><span class="hljs-comment">//创建队列</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> <span class="hljs-title class_">Queue</span> <span class="hljs-title class_">BMessage</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>(<span class="hljs-string">&quot;fanout.B&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">//创建Fanout交换器</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-title class_">FanoutExchange</span> <span class="hljs-title function_">fanoutExchange</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FanoutExchange</span>(<span class="hljs-string">&quot;fanoutExchange&quot;</span>);<br>&#125;<br><span class="hljs-comment">//将对列绑定到Fanout交换器</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-title class_">Binding</span> <span class="hljs-title function_">bindingExchangeA</span>(<span class="hljs-params">Queue AMessage,FanoutExchange fanoutExchange</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">BindingBuilder</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-title class_">AMessage</span>).<span class="hljs-title function_">to</span>(fanoutExchange);<br>&#125;<br><span class="hljs-comment">//将对列绑定到Fanout交换器</span><br><span class="hljs-meta">@Bean</span><br><span class="hljs-title class_">Binding</span> <span class="hljs-title function_">bindingExchangeB</span>(<span class="hljs-params">Queue BMessage, FanoutExchange fanoutExchange</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">BindingBuilder</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-title class_">BMessage</span>).<span class="hljs-title function_">to</span>(fanoutExchange);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>消息生产者  <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">send</span>()</span> &#123;<br>    String context = <span class="hljs-string">&quot;hi, fanout msg &quot;</span>;<br>    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;Sender : &quot;</span> + context);<br>    <span class="hljs-keyword">this</span>.rabbitTemplate.convertAndSend(<span class="hljs-string">&quot;fanoutExchange&quot;</span>,<span class="hljs-string">&quot;&quot;</span>, context);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>消息接受者<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@RabbitListener</span>(queues = <span class="hljs-string">&quot;fanout.A&quot;</span>)<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FanoutReceiverA</span> &#123;<br>   <span class="hljs-meta">@RabbitHandler</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">process</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> message</span>) &#123;<br>     <span class="hljs-title class_">System</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">println</span>(<span class="hljs-string">&quot;fanout Receiver A : &quot;</span> + message);<br>  &#125;<br>&#125;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@RabbitListener</span>(queues = <span class="hljs-string">&quot;fanout.B&quot;</span>)<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FanoutReceiverB</span> &#123;<br>   <span class="hljs-meta">@RabbitHandler</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">process</span>(<span class="hljs-params"><span class="hljs-built_in">String</span> message</span>) &#123;<br>     <span class="hljs-title class_">System</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">println</span>(<span class="hljs-string">&quot;fanout Receiver B : &quot;</span> + message);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h4><p>转发消息主要是根据通配符。<br>消息发送到topic类型的exchange上时不能随意指定routing_key（一定是指由一系列由点号连接单词的字符串，单词可以是任意的，但一般都会与消息或多或少的有些关联）。Routing key的长度不能超过255个字节。</p>
+<p>Binding key 也一定要是同样的方式。Topic 类型的 exchange 就像一个直接的交换：一个由生产者指定了确定 routing key 的消息将会被推送给所有 Binding  key能与之匹配的消费者。<br>然而这种绑定有两种特殊的情况：<br>    1. #（井号）：可以匹配多个单词（或者零个）<br>    2. *（星号）：可以（只能）匹配一个单词  </p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@Bean<br>public Binding bind<span class="hljs-constructor">Messages(TopicExchange <span class="hljs-params">topicExchange</span>)</span> &#123;<br>    return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">BindingBuilder</span>.</span></span>bind(queue<span class="hljs-constructor">Messages()</span>).<span class="hljs-keyword">to</span>(topicExchange).<span class="hljs-keyword">with</span>(<span class="hljs-string">&quot;topic.#&quot;</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>将 bean queueMessages 队列绑定到 topicExchange 交换机上。所有的 routing key 匹配 topic.# 的消息在 queueMessages 队列。  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendForTopicMessages</span>()</span> &#123;<br>    String context = <span class="hljs-string">&quot;I am messages. My routingKey is topic.messages&quot;</span>;<br>    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;sendForTopicMessages send&quot;</span>);<br>    <span class="hljs-keyword">this</span>.amqpTemplate.convertAndSend(<span class="hljs-string">&quot;exchange&quot;</span>, <span class="hljs-string">&quot;topic.messages&quot;</span>, context);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>amqpTemplate.convertAndSend(“exchange”, “topic.messages”, context)</strong><br>方法的第一个参数是交换机名称，第二个参数是发送的 routing key，由消息提供者定义<br>，第三个参数是内容，RabbitMQ 将会根据第二个参数去寻找有没有匹配此规则的队列，如果有, 则把消息给它，如果有不止一个，则把消息分发给匹配的队列(每个队列都有消息!)  </p>
+<p>如果在发送消息时所指定的exchange和routing key在消费者端没有对应的exchange和binding key与之绑定的话，那么这条消息将会被丢弃掉  </p>
+<p>Topic类型的exchange是很强大的，也可以实现其它类型的exchange。<br>当一个队列被绑定为binding key为”#”时，它将会接收所有的消息，此时和fanout类型的exchange很像。<br>当binding key不包含”*”和”#”时，这时候就很像direct类型的exchange。  </p>
+<h4 id="Direct"><a href="#Direct" class="headerlink" title="Direct"></a>Direct</h4><p>是RabbitMQ默认的交换机模式，也是最简单的模式，根据key全文匹配去寻找队列<br>direct 类型的行为是”先匹配, 再投送”. 即在绑定时设定一个 routing_key, 消息的routing_key 匹配时, 才会被交换器投送到绑定的队列中去<br>相当于一对一模式，一个消息被发送者发送后，会被转发到一个绑定的消息队列中，然后被一个接受者接收。  </p>
+<h4 id="Headers-Exchange"><a href="#Headers-Exchange" class="headerlink" title="Headers Exchange"></a>Headers Exchange</h4><p>headers 也是根据规则匹配, 相较于 direct 和 topic 固定地使用 routing_key , headers 则是一个自定义匹配规则的类型. 在队列与交换器绑定时, 会设定一组键值对规则, 消息中也包括一组键值对( headers 属性), 当这些键值对有一对, 或全部匹配时, 消息被投送到对应队列.</p>
+<hr>
+<p>参考文档：<br>rabbitmq官网教程：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/getstarted.html">http://www.rabbitmq.com/getstarted.html</a><br>springboot官网教程：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-amqp/docs/2.0.4.RELEASE/reference/html/">https://docs.spring.io/spring-amqp/docs/2.0.4.RELEASE/reference/html/</a>  </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/" class="category-chain-item">消息推送</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%94%E8%AE%B0/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MPush/">#MPush</a>
+      
+        <a href="/tags/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/">#消息推送</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>RabbitMQ</div>
+      <div>http://example.com/2023/12/31/消息推送/rabbitmq/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Dong Yan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E8%AE%BE%E7%BD%AE/vscode/" title="VsCode设置">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">VsCode设置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/31/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/Kafka/" title="Kafka">
+                        <span class="hidden-mobile">Kafka</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
