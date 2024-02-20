@@ -8,7 +8,7 @@
     <link href="/2024/02/20/%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <url>/2024/02/20/%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
     
-    <content type="html"><![CDATA[<p>JAVA面试题汇总</p><span id="more"></span><h2 id="JVM、JRE、JDK"><a href="#JVM、JRE、JDK" class="headerlink" title="JVM、JRE、JDK"></a>JVM、JRE、JDK</h2><h3 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h3><p>java虚拟机，解释.class文件  </p><h3 id="jre"><a href="#jre" class="headerlink" title="jre"></a>jre</h3><p>java运行环境，包含jvm和java核心类库<br>解释.class文件jvm需要调用解释所需要的类库(lib)<br>运行环境，不提供编译、调试等功能  </p><h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><p>java开发环境，包含jre、java基础类库、java开发工具<br>![](&#x2F;source&#x2F;img&#x2F;jvm&#x2F;jvm.png jvm运行)</p>]]></content>
+    <content type="html"><![CDATA[<p>JAVA面试题汇总</p><span id="more"></span><h2 id="JVM、JRE、JDK"><a href="#JVM、JRE、JDK" class="headerlink" title="JVM、JRE、JDK"></a>JVM、JRE、JDK</h2><h3 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h3><p>java虚拟机，解释.class文件  </p><h3 id="jre"><a href="#jre" class="headerlink" title="jre"></a>jre</h3><p>java运行环境，包含jvm和java核心类库<br>解释.class文件jvm需要调用解释所需要的类库(lib)<br>运行环境，不提供编译、调试等功能  </p><h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><p>java开发环境，包含jre、java基础类库、java开发工具<br>![](&#x2F;source&#x2F;img&#x2F;jvm&#x2F;jvm.png jvm运行)  </p><hr><blockquote><p><a href="https://blog.csdn.net/m0_56673710/article/details/126093658">JDK、JRE、JVM 之间的关系</a><br><a href="https://www.cnblogs.com/java-lzx/p/11641610.html">JDK、JRE、JVM 之间的关系</a><br><a href="https://blog.csdn.net/m0_67393295/article/details/123952832?spm=1001.2014.3001.5506">JVM、JRE、JDK之间的联系与区别</a></p></blockquote><hr>]]></content>
     
     
     <categories>
