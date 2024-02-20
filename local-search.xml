@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>JAVA基础面试题</title>
+    <link href="/2024/02/20/%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <url>/2024/02/20/%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    
+    <content type="html"><![CDATA[<p>JAVA面试题汇总</p><span id="more"></span><h2 id="JVM、JRE、JDK"><a href="#JVM、JRE、JDK" class="headerlink" title="JVM、JRE、JDK"></a>JVM、JRE、JDK</h2><h3 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h3><p>java虚拟机，解释.class文件  </p><h3 id="jre"><a href="#jre" class="headerlink" title="jre"></a>jre</h3><p>java运行环境，包含jvm和java核心类库<br>解释.class文件jvm需要调用解释所需要的类库(lib)<br>运行环境，不提供编译、调试等功能  </p><h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><p>java开发环境，包含jre、java基础类库、java开发工具<br><img src="/'/images/jvm/jvm.png'" title="jvm运行"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>面试</category>
+      
+      <category>JAVA</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JAVA进阶面试题</title>
     <link href="/2023/12/31/%E9%9D%A2%E8%AF%95/JAVA%E8%BF%9B%E9%98%B6/"/>
     <url>/2023/12/31/%E9%9D%A2%E8%AF%95/JAVA%E8%BF%9B%E9%98%B6/</url>

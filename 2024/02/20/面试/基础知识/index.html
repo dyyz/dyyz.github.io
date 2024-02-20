@@ -18,20 +18,22 @@
   
     <meta name="description" content="JAVA面试题汇总">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA面试题">
-<meta property="og:url" content="http://example.com/2023/12/31/%E9%9D%A2%E8%AF%95/JAVA/index.html">
+<meta property="og:title" content="JAVA基础面试题">
+<meta property="og:url" content="http://example.com/2024/02/20/%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="JAVA面试题汇总">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-31T10:22:05.161Z">
-<meta property="article:modified_time" content="2024-02-20T09:15:10.078Z">
+<meta property="og:image" content="http://example.com/">
+<meta property="article:published_time" content="2024-02-20T09:14:09.568Z">
+<meta property="article:modified_time" content="2024-02-20T09:20:48.514Z">
 <meta property="article:author" content="Dong Yan">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/">
   
   
   
-  <title>JAVA面试题 - 个人博客</title>
+  <title>JAVA基础面试题 - 个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JAVA面试题"></span>
+            <span id="subtitle" data-typed-text="JAVA基础面试题"></span>
           
         </div>
 
@@ -208,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-31 18:22" pubdate>
-          2023年12月31日 晚上
+        <time datetime="2024-02-20 17:14" pubdate>
+          2024年2月20日 下午
         </time>
       </span>
     
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          148 字
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          26 分钟
+          2 分钟
         
       </span>
     
@@ -269,7 +271,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JAVA面试题</h1>
+            <h1 style="display: none">JAVA基础面试题</h1>
             
             
               <div class="markdown-body">
@@ -277,81 +279,10 @@
                 <p>JAVA面试题汇总</p>
 <span id="more"></span>
 
-<h3 id="库森学长"><a href="#库森学长" class="headerlink" title="库森学长"></a>库森学长</h3><h4 id="一、避免重复下单支付解决方案："><a href="#一、避免重复下单支付解决方案：" class="headerlink" title="一、避免重复下单支付解决方案："></a>一、避免重复下单支付解决方案：</h4><ol>
-<li>通过订单id来校验其幂等性</li>
-<li>支付接口在Nginx层面不要设置失败或超时重试</li>
-</ol>
-<h4 id="二、产品快照"><a href="#二、产品快照" class="headerlink" title="二、产品快照"></a>二、产品快照</h4><p>商品信息是可以修改的，当用户下单后，为了更好解决后面可能存在的买卖纠纷，创建订单时会同步保存一份商品详情信息，称之为订单产品快照。</p>
-<p>同一件商品，会有很多用户会购买，如果热销商品，短时间就会有上万的订单。如果每个订单都创建一份快照，存储成本太高。另外商品信息虽然支持修改，但毕竟是一个低频动作。<br>我们可以理解成，大部分订单的产品快照信息都是一样的，除非下单时用户修改过。</p>
-<p>我们的解决方案时，用新下单的订单id直接关联最新一份的产品快照id即可。</p>
-<p>由于订单产品快照属于非核心操作，即使失败也不应该影响用户正常购买流程，所以通常采用异步流程执行。</p>
-<h4 id="三、购物车混合存储"><a href="#三、购物车混合存储" class="headerlink" title="三、购物车混合存储"></a>三、购物车混合存储</h4><p>购物车是电商系统的标配功能，暂存用户想要购买的商品。分为添加商品、列表查看、结算下单三个动作。</p>
-<p>技术设计并不是特别复杂，存储的信息也相对有限（用户id、商品id、sku_id、数量、添加时间）。这里特别拿出来单讲主要是用户体验层面要注意几个问题：</p>
-<p>添加购物车时，后端校验用户未登录，常规思路，引导用户跳转登录页，待登录成功后，再添加购物车。多了一步操作，给用户一种强迫的感觉，体验会比较差。</p>
-<p>如果细心体验京东、淘宝等大平台，你会发现即使未登录态也可以添加购物车，这到底是怎么实现的？</p>
-<p>细细琢磨其实原理并不复杂，服务端这边在用户登录态校验时，做了分支路由，当用户未登录时，会创建一个临时Token，作为用户的唯一标识，购物车数据挂载在该Token下，为了避免购物车数据相互影响以及设计的复杂度，这里会有一个临时购物车表。</p>
-<h4 id="四、库存超卖"><a href="#四、库存超卖" class="headerlink" title="四、库存超卖"></a>四、库存超卖</h4><p>常见的库存扣减方式有：</p>
-<ul>
-<li>下单减库存：即当买家下单后，在商品的总库存中减去买家购买数量。<br>下单减库存是最简单的减库存方式，也是控制最精确的一种，下单时直接通过数据库的事务机制控制商品库存，这样一定不会出现超卖的情况。<br>但是你要知道，有些人下完单可能并不会付款。</li>
-<li>付款减库存：即买家下单后，并不立即减库存，而是等到有用户付款后才真正减库存，否则库存一直保留给其他买家。<br>但因为付款时才减库存，如果并发比较高，有可能出现买家下单后付不了款的情况，因为可能商品已经被其他人买走了。</li>
-<li>预扣库存：这种方式相对复杂一些，买家下单后，库存为其保留一定的时间（如 30 分钟），超过这个时间，库存将会自动释放，释放后其他买家就可以继续购买。<br>在买家付款前，系统会校验该订单的库存是否还有保留：<ul>
-<li>如果没有保留，则再次尝试预扣；如果库存不足（也就是预扣失败）则不允许继续付款；</li>
-<li>如果预扣成功，则完成付款并实际地减去库存。</li>
-</ul>
-</li>
-</ul>
-<p>至于采用哪一种减库存方式更多是业务层面的考虑，减库存最核心的是大并发请求时保证数据库中的库存字段值不能为负数。</p>
-<p><strong>方案一：</strong></p>
-<p>通常在扣减库存的场景下使用行级锁，通过数据库引擎本身对记录加锁的控制，保证数据库的更新的安全性，并且通过where语句的条件，保证库存不会被减到 0 以下，也就是能够有效的控制超卖的场景。</p>
-<p><strong>方案二：</strong></p>
-<p>设置数据库的字段数据为无符号整数，这样减后库存字段值小于零时 SQL 语句会报错。</p>
-<h4 id="五、账户余额更新，保证事务"><a href="#五、账户余额更新，保证事务" class="headerlink" title="五、账户余额更新，保证事务"></a>五、账户余额更新，保证事务</h4><p>用户支付，我们要从买家账户减掉一定金额，再往卖家增加一定金额，为了保证数据的完整性、可追溯性，变更余额时，我们通常会同时插入一条记录流水。</p>
-<p><strong>账户流水核心字段：</strong>流水ID、金额、交易双方账户、交易时间戳、订单号、注意：账户流水只能新增，不能修改和删除。流水号必须是自增的。</p>
-<p>后续，系统对账时，我们只需要对交易流水明细数据做累计即可，如果出现和余额不一致情况，一般以交易流水为准来修复余额数据。</p>
-<p>更新余额、记录流水 虽属于两个操作，但是要保证要么都成功，要么都失败。要做到事务。</p>
-<p>数据库的事务隔离级别有：读未提交（RU）、读已提交（RC）、可重复读（RR）、串行化（Serializable）</p>
-<p>常用的隔离级别是 RC 和 RR ，因为这两种隔离级别都可以避免脏读。</p>
-<p>当然，如果涉及多个微服务调用，一般情况下，我们借助重试机制，保证最终一致是常用的方案。</p>
-<h4 id="六、读写分离导致数据不一致"><a href="#六、读写分离导致数据不一致" class="headerlink" title="六、读写分离导致数据不一致"></a>六、读写分离导致数据不一致</h4><p>互联网业务大部分都是读多写少，为了提升数据库集群的吞吐性能，我们通常会采用主从架构、读写分离</p>
-<p>部署一个主库实例，客户端请求所有写操作全部写到主库，然后借助 MySQL 自带的 主从同步 功能，做一些简单配置，可以近乎实时的将主库的数据同步给 多个从库实例，主从延迟非常小，一般<strong>不超过 1 毫秒</strong>。</p>
-<p>客户端请求的所有读操作全部打到 从库，借助多实例集群提升读请求的整体处理能力。</p>
-<p>但是，主从同步虽然近乎实时，但还是有个时间差 ，主库数据刚更新完，但数据还没来得及同步到从库，后续读请求直接访问了从库，看到的还是旧数据，会造成一致性的问题。</p>
-<p>因此，对实时性要求很高的by id查询，我们还是需要让它走主库，而不是一股脑地把所有读请求都往从库打。</p>
-<h4 id="七、历史订单归档"><a href="#七、历史订单归档" class="headerlink" title="七、历史订单归档"></a>七、历史订单归档</h4><p>根据二八定律，系统绝大部分的性能开销花在20%的业务。数据也不例外，从数据的使用频率来看，经常被业务访问的数据称为热点数据；反之，称之为冷数据。</p>
-<p>在了解的数据的冷、热特性后，便可以指导我们做一些有针对性的性能优化。这里面有业务层面的优化，也有技术层面的优化。比如：电商网站，一般只能查询3个月内的订单，如果你想看看3个月前的订单，需要访问历史订单页面。</p>
-<p><strong>实现思路：</strong></p>
-<p>1、冷热数据区分的标准是什么？要结合业务思考，可能要找产品同学一块讨论才能做决策，切记不要拍脑袋。以电商订单为例：</p>
-<ul>
-<li>方案一： 以“下单时间”为标准，将3 个月前的订单数据当作冷数据，3 个月内的当作热数据。</li>
-<li>方案二：根据“订单状态”字段来区分，已完结的订单当作冷数据，未完结的订单当作热数据。</li>
-<li>方案三：组合方式，把下单时间 &gt; 3 个月且状态为“已完结”的订单标识为冷数据，其他的当作热数据。</li>
-</ul>
-<p>2、如何触发冷热数据的分离</p>
-<ul>
-<li>方案一：直接修改业务代码，每次业务请求触发冷热数据判断，根据结果路由到对应的冷数据表或热数据表。<br>缺点：如果判断标准是 时间维度，数据过期了无法主动感知。</li>
-<li>方案二：如果觉得修改业务代码，耦合性高，不易于后期维护。<br>可以通过监听数据库变更日志 binlog 方式来触发</li>
-<li>方案三：常用的手段是跑定时任务，一般是选择凌晨系统压力小的时候，通过跑批任务，将满足条件的冷数据迁移到其他存储介质。在途业务表中只留下来少量的热点数据。</li>
-</ul>
-<p>3、如何实现冷热数据分离，过程大概分为三步：</p>
-<ul>
-<li>判断数据是冷、还是热</li>
-<li>将冷数据插入冷数据表中</li>
-<li>然后，从原来的热库中删除迁移的数据</li>
-</ul>
-<p>4、如何使用冷热数据</p>
-<ul>
-<li>方案一：界面设计时会有选项区分，如上面举例的电商订单</li>
-<li>方案二：直接在业务代码里区分。</li>
-</ul>
-<h4 id="八、订单分库分表，多维度查询"><a href="#八、订单分库分表，多维度查询" class="headerlink" title="八、订单分库分表，多维度查询"></a>八、订单分库分表，多维度查询</h4><p>如果电商的订单数过多，我们一般会想到分库分表 解决策略。没问题，这个方向是对的。</p>
-<p>但是查询维度很多</p>
-<p>1、买家，查询 我的订单 列表，需要根据 buyer_id 来查询<br>2、查看订单详情，需要根据 order_id 来查询<br>3、卖家，查询 我的销售 列表，需要根据 seller_id 来查询<br>4、最可怕的是管理系统，它会根据不同维度去查询订单  </p>
-<p>前三种场景通过买家库+卖家库的方案解决（买家库为“主”库），第四种则是通过DataBus将数据同步到ES来进行解决。</p>
-<hr>
-<blockquote>
-<p>作者：库森学长<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/461650956/answer/2985600612">https://www.zhihu.com/question/461650956/answer/2985600612</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-</blockquote>
-<hr>
+
+<h2 id="JVM、JRE、JDK"><a href="#JVM、JRE、JDK" class="headerlink" title="JVM、JRE、JDK"></a>JVM、JRE、JDK</h2><h3 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h3><p>java虚拟机，解释.class文件  </p>
+<h3 id="jre"><a href="#jre" class="headerlink" title="jre"></a>jre</h3><p>java运行环境，包含jvm和java核心类库<br>解释.class文件jvm需要调用解释所需要的类库(lib)<br>运行环境，不提供编译、调试等功能  </p>
+<h3 id="jdk"><a href="#jdk" class="headerlink" title="jdk"></a>jdk</h3><p>java开发环境，包含jre、java基础类库、java开发工具<br><img src="/'/images/jvm/jvm.png'" srcset="/img/loading.gif" lazyload title="jvm运行"></p>
 
                 
               </div>
@@ -404,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JAVA面试题</div>
-      <div>http://example.com/2023/12/31/面试/JAVA/</div>
+      <div>JAVA基础面试题</div>
+      <div>http://example.com/2024/02/20/面试/基础知识/</div>
     </div>
     <div class="license-meta">
       
@@ -417,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月31日</div>
+          <div>2024年2月20日</div>
         </div>
       
       
@@ -449,18 +380,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/31/%E9%9D%A2%E8%AF%95/JAVA%E8%BF%9B%E9%98%B6/" title="JAVA进阶面试题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JAVA进阶面试题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/31/%E8%BD%AF%E8%80%83/%E7%B3%BB%E7%BB%9F%E9%9B%86%E6%88%90%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/" title="系统集成项目管理">
-                        <span class="hidden-mobile">系统集成项目管理</span>
+                      <a href="/2023/12/31/%E9%9D%A2%E8%AF%95/JAVA%E8%BF%9B%E9%98%B6/" title="JAVA进阶面试题">
+                        <span class="hidden-mobile">JAVA进阶面试题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
